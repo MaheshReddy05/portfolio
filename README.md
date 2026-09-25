@@ -1,20 +1,20 @@
 # Mahesh Reddy Remala — portfolio
 
-The site at **dist/** is the whole website: plain HTML, CSS and JavaScript, no
-build step needed to host it. Point any static host at `dist/` and it works.
+The site at **docs/** is the whole website: plain HTML, CSS and JavaScript, no
+build step needed to host it. Point any static host at `docs/` and it works.
 
-## Hosting (Cloudflare Pages)
+## Hosting (GitHub Pages)
 
-- Build command: *(leave empty)*
-- Build output directory: `dist`
+Settings -> Pages -> Source: **Deploy from a branch**, branch `main`, folder `/docs`.
+No build step, no Actions. `.nojekyll` keeps Pages from reprocessing the files.
 - No environment variables, no install step.
 
-`dist/404.html` is picked up automatically as the not-found page.
+`docs/404.html` is picked up automatically as the not-found page.
 
 ## What is in here
 
 ```
-dist/          the built website — this is what gets published
+docs/          the built website — this is what gets published
   index.html   home
   work.html    work, with the four case studies under work/
   about.html   about
@@ -28,7 +28,7 @@ src/           the source the pages are generated from
   parts/       the pieces each page is assembled out of
   project/     the assembled pages (.dc.html), the input to the export
   build.js     parts/  -> project/
-  export.js    project/ -> dist/
+  export.js    project/ -> docs/
   assets/      original image files
 ```
 
@@ -39,12 +39,12 @@ Content and layout live in `src/parts/`. After an edit:
 ```bash
 cd src
 node build.js     # rebuild the pages
-node export.js    # rebuild dist/
+node export.js    # rebuild docs/
 ```
 
 Then commit and push — the host republishes on its own.
 
-To preview `dist/` locally before pushing:
+To preview `docs/` locally before pushing:
 
 ```bash
 npx serve dist
@@ -52,7 +52,7 @@ npx serve dist
 
 ## Notes
 
-- Pages carry their own runtime in `dist/vendor/`, so nothing is fetched from a
+- Pages carry their own runtime in `docs/vendor/`, so nothing is fetched from a
   third party at view time and the site keeps working offline.
 - The light/dark choice is remembered in the browser and shared between open
   pages; it is never sent anywhere.
