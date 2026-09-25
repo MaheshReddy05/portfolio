@@ -7,7 +7,6 @@ build step needed to host it. Point any static host at `docs/` and it works.
 
 Settings -> Pages -> Source: **Deploy from a branch**, branch `main`, folder `/docs`.
 No build step, no Actions. `.nojekyll` keeps Pages from reprocessing the files.
-- No environment variables, no install step.
 
 `docs/404.html` is picked up automatically as the not-found page.
 
@@ -47,7 +46,7 @@ Then commit and push — the host republishes on its own.
 To preview `docs/` locally before pushing:
 
 ```bash
-npx serve dist
+npx serve docs
 ```
 
 ## Notes
