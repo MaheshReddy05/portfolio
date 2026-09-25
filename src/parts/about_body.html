@@ -1,0 +1,829 @@
+
+/* ================= ABOUT: INTRO ================= */
+.nv[aria-current="page"] { color: var(--ink); }
+.nv[aria-current="page"]::after { right: 0; }
+.ulink { position: relative; color: var(--ink-2); }
+.ulink::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px; background: var(--border); transition: background-color .3s ease; }
+.ulink:hover { color: var(--primary); }
+.ulink:hover::after { background: var(--primary); }
+.facts li { display: flex; gap: 14px; align-items: baseline; padding: 12px 0; border-top: 1px solid var(--border); }
+.facts li:last-child { border-bottom: 1px solid var(--border); }
+.polaroid { transition: rotate .8s cubic-bezier(.22,1,.36,1), scale .8s cubic-bezier(.22,1,.36,1); }
+.polaroid:hover { rotate: 0deg !important; scale: 1.02; }
+
+/* ================= ABOUT: EXPERIENCE =================
+   The scroller is tall; its child sticks under the header while the track
+   slides sideways, driven by a view timeline on the scroller (no listeners).
+   Without scroll-driven animation support, or with reduced motion, the track
+   falls back to an ordinary horizontal scroll area. */
+.xp-scroller { position: relative; height: 340vh; max-height: 3400px; }
+.xp-sticky {
+  position: sticky; top: 76px; height: calc(100vh - 76px); max-height: 860px; min-height: 620px;
+  overflow: hidden; display: flex; align-items: center; container-type: inline-size;
+}
+.xp-track {
+  position: relative; display: flex; align-items: center; gap: 88px; width: max-content; height: 640px;
+  padding: 0 max(80px, calc((100vw - 1280px) / 2));
+}
+.xp-line, .xp-progress { position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; border-radius: 2px; }
+.xp-line { background: var(--border); }
+.xp-progress { background: var(--primary); transform: scaleX(0); transform-origin: 0 50%; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .xp-scroller { view-timeline: --xp block; }
+    .xp-track { animation: xp-pan linear both; animation-timeline: --xp; animation-range: contain 0% contain 100%; }
+    .xp-progress { animation: xp-fill linear both; animation-timeline: --xp; animation-range: contain 0% contain 100%; }
+    @keyframes xp-pan { from { transform: translateX(0); } to { transform: translateX(calc(-100% + 100cqw)); } }
+    @keyframes xp-fill { from { transform: scaleX(.04); } to { transform: scaleX(1); } }
+  }
+}
+.xp-fallback .xp-scroller { height: auto; max-height: none; }
+.xp-fallback .xp-sticky { position: static; height: auto; max-height: none; min-height: 0; overflow-x: auto; padding: 24px 0 36px 0; cursor: grab; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+.xp-fallback .xp-sticky.dragging { cursor: grabbing; user-select: none; }
+.xp-fallback .xp-progress { transform: scaleX(1); opacity: .35; }
+
+.stop { position: relative; z-index: 1; flex: 0 0 440px; display: flex; flex-direction: column; align-items: center; }
+.stop.down { translate: 0 70px; }
+.stop.up { translate: 0 -70px; }
+.xp-date {
+  display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 999px;
+  background: var(--raised); border: 1px solid var(--petrol-line); color: var(--ink-2);
+  font-size: 15px; font-weight: 500; white-space: nowrap; box-shadow: var(--shadow);
+}
+.xp-date strong { font-weight: 600; color: var(--petrol); }
+.xp-date.now { border-color: var(--olive-line); }
+.xp-date.now strong { color: var(--olive); }
+.xp-pin { position: relative; display: flex; flex-direction: column; align-items: center; }
+.xp-pin i { display: block; width: 14px; height: 14px; border-radius: 999px; background: var(--petrol); box-shadow: 0 0 0 4px var(--canvas); }
+.xp-pin.now i { background: var(--olive); }
+.xp-pin b { display: block; width: 2px; height: 30px; background: var(--border); }
+.down .xp-pin { margin: 14px 0 0 0; }
+.up .xp-pin { margin: 0 0 14px 0; }
+.xp-pin.now i { position: relative; }
+@media (prefers-reduced-motion: no-preference) {
+  .xp-pin.now i::after { content: ""; position: absolute; inset: -5px; border-radius: 999px; border: 2px solid var(--olive); animation: pulse 2.6s ease-out infinite; }
+}
+
+.xp-card {
+  width: 440px; box-sizing: border-box; background: var(--raised); border: 1px solid var(--border); border-radius: 18px;
+  box-shadow: var(--shadow); overflow: hidden; text-align: left;
+  transform: perspective(1400px) rotateY(var(--ry)) rotateZ(var(--rz));
+  transition: transform .9s cubic-bezier(.22,1,.36,1), box-shadow .6s ease;
+}
+.xp-card.ta { --ry: 7deg; --rz: -1.2deg; }
+.xp-card.tb { --ry: -7deg; --rz: 1deg; }
+.xp-card:hover { transform: perspective(1400px) rotateY(0deg) rotateZ(0deg) translateY(-6px); box-shadow: var(--shadow-lift); }
+.xp-head { display: flex; align-items: center; gap: 14px; padding: 22px 24px; border-bottom: 1px solid var(--border); background: var(--m-soft); }
+.xp-logo { flex-shrink: 0; width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px var(--raised), 0 0 0 5px var(--border); }
+.xp-role { flex-grow: 1; min-width: 0; }
+.xp-role h3 { margin: 0 0 3px 0; font-family: 'Space Grotesk', sans-serif; font-size: 19px; line-height: 1.2; letter-spacing: -0.014em; color: var(--ink); font-weight: 700; }
+.xp-role p { margin: 0; font-size: 14.5px; color: var(--ink-2); }
+.xp-loc { flex-shrink: 0; display: flex; align-items: center; gap: 5px; margin: 0; font-size: 13px; color: var(--ink-3); align-self: flex-start; padding-top: 3px; }
+.xp-list { margin: 0; padding: 20px 26px 24px 42px; display: flex; flex-direction: column; gap: 12px; }
+.xp-list li { font-size: 15px; line-height: 1.6; color: var(--ink-2); padding-left: 2px; }
+.xp-list li::marker { color: var(--ink-3); }
+.xp-list strong { color: var(--ink); font-weight: 600; }
+.xp-end { position: relative; z-index: 1; flex: 0 0 auto; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding-left: 8px; }
+
+/* ================= ABOUT: TOOLBOX ================= */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip2 {
+  display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border);
+  background: var(--raised); font-size: 14px; font-weight: 500; color: var(--ink);
+  transition: transform .4s cubic-bezier(.34,1.56,.64,1), border-color .3s ease, color .3s ease;
+}
+.chip2:hover { transform: translateY(-3px) rotate(-2deg); border-color: var(--primary); color: var(--primary); }
+.rec li { display: grid; grid-template-columns: 88px minmax(0,1fr); gap: 16px; padding: 16px 0; border-top: 1px solid var(--border); }
+.rec li:last-child { border-bottom: 1px solid var(--border); }
+
+/* ================= AWAY FROM THE SCREEN ================= */
+.pic { transition: rotate .7s cubic-bezier(.22,1,.36,1), scale .7s cubic-bezier(.22,1,.36,1); }
+.pic:hover { rotate: 0deg !important; scale: 1.04; z-index: 3; }
+.tip {
+  position: absolute; left: 50%; top: -12px; translate: -50% -100%; z-index: 5;
+  padding: 6px 14px 8px 14px; border-radius: 12px; white-space: nowrap; pointer-events: none;
+  font-family: 'Caveat', cursive; font-weight: 700; font-size: 24px; line-height: 1; color: var(--on-accent);
+  box-shadow: var(--shadow); opacity: 0; transform: translateY(8px) rotate(0deg) scale(.85); transform-origin: 50% 100%;
+  transition: opacity .25s ease, transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.tip::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 12px; height: 12px; margin-left: -6px; background: inherit; border-radius: 2px; transform: rotate(45deg); }
+.pic:hover .tip { opacity: 1; transform: rotate(-4deg); }
+.pic:nth-child(2):hover .tip { transform: rotate(3deg); }
+.t-rose { background: var(--rose); } .t-petrol { background: var(--petrol); } .t-olive { background: var(--olive); }
+
+.chip2 { gap: 8px; }
+.chip2 svg { flex-shrink: 0; color: var(--ink-3); transition: color .3s ease; }
+.chip2:hover svg { color: var(--primary); }
+@media (max-width: 1020px) { .panelbox { padding: 40px !important; } }
+@media (max-width: 700px) { .collage > * { margin: 0 !important; } .collage { flex-wrap: wrap !important; gap: 14px !important; } .panelbox { padding: 26px !important; border-radius: 22px !important; } }
+
+/* ================= REDUCED MOTION ================= */
+@media (prefers-reduced-motion: reduce) {
+  .anim [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .anim [data-reveal] .ln > span, .anim [data-reveal] .rule { transform: none !important; }
+  .anim [data-reveal] .squig path { stroke-dashoffset: 0 !important; }
+  .xp-scroller { height: auto; max-height: none; }
+  .xp-sticky { position: static; height: auto; max-height: none; min-height: 0; overflow-x: auto; padding: 24px 0 36px 0; }
+  .xp-card, .xp-card:hover { transform: none !important; }
+  .curdot, .curring { display: none !important; }
+  * { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+/* ---------- tablet ---------- */
+@media (max-width: 1020px) {
+  .pad { padding-left: 40px !important; padding-right: 40px !important; }
+  .split { grid-template-columns: repeat(6, minmax(0,1fr)) !important; }
+  .cell { grid-column: 1 / -1 !important; }
+  .d1 { font-size: 46px !important; }
+  .d2 { font-size: 40px !important; }
+  .xp-track { padding: 0 40px; }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 700px) {
+  .pad { padding-left: 20px !important; padding-right: 20px !important; }
+  .navlinks, .navcta { display: none !important; }
+  .secpad { padding-top: 72px !important; padding-bottom: 72px !important; }
+  .d1 { font-size: 44px !important; }
+  .d2 { font-size: 34px !important; }
+  .rot { rotate: 0deg !important; }
+  .ctarow { flex-direction: column !important; align-items: stretch !important; }
+  .ctarow > a { justify-content: center !important; }
+  .xp-track { gap: 40px; padding: 0 20px; height: 620px; }
+  .stop { flex-basis: 300px; }
+  .stop.down { translate: 0 60px; }
+  .stop.up { translate: 0 -60px; }
+  .xp-card { width: 300px; }
+  .xp-head { flex-wrap: wrap; padding: 18px; }
+  .xp-loc { width: 100%; padding-top: 0; }
+  .xp-list { padding: 16px 18px 18px 34px; gap: 10px; }
+  .xp-list li { font-size: 14px; }
+  .xp-date { font-size: 13.5px; padding: 7px 14px; }
+  .rec li { grid-template-columns: 1fr; gap: 4px; }
+}
+</style>
+</helmet>
+
+<div class="{{themeClass}}" style="background: var(--canvas); min-height: 100vh;">
+<div id="home-root" ref="{{setRoot}}" class="sheet" style="position: relative; box-sizing: border-box; background: var(--canvas); color: var(--ink); font-family: 'Space Grotesk', sans-serif; overflow-x: clip;">
+
+  <div data-top-sentinel aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 1px; height: 1px;"></div>
+
+  <!-- ================= NAV ================= -->
+  <header data-header class="hdr pad" style="box-sizing: border-box; width: 100%; padding: 0 80px;">
+    <nav class="wrap" style="height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a class="brand" href="Main.dc.html" aria-label="Mahesh Reddy, back to the homepage"><span class="mark" aria-hidden="true"><img class="only-light" src="/_blob/ca5d19d0709653cac4b90f0a2090e512" alt=""><img class="only-dark" src="/_blob/1eedbc90d84e2f8eaeeedef4982330cd" alt=""></span></a>
+      <div style="display: flex; align-items: center; gap: 28px;">
+        <div class="navlinks" style="display: flex; align-items: center; gap: 30px; font-size: 15px; font-weight: 500;">
+          <a class="nv" href="Work.dc.html">Work</a>
+          <a class="nv" href="About.dc.html" aria-current="page">About</a>
+          <a class="nv" href="Skills.dc.html">Playground</a>
+          <a class="nv" href="Thoughts.dc.html">Thoughts</a>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="toggle" aria-label="{{themeLabel}}" title="{{themeLabel}}" onClick="{{toggleTheme}}">
+            <sc-if value="{{isDark}}" hint-placeholder-val="{{false}}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"></path></svg>
+            </sc-if>
+            <sc-if value="{{isLight}}" hint-placeholder-val="{{true}}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8z"></path></svg>
+            </sc-if>
+          </button>
+          <a class="btn btn-primary navcta" data-magnetic href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Say hello</a>
+          <button type="button" class="burger" data-burger aria-label="Open the menu" aria-expanded="false"><i aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </nav>
+    <div class="mnav" data-mnav>
+      <button type="button" class="mclose" data-burger aria-label="Close the menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+      <div class="mlinks">
+        <a class="nv" href="Main.dc.html">Home</a>
+        <a class="nv" href="Work.dc.html">Work</a>
+        <a class="nv" href="About.dc.html" aria-current="page">About</a>
+        <a class="nv" href="Skills.dc.html">Playground</a>
+        <a class="nv" href="Thoughts.dc.html">Thoughts</a>
+      </div>
+      <div class="mfoot">
+        <p class="mg">(quickest way to reach me)</p>
+        <a class="btn btn-primary" href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Say hello</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= INTRO ================= -->
+  <section class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 88px 80px 112px 80px;">
+    <div class="wrap split" style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 32px; align-items: center;">
+      <div class="cell" style="grid-column: span 7;">
+        <h1 data-reveal class="d1" style="margin: 0 0 28px 0; font-family: 'Space Grotesk', sans-serif; font-size: 52px; line-height: 1.04; letter-spacing: -0.034em; color: var(--ink); font-weight: 700;"><span class="ln"><span>Everything the</span></span><span class="ln"><span>homepage skipped.</span></span></h1>
+        <div data-reveal data-d="1" style="display: flex; flex-direction: column; gap: 18px; max-width: 58ch; margin-bottom: 34px;">
+          <p style="margin: 0; font-size: 20px; line-height: 1.6; color: var(--ink);">I'm Mahesh, a product designer who likes the moment an idea turns into something you can actually click.</p>
+          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: var(--ink-2);">Most days I'm leading the end-to-end redesign of the company website at RS Technologies. Before that I spent a few years at Supercharged Studio on product and UX work for 15+ early-stage startups, in insurtech, health, nonprofit, advisory, real estate and e-commerce. I prototype in code when a static frame stops being honest.</p>
+          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: var(--ink-2);">Off the clock it's cinema, comics (Marvel, mostly) and whatever side project has my attention this month.</p>
+        </div>
+        <ul data-reveal data-d="2" class="facts" style="list-style: none; margin: 0; padding: 0; max-width: 520px;">
+          <li><span class="cap" style="width: 96px; flex-shrink: 0;">Based in</span><span style="font-size: 16px; color: var(--ink);">Philadelphia, PA</span></li>
+          <li><span class="cap" style="width: 96px; flex-shrink: 0;">Studied</span><span style="font-size: 16px; color: var(--ink);">MS, UX &amp; Interaction Design</span></li>
+          <li><span class="cap" style="width: 96px; flex-shrink: 0; color: var(--olive); font-weight: 600;">Currently</span><span style="font-size: 16px; color: var(--ink);">Open to new roles</span></li>
+        </ul>
+      </div>
+      <div class="cell" style="grid-column: 9 / span 4;">
+        <div data-reveal data-d="1" class="polaroid rot par-a" style="position: relative; max-width: 300px; margin-left: auto; rotate: 3deg; background: var(--raised); padding: 14px 14px 18px 14px; border-radius: 6px; box-shadow: var(--shadow-lift);">
+          <span aria-hidden="true" style="position: absolute; top: -12px; left: 50%; margin-left: -46px; width: 92px; height: 26px; background: var(--tape); rotate: -3deg; border-radius: 3px;"></span>
+          <img class="photo" src="/_blob/78a60fc2e5b6615a039d5467358cb67d" alt="Mahesh in a cap and hoodie, looking off to one side, drawn as a line portrait" style="width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 3px;">
+          <p class="mg" style="margin: 12px 4px 0 4px; text-align: center; font-size: 24px; color: var(--ink-2);">(me, mid-thought, as usual)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <section id="experience" style="box-sizing: border-box; width: 100%; padding: 104px 0 96px 0; background: var(--sunken); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="pad" data-reveal style="box-sizing: border-box; padding: 0 80px; text-align: center;">
+      <p style="margin: 0 0 18px 0; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2);">Experience</p>
+      <h2 class="d1" style="margin: 0 0 20px 0; font-family: 'Space Grotesk', sans-serif; font-size: 84px; line-height: 1.02; letter-spacing: -0.043em; color: var(--ink); font-weight: 700; text-wrap: balance;">the journey so far</h2>
+      <p style="margin: 0 auto; max-width: 46ch; font-size: 18px; line-height: 1.65; color: var(--ink-2); text-wrap: balance;">Six roles, a handful of industries, one habit: ship the thing, then look at it again.</p>
+      <p class="mg" style="margin: 16px 0 0 0; font-size: 20px; text-align: center;">(overlapping dates are contract work)</p>
+    </div>
+    <div class="xp-scroller" data-xp-scroller>
+      <div class="xp-sticky" data-xp-sticky role="region" aria-label="Work experience timeline" tabindex="0">
+        <div class="xp-track">
+          <span class="xp-line" aria-hidden="true"></span>
+          <span class="xp-progress" aria-hidden="true"></span>
+
+          <!-- 1. RS Technologies Inc -->
+          <div class="stop up">
+            <article class="xp-card ta">
+              <header class="xp-head">
+                <span class="xp-logo" style="background: var(--p-lav); color: var(--primary);" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16v13H4z"></path><path d="M9 7V4h6v3"></path><path d="M4 12h16"></path></svg></span>
+                <div class="xp-role"><h3>Product Designer</h3><p>RS Technologies Inc</p></div>
+                <p class="xp-loc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>Remote</p>
+              </header>
+              <ul class="xp-list">
+                <li>Lead the end-to-end redesign of the company website, turning business requirements and user needs into <strong>high-fidelity responsive</strong> experiences.</li>
+                <li>Restructure the information architecture and the critical user journeys around accessibility and navigation.</li>
+              </ul>
+            </article>
+            <span class="xp-pin now" aria-hidden="true"><b></b><i></i></span>
+            <span class="xp-date now">Jun 2026 - <strong>Present</strong></span>
+          </div>
+
+          <!-- 2. Supercharged Studio -->
+          <div class="stop down">
+            <span class="xp-date">Mar 2024 - <strong>Jun 2026</strong></span>
+            <span class="xp-pin" aria-hidden="true"><i></i><b></b></span>
+            <article class="xp-card tb">
+              <header class="xp-head">
+                <span class="xp-logo" style="background: var(--p-peach); color: var(--terra);" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16v13H4z"></path><path d="M9 7V4h6v3"></path><path d="M4 12h16"></path></svg></span>
+                <div class="xp-role"><h3>Product Designer</h3><p>Supercharged Studio</p></div>
+                <p class="xp-loc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>Remote</p>
+              </header>
+              <ul class="xp-list">
+                <li>Drove engagement and revenue growth across <strong>15+ early-stage startups</strong> in health, nonprofit, real estate and advisory.</li>
+                <li>Grew an EB-5 advisory site to <strong>1,200+ monthly users</strong> by redesigning the experience and simplifying the discovery paths.</li>
+                <li>Cut bounce rate <strong>15%</strong> for B2B insurtech client Optimity by restructuring the content hierarchy.</li>
+              </ul>
+            </article>
+          </div>
+
+          <!-- 3. Immigration Diligence -->
+          <div class="stop up">
+            <article class="xp-card ta">
+              <header class="xp-head">
+                <span class="xp-logo" style="background: var(--p-sage); color: var(--petrol);" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16v13H4z"></path><path d="M9 7V4h6v3"></path><path d="M4 12h16"></path></svg></span>
+                <div class="xp-role"><h3>Founding Product Designer</h3><p>Immigration Diligence</p></div>
+                <p class="xp-loc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>Washington, DC (Remote)</p>
+              </header>
+              <ul class="xp-list">
+                <li>Led <strong>0-to-1</strong> product design for a new advisory platform, from first concept through market launch.</li>
+                <li>Cut future development cycles <strong>50%</strong> with a modular design system, a reusable HubSpot component library and a scalable CMS.</li>
+                <li>Partnered with founders across agile sprints to keep design decisions tied to business goals.</li>
+              </ul>
+            </article>
+            <span class="xp-pin" aria-hidden="true"><b></b><i></i></span>
+            <span class="xp-date">Nov 2025 - <strong>Dec 2025</strong></span>
+          </div>
+
+          <!-- 4. American Immigrant Investor Alliance -->
+          <div class="stop down">
+            <span class="xp-date">Aug 2025 - <strong>Dec 2025</strong></span>
+            <span class="xp-pin" aria-hidden="true"><i></i><b></b></span>
+            <article class="xp-card tb">
+              <header class="xp-head">
+                <span class="xp-logo" style="background: var(--p-olive); color: var(--olive);" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16v13H4z"></path><path d="M9 7V4h6v3"></path><path d="M4 12h16"></path></svg></span>
+                <div class="xp-role"><h3>UI/UX Developer</h3><p>American Immigrant Investor Alliance</p></div>
+                <p class="xp-loc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>Washington, DC (Remote)</p>
+              </header>
+              <ul class="xp-list">
+                <li>Reduced bounce rate <strong>20%</strong> with a UX content audit and a new information architecture for three distinct audiences.</li>
+                <li>Designed and delivered <strong>10+ developer-ready</strong> responsive pages in Figma.</li>
+                <li>Managed a WordPress CMS migration across <strong>50+ pages</strong> without losing content structure.</li>
+              </ul>
+            </article>
+          </div>
+
+          <!-- 5. Thomas Jefferson University -->
+          <div class="stop up">
+            <article class="xp-card ta">
+              <header class="xp-head">
+                <span class="xp-logo" style="background: var(--p-rose); color: var(--rose);" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16v13H4z"></path><path d="M9 7V4h6v3"></path><path d="M4 12h16"></path></svg></span>
+                <div class="xp-role"><h3>Graduate Assistant, Product Designer</h3><p>Thomas Jefferson University</p></div>
+                <p class="xp-loc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>Philadelphia, PA</p>
+              </header>
+              <ul class="xp-list">
+                <li>Hit <strong>90% task success</strong> and an NPS of 100 on EdAbroad, an AI-powered study-abroad platform, leading research through prototyping.</li>
+                <li>Raised Wubba Nub's Baymard heuristic score from <strong>-22 to 71</strong> by redesigning the e-commerce flows.</li>
+                <li>Ran <strong>50+ interviews</strong> and 30+ usability tests across ten end-to-end projects, on web, mobile and emerging platforms.</li>
+              </ul>
+            </article>
+            <span class="xp-pin" aria-hidden="true"><b></b><i></i></span>
+            <span class="xp-date">Aug 2023 - <strong>May 2025</strong></span>
+          </div>
+
+          <!-- 6. Supercharged Studio -->
+          <div class="stop down">
+            <span class="xp-date">Feb 2022 - <strong>Feb 2024</strong></span>
+            <span class="xp-pin" aria-hidden="true"><i></i><b></b></span>
+            <article class="xp-card tb">
+              <header class="xp-head">
+                <span class="xp-logo" style="background: var(--p-lav); color: var(--primary);" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16v13H4z"></path><path d="M9 7V4h6v3"></path><path d="M4 12h16"></path></svg></span>
+                <div class="xp-role"><h3>Junior UX Designer</h3><p>Supercharged Studio</p></div>
+                <p class="xp-loc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>Remote</p>
+              </header>
+              <ul class="xp-list">
+                <li>Cut client development time <strong>25%</strong> with scalable design systems and reusable Figma component libraries.</li>
+                <li>Cut requirement changes and review cycles <strong>30%</strong> through structured discovery workshops with founders.</li>
+                <li>Delivered the full UX lifecycle: research, IA, wireframes, UI, prototyping, systems and handoff.</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="xp-end">
+            <p class="mg" style="margin: 0; font-size: 28px;">and counting</p>
+            <svg width="54" height="22" viewBox="0 0 54 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--rose);"><path d="M2 12c10-8 26-8 46-1"></path><path d="M42 5l7 6-8 5"></path></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TOOLBOX + EDUCATION ================= -->
+  <section class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 120px 80px 112px 80px;">
+    <div class="wrap split" style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 32px; align-items: start;">
+      <div class="cell" data-reveal style="grid-column: span 6;">
+        <h2 class="d2" style="margin: 0 0 14px 0; font-family: 'Space Grotesk', sans-serif; font-size: 44px; line-height: 1.06; letter-spacing: -0.029em; color: var(--ink); font-weight: 700;">Toolbox</h2>
+        <p style="margin: 0 0 30px 0; font-size: 17px; line-height: 1.65; color: var(--ink-2); max-width: 44ch;">What's open on my screen on a normal Tuesday.</p>
+        <div style="display: flex; flex-direction: column; gap: 22px;">
+          <div><p class="cap" style="margin: 0 0 10px 0;">Designing</p><div class="chips"><span class="chip2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2.5h3v6H9a3 3 0 0 1 0-6z"></path><path d="M12 2.5h3a3 3 0 0 1 0 6h-3z"></path><path d="M9 8.5h3v6H9a3 3 0 0 1 0-6z"></path><circle cx="15" cy="11.5" r="3"></circle><path d="M12 14.5v3a3 3 0 1 1-3-3z"></path></svg>Figma</span><span class="chip2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v11l-5 5H4z"></path><path d="M15 20v-5h5"></path><path d="M8 9h8M8 13h5"></path></svg>FigJam</span><span class="chip2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="4.5"></rect><path d="M7 16.5v-9h2.6a2.4 2.4 0 0 1 0 4.8H7"></path><path d="M17 10.6c-.4-.6-1-.9-1.7-.9-1 0-1.6.5-1.6 1.2 0 1.8 3.5 1 3.5 3.1 0 .8-.7 1.5-1.8 1.5-.8 0-1.5-.3-1.9-.9"></path></svg>Photoshop</span></div></div>
+          <div><p class="cap" style="margin: 0 0 10px 0;">Building</p><div class="chips"><span class="chip2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h14v6h-7z"></path><path d="M5 9h7l7 6H5z"></path><path d="M5 15h7v6z"></path></svg>Framer</span><span class="chip2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7.5l3.2 9 3.4-7 1.8 7 3.3-7.8"></path><path d="M14.2 8.7c1.1-1.4 3.2-1.8 4.8-.9 2 1.2 2.3 3.9.7 5.6"></path></svg>Webflow</span><span class="chip2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15" cy="14.5" r="3.6"></circle><path d="M15 10.9V6.8"></path><circle cx="15" cy="5.2" r="1.6"></circle><path d="M11.8 12.7L6.6 8.9"></path><circle cx="5.2" cy="7.9" r="1.7"></circle><path d="M12.4 17.1l-2.9 2.9"></path></svg>HubSpot</span><span class="chip2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 7.5h13l-1.2 13.5H6.7z"></path><path d="M9 7.5V6a3 3 0 0 1 6 0v1.5"></path><path d="M14 11.2c-.4-.5-1-.7-1.6-.7-.9 0-1.5.5-1.5 1.1 0 1.6 3.3.9 3.3 2.8 0 .8-.7 1.4-1.7 1.4-.7 0-1.4-.3-1.8-.8"></path></svg>Shopify</span><span class="chip2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3" width="17" height="18" rx="2.5"></rect><path d="M8.5 17V8l7 9V8"></path></svg>Notion</span><span class="chip2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11h-9l-5 4v-4H4z"></path><path d="M9 9v3M12 8v5M15 9.5v2"></path></svg>Voiceflow</span></div></div>
+          <div><p class="cap" style="margin: 0 0 10px 0;">Researching</p><div class="chips"><span class="chip2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h11v7H8l-3 2.5V12H3z"></path><path d="M14 9h7v7h-2v2.5L16 16h-5v-2"></path></svg>User interviews</span><span class="chip2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M8 20h8M12 16v4"></path><path d="M11 8l5 2.3-2.2.8-.8 2.2z"></path></svg>Usability testing</span><span class="chip2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5h11M9 12h11M9 19h11"></path><path d="M3.5 5l1.3 1.3L7 4"></path><path d="M3.5 12l1.3 1.3L7 11"></path><circle cx="5" cy="19" r="1.4"></circle></svg>Heuristic evaluation</span></div></div>
+        </div>
+        <p class="mg rot" style="margin: 22px 0 0 0; rotate: -2deg; font-size: 24px;">(a pen and paper beat all of these)</p>
+      </div>
+      <div class="cell" data-reveal data-d="1" style="grid-column: 8 / span 5;">
+        <h2 class="d2" style="margin: 0 0 30px 0; font-family: 'Space Grotesk', sans-serif; font-size: 44px; line-height: 1.06; letter-spacing: -0.029em; color: var(--ink); font-weight: 700;">Education &amp; recognition</h2>
+        <ul class="rec" style="list-style: none; margin: 0; padding: 0;">
+          <li><span class="cap" style="padding-top: 2px;">2025</span><div><p style="margin: 0 0 2px 0; font-size: 16.5px; font-weight: 600; color: var(--ink);">MS, User Experience and Interaction Design</p><p style="margin: 0; font-size: 15px; color: var(--ink-2);">Thomas Jefferson University, Philadelphia</p></div></li>
+          <li><span class="cap" style="padding-top: 2px;">2023</span><div><p style="margin: 0 0 2px 0; font-size: 16.5px; font-weight: 600; color: var(--ink);">B.Tech, Computer Science and Engineering</p><p style="margin: 0; font-size: 15px; color: var(--ink-2);">Vardhaman College of Engineering, Hyderabad</p></div></li>
+          <li><span class="cap" style="padding-top: 2px;">2022</span><div><p style="margin: 0 0 2px 0; font-size: 16.5px; font-weight: 600; color: var(--ink);">Google UX Professional Specialization</p><p style="margin: 0; font-size: 15px; color: var(--ink-2);">Google, on Coursera</p></div></li>
+          <li><span class="cap" style="padding-top: 2px;">2022</span><div><p style="margin: 0 0 2px 0; font-size: 16.5px; font-weight: 600; color: var(--ink);">Web Design for Everybody</p><p style="margin: 0; font-size: 15px; color: var(--ink-2);">University of Michigan, on Coursera</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= AWAY FROM THE SCREEN ================= -->
+  <section class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 8px 80px 128px 80px;">
+    <div data-reveal class="wrap panelbox" style="box-sizing: border-box; background: var(--raised); border: 1px solid var(--border-v); border-radius: 32px; padding: 64px; box-shadow: var(--shadow);">
+      <div class="split" style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 32px; align-items: center;">
+        <div class="cell" style="grid-column: span 5;">
+          <h2 class="d2" style="margin: 0 0 10px 0; font-family: 'Space Grotesk', sans-serif; font-size: 44px; line-height: 1.08; letter-spacing: -0.029em; color: var(--ink); font-weight: 700;">From one screen to a bigger one.</h2>
+          <p class="mg rot" style="margin: 0 0 22px 0; rotate: -2deg; font-size: 25px;">(this one comes with popcorn)</p>
+          <p style="margin: 0 0 32px 0; font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 38ch;">I love cinema and comics, Marvel especially. Most of my best ideas start in a dark theatre or halfway through an issue.</p>
+          <p style="margin: 0 0 14px 0; display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; letter-spacing: .02em; color: var(--olive);"><span class="live" aria-hidden="true" style="position: relative; width: 7px; height: 7px; border-radius: 999px; background: var(--olive);"></span>Currently</p>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; gap: 14px; align-items: baseline;"><p style="margin: 0; width: 76px; flex-shrink: 0; font-size: 14px; font-weight: 600; color: var(--olive);">Watching</p><p style="margin: 0; font-size: 16.5px; color: var(--ink);">[A FILM YOU LOVED LATELY]</p></div>
+            <div style="display: flex; gap: 14px; align-items: baseline;"><p style="margin: 0; width: 76px; flex-shrink: 0; font-size: 14px; font-weight: 600; color: var(--olive);">Reading</p><p style="margin: 0; font-size: 16.5px; color: var(--ink);">[THE MARVEL RUN YOU ARE ON]</p></div>
+            <div style="display: flex; gap: 14px; align-items: baseline;"><p style="margin: 0; width: 76px; flex-shrink: 0; font-size: 14px; font-weight: 600; color: var(--olive);">Building</p><p style="margin: 0; font-size: 16.5px; color: var(--ink);">[WHAT YOU ARE TINKERING WITH]</p></div>
+          </div>
+        </div>
+        <div class="cell" style="grid-column: 7 / span 6;">
+          <div class="collage" style="display: flex; align-items: flex-start; gap: 16px; padding-top: 30px;">
+            <div class="rot par-a pic" style="position: relative; width: 33%; rotate: -3deg; margin-top: 24px;">
+              <span class="tip t-rose" aria-hidden="true">cinema nights, middle row</span>
+              <img class="photo" src="/_blob/5be2cfbafeb25b968976c214d6b78d74" alt="Placeholder photo for a night at the cinema" style="width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 14px; border: 6px solid var(--canvas); box-sizing: border-box; box-shadow: var(--shadow);">
+              <span aria-hidden="true" style="position: absolute; top: -9px; left: 30%; width: 54px; height: 18px; background: var(--tape); rotate: 5deg; border-radius: 2px;"></span>
+            </div>
+            <div class="rot par-b pic" style="position: relative; width: 38%; rotate: 2deg; margin-top: 90px; margin-left: -14px;">
+              <span class="tip t-petrol" aria-hidden="true">Marvel, since I was a kid</span>
+              <img class="photo" src="/_blob/810c46854dab01ac9f8e80aba32fb969" alt="Placeholder photo for a stack of Marvel comics" style="width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px; border: 6px solid var(--canvas); box-sizing: border-box; box-shadow: var(--shadow);">
+              <span aria-hidden="true" style="position: absolute; top: -9px; left: 38%; width: 54px; height: 18px; background: var(--tape); rotate: -6deg; border-radius: 2px;"></span>
+            </div>
+            <div class="rot par-c pic" style="position: relative; width: 31%; rotate: 1.5deg; margin-left: -8px;">
+              <span class="tip t-olive" aria-hidden="true">sketches after the credits</span>
+              <img class="photo" src="/_blob/6277ef89a97948bb6420e33354d881f8" alt="Placeholder photo for a sketchbook" style="width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 14px; border: 6px solid var(--canvas); box-sizing: border-box; box-shadow: var(--shadow);">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING ================= -->
+  <section class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 104px 80px 104px 80px; background: var(--sunken); border-top: 1px solid var(--border);">
+    <div class="wrap" data-reveal style="display: flex; flex-direction: column; align-items: flex-start; gap: 26px;">
+      <h2 class="d1" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 68px; line-height: 1.04; letter-spacing: -0.034em; color: var(--ink); font-weight: 700; max-width: 16ch; text-wrap: balance;">Want the one-page version?</h2>
+      <div class="ctarow" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <a class="btn btn-primary" data-magnetic href="#download-cv" style="display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 30px; border-radius: 999px; font-size: 16.5px; font-weight: 600;">Download CV<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg></a>
+        <a class="btn btn-terra" data-magnetic href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 30px; border-radius: 999px; font-size: 16.5px; font-weight: 600;">Say hello<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9 6 9-6"></path><rect x="3" y="5" width="18" height="14" rx="3"></rect></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="pad" style="box-sizing: border-box; width: 100%; padding: 34px 80px 42px 80px; background: var(--sunken); border-top: 1px solid var(--border);">
+    <div class="wrap" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+      <div>
+        <p style="margin: 0 0 6px 0; font-size: 14px; color: var(--ink-2);">© 2026 Mahesh</p>
+        <p class="cap" style="margin: 0; font-size: 12.5px;">Set in Bricolage Grotesque, Instrument Sans and Caveat</p>
+      </div>
+      <div style="display: flex; gap: 26px; font-size: 14px; font-weight: 500;">
+        <a class="nv" href="Main.dc.html">Home</a>
+        <a class="nv" href="Work.dc.html">Work</a>
+        <a class="nv" href="About.dc.html">About</a>
+        <a class="nv" href="mailto:mahesh00005@gmail.com">Say hello</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="curring" data-cursor-ring aria-hidden="true"><span class="cl" data-cursor-label></span></div>
+  <div class="curdot" data-cursor-dot aria-hidden="true"></div>
+
+</div>
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light"},"$preview":{"width":1440,"height":4700}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { theme: this.readTheme() || (props && props.theme === 'dark' ? 'dark' : 'light') };
+    this.cleanups = [];
+    this.lenis = null;
+    this.setRoot = (el) => { this.rootEl = el; };
+    this.toggleTheme = (e) => this.switchTheme(e);
+  }
+
+  mq(q) { return window.matchMedia ? window.matchMedia(q).matches : false; }
+
+  componentDidMount() {
+    const saved = this.readTheme();
+    const initial = saved || (this.props.theme === 'dark' ? 'dark' : 'light');
+    if (initial !== this.state.theme) this.setState({ theme: initial });
+    this.syncBody(initial);
+    this.initThemeSync();
+    const root = this.rootEl || document.getElementById('home-root');
+    if (!root) return;
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    this.initSmooth(root, reduced);
+    this.initStickyNav(root);
+    this.initBurger(root);
+    this.initTimeline(root, reduced);
+    if (!reduced) this.initReveal(root);
+    if (!reduced && this.mq('(pointer: fine)')) this.initPointer(root);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    /* The canvas hands props over just after mount, so the first 'light' is
+       the default arriving, not a choice. Only a switch from one set value to
+       another (the Tweaks panel) counts, and the visitor's pick stays put. */
+    const was = prevProps.theme, now = this.props.theme;
+    const set = (v) => v === 'light' || v === 'dark';
+    if (was !== now && set(was) && set(now)) {
+      this.setState({ theme: now });
+    }
+    if (this.syncedTheme !== this.state.theme) { this.syncedTheme = this.state.theme; this.syncBody(this.state.theme); }
+  }
+
+  componentWillUnmount() {
+    for (let i = 0; i < this.cleanups.length; i++) this.cleanups[i]();
+    this.cleanups = [];
+    clearTimeout(this.switchTimer);
+  }
+
+  /* Each screen is its own artboard with its own component, so the pick is
+     parked outside it, in every place that might outlive the swap, and read
+     back from the first that kept it. The canvas frame's window.name is the
+     one that survives that frame reloading even with storage blocked. */
+  themeCarriers(theme) {
+    const w = typeof window === 'undefined' ? null : window;
+    if (!w) return [];
+    let up = null;
+    try { up = w.parent && w.parent !== w ? w.parent : null; } catch (err) { up = null; }
+    const tag = 'mr-theme:';
+    const fromName = (n) => (n && n.indexOf(tag) === 0 ? n.slice(tag.length) : null);
+    return [
+      { k: 'global', get: () => w.__mrTheme, set: () => { w.__mrTheme = theme; } },
+      { k: 'parent', get: () => (up ? up.__mrTheme : null), set: () => { if (up) up.__mrTheme = theme; } },
+      { k: 'parent.name', get: () => (up ? fromName(up.name || '') : null),
+        set: () => { if (!up) return; const n = up.name || ''; if (!n || n.indexOf(tag) === 0) up.name = tag + theme; } },
+      { k: 'session', get: () => w.sessionStorage.getItem('mr-theme'), set: () => w.sessionStorage.setItem('mr-theme', theme) },
+      { k: 'local', get: () => w.localStorage.getItem('mr-theme'), set: () => w.localStorage.setItem('mr-theme', theme) },
+      { k: 'cookie', get: () => { const m = /(?:^|;\s*)mr-theme=(light|dark)/.exec(document.cookie || ''); return m ? m[1] : null; },
+        set: () => { document.cookie = 'mr-theme=' + theme + ';path=/;max-age=31536000;samesite=lax'; } },
+      { k: 'name', get: () => fromName(w.name || ''),
+        set: () => { const n = w.name || ''; if (!n || n.indexOf(tag) === 0) w.name = tag + theme; } }
+    ];
+  }
+
+  readTheme() {
+    const list = this.themeCarriers(null);
+    for (let i = 0; i < list.length; i += 1) {
+      try {
+        const v = list[i].get();
+        if (v === 'dark' || v === 'light') { this.themeSrc = list[i].k; return v; }
+      } catch (err) {}
+    }
+    this.themeSrc = 'none';
+    return null;
+  }
+
+  writeTheme(theme) {
+    if (theme !== 'dark' && theme !== 'light') return;
+    const list = this.themeCarriers(theme);
+    for (let i = 0; i < list.length; i += 1) { try { list[i].set(); } catch (err) {} }
+  }
+
+  /* Every page is mounted at once in the canvas; moving between them only
+     changes which one is in front. So a toggle is sent to the other pages
+     the moment it happens, and each one listening switches to match. */
+  initThemeSync() {
+    const apply = (t) => { if ((t === 'dark' || t === 'light') && t !== this.state.theme) this.setState({ theme: t }); };
+    const onMsg = (e) => { const d = e && e.data; if (d && d.type === 'mr-theme') apply(d.theme); };
+    const onStorage = (e) => { if (e && e.key === 'mr-theme') apply(e.newValue); };
+    window.addEventListener('message', onMsg);
+    window.addEventListener('storage', onStorage);
+    let bc = null;
+    try { bc = new BroadcastChannel('mr-theme'); bc.onmessage = (e) => apply(e.data); } catch (err) { bc = null; }
+    this.themeBc = bc;
+    this.cleanups.push(() => {
+      window.removeEventListener('message', onMsg);
+      window.removeEventListener('storage', onStorage);
+      if (bc) { try { bc.close(); } catch (err) {} }
+    });
+  }
+
+  broadcastTheme(theme) {
+    try { if (this.themeBc) this.themeBc.postMessage(theme); } catch (err) {}
+    /* and straight to every sibling frame, which needs no shared storage */
+    try {
+      const up = window.parent;
+      if (up && up !== window) {
+        for (let i = 0; i < up.frames.length; i += 1) {
+          const f = up.frames[i];
+          if (f !== window) { try { f.postMessage({ type: 'mr-theme', theme }, '*'); } catch (err) {} }
+        }
+      }
+    } catch (err) {}
+  }
+  syncBody(theme) {
+    try {
+      document.body.style.backgroundColor = theme === 'dark' ? '#1D141F' : '#F8F0E7';
+      document.documentElement.style.colorScheme = theme;
+    } catch (err) {}
+  }
+
+  /* The timeline pans with a CSS scroll timeline. Where that isn't supported
+     it becomes a plain horizontal scroller, so give it drag-to-pan. */
+  initTimeline(root, reduced) {
+    const supported = typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timeline: view()');
+    if (supported && !reduced) return;
+    root.classList.add('xp-fallback');
+    const box = root.querySelector('[data-xp-sticky]');
+    if (!box) return;
+    let down = false, startX = 0, startLeft = 0, moved = false;
+    const onDown = (e) => { if (e.button !== 0) return; down = true; moved = false; startX = e.clientX; startLeft = box.scrollLeft; };
+    const onMove = (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 4) { moved = true; box.classList.add('dragging'); }
+      if (moved) box.scrollLeft = startLeft - dx;
+    };
+    const onUp = () => { down = false; box.classList.remove('dragging'); };
+    box.addEventListener('mousedown', onDown);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    this.cleanups.push(() => {
+      box.removeEventListener('mousedown', onDown);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+    });
+  }
+
+  initSmooth(root, reduced) {
+    const L = window.Lenis;
+    if (typeof L === 'function' && !reduced) {
+      try {
+        const lenis = new L({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 1 });
+        this.lenis = lenis;
+        const loop = (t) => { lenis.raf(t); this.lenisRaf = window.requestAnimationFrame(loop); };
+        this.lenisRaf = window.requestAnimationFrame(loop);
+        this.cleanups.push(() => { window.cancelAnimationFrame(this.lenisRaf); lenis.destroy(); this.lenis = null; });
+      } catch (err) { this.lenis = null; }
+    }
+    const onClick = (e) => {
+      const a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!a || !root.contains(a)) return;
+      const id = a.getAttribute('href').slice(1);
+      const target = id ? document.getElementById(id) : null;
+      if (!target) return;
+      e.preventDefault();
+      if (this.lenis) this.lenis.scrollTo(target, { offset: -84, duration: 1.5, easing: (t) => 1 - Math.pow(1 - t, 4) });
+      else target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    };
+    root.addEventListener('click', onClick);
+    this.cleanups.push(() => root.removeEventListener('click', onClick));
+  }
+
+  switchTheme(e) {
+    const next = this.state.theme === 'dark' ? 'light' : 'dark';
+    this.writeTheme(next);
+    this.broadcastTheme(next);
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    let x = window.innerWidth - 80, y = 38;
+    const btn = e && e.currentTarget;
+    if (btn && btn.getBoundingClientRect) { const r = btn.getBoundingClientRect(); x = r.left + r.width / 2; y = r.top + r.height / 2; }
+    if (!reduced && typeof document.startViewTransition === 'function') {
+      try {
+        const vt = document.startViewTransition(() => new Promise((resolve) => this.setState({ theme: next }, resolve)));
+        const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+        vt.ready.then(() => {
+          document.documentElement.animate(
+            { clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + radius + 'px at ' + x + 'px ' + y + 'px)'] },
+            { duration: 820, easing: 'cubic-bezier(.22,1,.36,1)', pseudoElement: '::view-transition-new(root)' }
+          );
+        }).catch(() => {});
+        return;
+      } catch (err) {}
+    }
+    const root = this.rootEl || document.getElementById('home-root');
+    if (root && !reduced) {
+      root.classList.add('switching');
+      clearTimeout(this.switchTimer);
+      this.switchTimer = setTimeout(() => root.classList.remove('switching'), 650);
+    }
+    this.setState({ theme: next });
+  }
+
+  initReveal(root) {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const nodes = root.querySelectorAll('[data-reveal]');
+    root.classList.add('anim');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+    for (let i = 0; i < nodes.length; i++) io.observe(nodes[i]);
+    this.cleanups.push(() => io.disconnect());
+  }
+
+  initBurger(root) {
+    const btns = Array.prototype.slice.call(root.querySelectorAll('[data-burger]'));
+    const btn = btns[0];
+    const hdr = root.querySelector('[data-header]');
+    if (!btns.length || !hdr) return;
+    const set = (open) => {
+      hdr.classList.toggle('mopen', open);
+      root.classList.toggle('gated', open);
+      if (btn) { btn.setAttribute('aria-expanded', open ? 'true' : 'false'); btn.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu'); }
+    };
+    const toggle = () => set(!hdr.classList.contains('mopen'));
+    btns.forEach((b) => b.addEventListener('click', toggle));
+    /* a link was picked, or the window grew back to desktop: close it */
+    const panel = root.querySelector('[data-mnav]');
+    const close = () => set(false);
+    if (panel) panel.addEventListener('click', (e) => { if (e.target.closest('a')) close(); });
+    const mq = window.matchMedia ? window.matchMedia('(min-width: 701px)') : null;
+    if (mq && mq.addEventListener) mq.addEventListener('change', close);
+    this.cleanups.push(() => {
+      btns.forEach((b) => b.removeEventListener('click', toggle));
+      if (mq && mq.removeEventListener) mq.removeEventListener('change', close);
+      hdr.classList.remove('mopen');
+      root.classList.remove('gated');
+    });
+  }
+  initStickyNav(root) {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const sentinel = root.querySelector('[data-top-sentinel]');
+    const header = root.querySelector('[data-header]');
+    if (!sentinel || !header) return;
+    const io = new IntersectionObserver((entries) => { header.classList.toggle('stuck', !entries[0].isIntersecting); });
+    io.observe(sentinel);
+    this.cleanups.push(() => io.disconnect());
+  }
+
+  initPointer(root) {
+    const dot = root.querySelector('[data-cursor-dot]');
+    const ring = root.querySelector('[data-cursor-ring]');
+    if (!dot || !ring) return;
+    const label = ring.querySelector('[data-cursor-label]');
+    /* the pull is a mouse trick; small screens never get it */
+    const pullMagnets = this.mq('(min-width: 701px)');
+    const magnets = pullMagnets ? Array.prototype.slice.call(root.querySelectorAll('[data-magnetic]')) : [];
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my, px = mx, py = my, moved = true;
+    root.classList.add('has-cursor');
+
+    /* what the blob says over a given thing */
+    const wordFor = (el) => {
+      const said = el.getAttribute('data-cursor');
+      if (said) return said;
+      if (el.hasAttribute('data-drag')) return 'drag me';
+      if (el.hasAttribute('data-note')) return 'read';
+      if (el.hasAttribute('data-bug')) return 'catch it';
+      if (el.classList.contains('proj')) return 'case study';
+      if (el.classList.contains('skrow')) return 'skill file';
+      if (el.classList.contains('vcard')) return 'have a look';
+      return '';
+    };
+    const onMove = (e) => { mx = e.clientX; my = e.clientY; moved = true; };
+    const onOver = (e) => {
+      const t = e.target && e.target.closest ? e.target.closest('a, button, input, [data-drag], [data-hover], [data-note], [data-cursor]') : null;
+      const word = t ? wordFor(t) : '';
+      if (label) label.textContent = word;
+      ring.classList.toggle('lab', !!word);
+      ring.classList.toggle('grow', !!t && !word);
+    };
+    const onDown = () => root.classList.add('grabbing');
+    const onUp = () => root.classList.remove('grabbing');
+    const onLeave = () => { ring.style.opacity = '0'; dot.style.opacity = '0'; };
+    const onEnter = () => { ring.style.opacity = ''; dot.style.opacity = ''; };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('mouseover', onOver, { passive: true });
+    window.addEventListener('mousedown', onDown, { passive: true });
+    window.addEventListener('mouseup', onUp, { passive: true });
+    document.addEventListener('mouseleave', onLeave);
+    document.addEventListener('mouseenter', onEnter);
+
+    const tick = () => {
+      rx += (mx - rx) * 0.16;
+      ry += (my - ry) * 0.16;
+      /* the blob leans and stretches into the direction it is travelling */
+      const vx = rx - px, vy = ry - py;
+      px = rx; py = ry;
+      const speed = Math.min(Math.sqrt(vx * vx + vy * vy), 34);
+      const ang = speed > 0.6 ? Math.atan2(vy, vx) * 180 / Math.PI : 0;
+      const st = 1 + speed * 0.014, sq = 1 - speed * 0.009;
+      dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+      /* only the bare dot leans; a pill with words in it stays level so they read and fit */
+      ring.style.transform = ring.classList.contains('lab')
+        ? 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0)'
+        : 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0) rotate(' + ang.toFixed(2) + 'deg) scale(' + st.toFixed(3) + ',' + sq.toFixed(3) + ')';
+      if (moved) {
+        for (let i = 0; i < magnets.length; i++) {
+          const el = magnets[i];
+          const r = el.getBoundingClientRect();
+          if (r.width === 0) continue;
+          const dx = mx - (r.left + r.width / 2), dy = my - (r.top + r.height / 2);
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const range = Math.max(r.width, r.height) * 0.8 + 44;
+          if (dist < range) {
+            const k = (1 - dist / range) * 0.22;
+            el.style.transform = 'translate(' + (dx * k).toFixed(2) + 'px,' + (dy * k).toFixed(2) + 'px)';
+          } else if (el.style.transform) {
+            el.style.transform = '';
+          }
+        }
+        moved = false;
+      }
+      this.raf = window.requestAnimationFrame(tick);
+    };
+    this.raf = window.requestAnimationFrame(tick);
+
+    this.cleanups.push(() => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseover', onOver);
+      window.removeEventListener('mousedown', onDown);
+      window.removeEventListener('mouseup', onUp);
+      document.removeEventListener('mouseleave', onLeave);
+      document.removeEventListener('mouseenter', onEnter);
+      if (this.raf) window.cancelAnimationFrame(this.raf);
+    });
+  }
+  renderVals() {
+    const dark = this.state.theme === 'dark';
+    return {
+      setRoot: this.setRoot,
+      themeClass: dark ? 'theme-dark' : 'theme-light',
+      isDark: dark,
+      isLight: !dark,
+      themeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      toggleTheme: this.toggleTheme
+    };
+  }
+}
+</script>
+</body>
+</html>

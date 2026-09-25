@@ -1,0 +1,22 @@
+
+/* ================= BACK TO TOP =================
+   Appears once the reader reaches the third section; the ring fills with
+   page scroll progress where scroll-driven animation is supported. */
+.totop {
+  position: fixed; right: 28px; bottom: 28px; z-index: 50; width: 52px; height: 52px; padding: 0; border-radius: 999px;
+  border: 1px solid var(--border-strong); background: transparent; color: var(--ink); cursor: pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transform: translateY(14px) scale(.9);
+  transition: opacity .35s ease, transform .5s cubic-bezier(.22,1,.36,1), visibility .35s, border-color .3s ease, color .3s ease;
+}
+.totop.show { opacity: 1; visibility: visible; transform: none; }
+.totop:hover { color: var(--primary); border-color: var(--primary); }
+.totop-arrow { transition: transform .4s cubic-bezier(.22,1,.36,1); }
+.totop:hover .totop-arrow { transform: translateY(-3px); }
+.totop-ring { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px); rotate: -90deg; pointer-events: none; }
+.totop-ring circle { fill: none; stroke: var(--primary); stroke-width: 2; stroke-dasharray: 100; stroke-dashoffset: 100; }
+@supports (animation-timeline: scroll()) {
+  .totop-ring circle { animation: ringfill linear both; animation-timeline: scroll(root block); }
+  @keyframes ringfill { to { stroke-dashoffset: 0; } }
+}
+@media (max-width: 700px) { .totop { right: 16px; bottom: 16px; width: 46px; height: 46px; } }

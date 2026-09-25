@@ -1,0 +1,193 @@
+// Builds parts/eb5_body.html on the shared case study scaffolding.
+const fs = require('fs');
+const path = require('path');
+const dir = path.join(__dirname, 'parts');
+const ed = fs.readFileSync(path.join(dir, 'edabroad_body.html'), 'utf8');
+
+const IMG = {
+  desktop: '/_blob/f2db24ce560af36945c92f528a5787dc',
+  mobile: '/_blob/f6fb9e553793fab14e3a0c64ef39ab56',
+  live: '/_blob/ecc4a80b765aa1743947bda9c7567efd'
+};
+
+const baseCss = ed.slice(0, ed.indexOf('</style>'));
+const nav = ed.slice(ed.indexOf('  <!-- ================= NAV ================= -->'), ed.indexOf('  </header>') + '  </header>'.length);
+const script = ed.slice(ed.indexOf('<script type="text/x-dc"')).replace('"height":9800', '"height":6400');
+if (!baseCss || !nav.includes('<nav') || !script.includes('initToc(root, reduced)')) throw new Error('scaffold missing');
+
+const h2 = (n, label, title) => '          <p class="cs-idx">' + n + ' / ' + label + '</p>\n          <h2 class="cs-h2">' + title + '</h2>';
+const p = (txt) => '          <p class="cs-p">' + txt + '</p>';
+const fig = (src, alt, cap) => [
+  '          <figure class="cs-fig" data-reveal>',
+  '            <img src="' + src + '" alt="' + alt + '" loading="lazy">',
+  cap ? '            <figcaption>' + cap + '</figcaption>' : '',
+  '          </figure>'
+].filter(Boolean).join('\n');
+const toc = [['opportunity', 'The opportunity'], ['role', 'My part'], ['website', 'The website'], ['results', 'Results']];
+const steps = ['Competitor analysis', 'Content structure', 'Information architecture', 'Wireframes', 'UI design', 'Final mockups', 'Dev handoff'];
+/* each step is a visa stamp: its own shape, ink and tilt */
+const STAMPS = [
+  { shape: 'round', r: -9, c: 'var(--primary)', word: 'cleared' },
+  { shape: 'rect', r: 6, c: 'var(--terra)', word: 'approved' },
+  { shape: 'oval', r: -4, c: 'var(--petrol)', word: 'entered' },
+  { shape: 'rect', r: -7, c: 'var(--olive)', word: 'approved' },
+  { shape: 'round', r: 8, c: 'var(--rose)', word: 'cleared' },
+  { shape: 'oval', r: 5, c: 'var(--primary)', word: 'approved' },
+  { shape: 'rect', r: -3, c: 'var(--terra)', word: 'handed off' }
+];
+
+const body = [
+  '<div class="{{themeClass}}" style="background: var(--canvas); min-height: 100vh;">',
+  '<div id="home-root" ref="{{setRoot}}" class="sheet" style="position: relative; box-sizing: border-box; background: var(--canvas); color: var(--ink); font-family: \'Space Grotesk\', sans-serif; overflow-x: clip;">',
+  '',
+  '  <div data-top-sentinel aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 1px; height: 1px;"></div>',
+  '',
+  nav,
+  '',
+  '  <!-- ================= CASE STUDY HEADER ================= -->',
+  '  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 64px 80px 48px 80px;">',
+  '    <div class="wrap">',
+  '      <a class="fill-link" href="Work.dc.html" style="font-size: 14.5px; font-weight: 600; padding-bottom: 4px;"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3"></path><path d="M7 4L3 8l4 4"></path></svg>All work</a>',
+  '      <div class="cs-head" data-reveal>',
+  '        <p class="lbl" style="margin: 0 0 18px 0;">Case study / Website design at Supercharged Studio</p>',
+  '        <h1 class="cs-title">EB5 Resources</h1>',
+  '        <p class="cs-lede">End-to-end brand and website design for a global immigration consultancy.</p>',
+  '      </div>',
+  '      <dl class="cs-meta" data-reveal data-d="1">',
+  '        <div><dt>My role</dt><dd>UX designer, website</dd></div>',
+  '        <div><dt>Team</dt><dd>Supercharged Studio</dd></div>',
+  '        <div><dt>Owned</dt><dd>Website UX, from research to dev handoff</dd></div>',
+  '        <div><dt>Result</dt><dd>76.3% more active users, reaching 11K</dd></div>',
+  '      </dl>',
+  '    </div>',
+  '  </section>',
+  '',
+  '  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 0 80px 96px 80px;">',
+  '    <div class="wrap">',
+  '      <figure class="cs-cover" data-reveal><img src="' + IMG.desktop + '" alt="EB5 Resources website pages: a hero over the Golden Gate Bridge reading Secure your future with EB-5 investment visas, a full service advisory section, and a list of current EB-5 projects in Washington DC, a steel mill and Houston."></figure>',
+  '      <p class="cs-intro" data-reveal>We helped EB5 Resources launch a new brand and website that reflects clarity, empathy, and trust to cater to high net worth individuals seeking US immigration.</p>',
+  '    </div>',
+  '  </section>',
+  '',
+  '  <!-- ================= BODY: contents rail + chapters ================= -->',
+  '  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 0 80px 120px 80px;">',
+  '    <div class="wrap cs-grid">',
+  '      <nav class="cs-toc hide-sm" data-toc aria-label="On this page">',
+  '        <p class="cap" style="margin: 0 0 14px 0;">On this page</p>',
+  toc.map(([id, l]) => '        <a href="#' + id + '">' + l + '</a>').join('\n'),
+  '      </nav>',
+  '',
+  '      <div class="cs-main">',
+  '',
+  '        <section id="opportunity" class="cs-sec" data-reveal>',
+  h2('01', 'The opportunity', 'More than a visual update.'),
+  p('When EB5 Resources approached us, they needed more than just a visual update, they needed a brand that could inspire trust and provide clarity during a complex life transition. We partnered with their team to build a brand identity and website that aligned with their mission: guiding clients with honesty, empathy, and security at every step of their journey.'),
+  '          <div class="eb-values"><span>honesty</span><span>empathy</span><span>security</span></div>',
+  p('We executed everything end to end, starting with the brand, working through design, and finally launching the site on Webflow for fast, responsive performance and easy maintenance. Every element of the brand was intentionally designed to support the emotional and financial weight of immigration.'),
+  '        </section>',
+  '',
+  '        <section id="role" class="cs-sec" data-reveal>',
+  h2('02', 'My part', 'One team, and the website was mine.'),
+  p('EB5 Resources was an end-to-end brand and website project by the Supercharged Studio team. Within the team, my responsibility was the website, taking it from research through to a build-ready handoff. Every step got its stamp:'),
+  '          <div class="eb-passport">',
+  '            <div class="pp-head"><span class="pp-title">Website journey</span><span class="pp-sub">UX designer / Supercharged Studio</span></div>',
+  '            <div class="pp-grid">',
+  steps.map((st, i) => '              <div class="stamp ' + STAMPS[i].shape + '" style="--r: ' + STAMPS[i].r + 'deg; --c: ' + STAMPS[i].c + '; --i: ' + i + ';"><span class="no">No. 0' + (i + 1) + '</span><span class="nm">' + st + '</span><span class="ok">' + STAMPS[i].word + '</span></div>').join('\n'),
+  '            </div>',
+  '          </div>',
+  '        </section>',
+  '',
+  '        <section id="website" class="cs-sec" data-reveal>',
+  h2('03', 'The website', 'Calm, credible, and easy to read on any screen.'),
+  fig(IMG.mobile, 'Three mobile screens of the EB5 Resources site: the Golden Gate hero with a Start your EB5 journey button, a featured blogs carousel on deep green, and an article page about bridge financing.', 'Mobile: the homepage, the blog and an article page.'),
+  fig(IMG.live, 'The Current EB-5 Projects page open on a laptop at a cafe table, showing a multifamily development in Washington DC.', 'The live projects page.'),
+  '        </section>',
+  '',
+  '        <section id="results" class="cs-sec" data-reveal>',
+  h2('04', 'Results and concluding remarks', 'A credible voice, and a lot more visitors.'),
+  '          <div class="eb-res">',
+  '            <div class="eb-group"><p class="eb-gh">Explosive audience growth</p><p class="eb-gp">Following the launch, the platform achieved an immediate traction spike, driving an overall 76.3% increase in active users to reach 11K alongside a 76.8% boost in new users year-over-year.</p>',
+  '              <div class="eb-nums"><div class="eb-num"><span class="v">+76.3%</span><span class="t">active users, reaching 11K</span></div><div class="eb-num"><span class="v">+76.8%</span><span class="t">new users, year over year</span></div></div></div>',
+  '            <div class="eb-group"><p class="eb-gh">Multi-channel acceleration</p><p class="eb-gp">The refreshed digital ecosystem dramatically optimized acquisition, resulting in a 1,381.6% surge in direct new users and a 493.8% lift in organic social traffic.</p>',
+  '              <div class="eb-nums"><div class="eb-num big"><span class="v">+1,381.6%</span><span class="t">direct new users</span></div><div class="eb-num"><span class="v">+493.8%</span><span class="t">organic social traffic</span></div></div></div>',
+  '          </div>',
+  p('The rebrand gave EB5 Resources a distinct and credible voice in a space often filled with generic visuals and legal jargon. Their new identity instills confidence and warmth across every touchpoint including pitch decks, investor conversations, and the live website.'),
+  p('Since launch, the brand has received strong feedback from industry stakeholders and prospective clients alike. More importantly, it now feels like a true reflection of the integrity and care behind the company. A brand built for the future, just like the journeys it helps guide.'),
+  '          <p class="mg rot cs-thanks">Thank you for reading! :)</p>',
+  '        </section>',
+  '',
+  '      </div>',
+  '    </div>',
+  '  </section>',
+  '',
+  '  <!-- ================= NEXT ================= -->',
+  '  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 0 80px 120px 80px;">',
+  '    <div class="wrap">',
+  '      <a class="cs-more" href="EdAbroad.dc.html" data-cursor="next case study" data-reveal>',
+  '        <span class="lbl">Up next</span>',
+  '        <span class="t">EdAbroad: study abroad advice that is not quietly selling you something</span>',
+  '        <svg width="34" height="34" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10"></path><path d="M9 4l4 4-4 4"></path></svg>',
+  '      </a>',
+  '    </div>',
+  '  </section>',
+  '',
+  '  <!-- ================= CLOSING ================= -->',
+  '  <footer class="pad" style="box-sizing: border-box; width: 100%; padding: 34px 80px 42px 80px;">',
+  '    <div class="wrap"><p style="margin: 0; font-size: 14px; color: var(--ink-2);">© 2026 Mahesh Reddy Remala</p></div>',
+  '  </footer>',
+  '',
+  '  <div class="grain" aria-hidden="true"></div>',
+  '  <div class="curring" data-cursor-ring aria-hidden="true"><span class="cl" data-cursor-label></span></div>',
+  '  <div class="curdot" data-cursor-dot aria-hidden="true"></div>',
+  '',
+  '</div>',
+  '</div>',
+  '</x-dc>',
+  '',
+  ''
+].join('\n');
+
+const css = [
+  '',
+  '/* ================= EB5 RESOURCES ================= */',
+  '.eb-values { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 26px 0; }',
+  '.eb-values span { padding: 10px 20px; border-radius: 999px; background: var(--p-peach); font-family: \'Space Grotesk\', sans-serif; font-size: 20px; letter-spacing: -0.015em; color: var(--ink); font-weight: 700; }',
+  '.eb-passport { position: relative; margin-top: 26px; padding: 26px 28px 34px 28px; border-radius: 22px; background: var(--sunken); border: 1px solid var(--border); background-image: repeating-linear-gradient(to bottom, transparent 0 31px, color-mix(in srgb, var(--ink) 5%, transparent) 31px 32px); overflow: hidden; }',
+  '.eb-passport::after { content: ""; position: absolute; right: -40px; bottom: -40px; width: 180px; height: 180px; border-radius: 999px; border: 1px dashed var(--border-strong); opacity: .6; }',
+  '.pp-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-bottom: 14px; margin-bottom: 22px; border-bottom: 1.5px solid var(--ink); }',
+  '.pp-title { font-family: \'Space Grotesk\', sans-serif; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); font-weight: 700; }',
+  '.pp-sub { font-family: ui-monospace, \'SF Mono\', Menlo, Consolas, monospace; font-size: 11.5px; color: var(--ink-3); }',
+  '.pp-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 18px 14px; align-items: center; justify-items: center; }',
+  '.stamp { box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center; color: var(--c); border: 2.5px solid var(--c); box-shadow: inset 0 0 0 3px var(--sunken), inset 0 0 0 4.5px var(--c); transform: rotate(var(--r)); mix-blend-mode: multiply; cursor: default; transition: transform .5s cubic-bezier(.34,1.56,.64,1); }',
+  '.theme-dark .stamp { mix-blend-mode: normal; }',
+  '.stamp.round { width: 140px; height: 140px; border-radius: 999px; padding: 16px; }',
+  '.stamp.rect { width: 158px; min-height: 104px; border-radius: 8px; padding: 14px; }',
+  '.stamp.oval { width: 170px; height: 112px; border-radius: 50%; padding: 14px 20px; }',
+  '.stamp:nth-child(2) { margin-top: 26px; } .stamp:nth-child(4) { margin-top: -14px; } .stamp:nth-child(6) { margin-top: 20px; }',
+  '.stamp .no { font-family: ui-monospace, \'SF Mono\', Menlo, Consolas, monospace; font-size: 10.5px; letter-spacing: .14em; opacity: .85; }',
+  '.stamp .nm { font-family: \'Space Grotesk\', sans-serif; font-size: 15.5px; line-height: 1.15; letter-spacing: .01em; text-transform: uppercase; font-weight: 700; }',
+  '.stamp .ok { font-family: ui-monospace, \'SF Mono\', Menlo, Consolas, monospace; font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; padding-top: 3px; border-top: 1px solid var(--c); }',
+  '.stamp:hover { transform: rotate(0deg) scale(1.06); }',
+  '/* the stamps land one after another as the page arrives */',
+  '.anim [data-reveal] .stamp { opacity: 0; transform: rotate(var(--r)) scale(1.7); }',
+  '.anim [data-reveal].in .stamp { opacity: 1; transform: rotate(var(--r)) scale(1); transition: opacity .2s ease calc(.25s + var(--i) * .14s), transform .45s cubic-bezier(.34,1.56,.64,1) calc(.25s + var(--i) * .14s); }',
+  '.anim [data-reveal].in .stamp:hover { transform: rotate(0deg) scale(1.06); transition-delay: 0s; }',
+  '.eb-res { display: grid; grid-template-columns: minmax(0,1fr); gap: 16px; margin: 6px 0 34px 0; }',
+  '.eb-group { padding: 26px 28px; border-radius: 22px; background: var(--raised); border: 1px solid var(--border); }',
+  '.eb-gh { margin: 0 0 8px 0; font-family: \'Space Grotesk\', sans-serif; font-size: 22px; letter-spacing: -0.02em; color: var(--ink); font-weight: 700; }',
+  '.eb-gp { margin: 0 0 20px 0; font-size: 16px; line-height: 1.65; color: var(--ink-2); }',
+  '.eb-nums { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }',
+  '.eb-num { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border-radius: 16px; background: var(--p-peach); }',
+  '.eb-num.big { background: var(--primary); }',
+  '.eb-num .v { font-family: \'Space Grotesk\', sans-serif; font-size: 44px; line-height: 1; letter-spacing: -0.04em; color: var(--terra); font-weight: 700; }',
+  '.eb-num.big .v, .eb-num.big .t { color: var(--on-primary); }',
+  '.eb-num .t { font-size: 14.5px; line-height: 1.45; color: var(--ink); }',
+  '@media (max-width: 1020px) { .pp-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }',
+  '@media (max-width: 700px) { .pp-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } .stamp.round { width: 124px; height: 124px; } .stamp.rect, .stamp.oval { width: 138px; } .stamp .nm { font-size: 13.5px; } .stamp:nth-child(n) { margin-top: 0; } .eb-nums { grid-template-columns: minmax(0,1fr); } .eb-num .v { font-size: 36px; } }',
+  '</style>',
+  '</helmet>',
+  ''
+].join('\n');
+
+fs.writeFileSync(path.join(dir, 'eb5_body.html'), baseCss + css + body + script);
+console.log('eb5_body.html written');

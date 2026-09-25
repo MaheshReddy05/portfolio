@@ -1,0 +1,512 @@
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= THINGS I VIBE CODED ================= -->
+  <section id="tools" class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 120px 80px 128px 80px; background: var(--sunken); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="wrap split" style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 32px 48px; align-items: start;">
+      <div class="cell toolside" style="grid-column: span 5; position: sticky; top: 112px; align-self: start;">
+        <div data-reveal>
+          <h2 class="d2" style="margin: 0 0 16px 0; font-family: 'Space Grotesk', sans-serif; font-size: 48px; line-height: 1.06; letter-spacing: -0.029em; color: var(--ink); font-weight: 700;">Things I vibe coded</h2>
+          <p style="margin: 0 0 20px 0; font-size: 17px; line-height: 1.65; color: var(--ink-2); max-width: 42ch;">Small tools built with AI in the loop, mostly to save my future self an afternoon.</p>
+          <p style="margin: 0 0 30px 0; display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px 7px 11px; border-radius: 999px; background: var(--raised); border: 1px solid var(--olive-line); font-size: 13.5px; font-weight: 600; color: var(--olive);"><span class="live" aria-hidden="true" style="position: relative; width: 7px; height: 7px; border-radius: 999px; background: var(--olive);"></span>Currently building: [SIDE PROJECT]</p>
+        </div>
+        <p class="mg rot" style="margin: 18px 0 0 6px; rotate: -2deg; font-size: 23px;">(some are held together with tape)</p>
+        <a class="fill-link" href="Skills.dc.html" style="margin-top: 22px; font-size: 15.5px; font-weight: 600; padding-bottom: 4px;">Visit the playground<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></a>
+      </div>
+
+      <div class="cell" data-reveal data-d="1" style="grid-column: 7 / span 6;">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <sc-for list="{{tools}}" as="t" hint-placeholder-count="6">
+            <a class="toolrow {{t.on}}" href="#tools" onMouseEnter="{{t.pick}}" onFocus="{{t.pick}}">
+              <span class="toolicon" aria-hidden="true" style="background: {{t.tint}}; color: {{t.ink}};"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l-4 4 4 4"></path><path d="M16 8l4 4-4 4"></path><path d="M13.5 5l-3 14"></path></svg></span>
+              <span style="min-width: 0;">
+                <span class="mono" style="display: block; font-size: 15px; font-weight: 600; color: var(--ink);">{{t.name}}<span style="font-weight: 400; color: var(--ink-3);">{{t.ext}}</span></span>
+                <span style="display: block; margin-top: 4px; font-size: 14.5px; line-height: 1.5; color: var(--ink-2);">{{t.desc}}</span>
+              </span>
+              <span class="tooltype"><i style="background: {{t.dot}};"></i>{{t.type}}</span>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING ================= -->
+  <section class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 112px 80px 104px 80px;">
+    <div class="wrap" data-reveal style="display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap;">
+      <div>
+        <h2 class="d1" style="margin: 0 0 16px 0; font-family: 'Space Grotesk', sans-serif; font-size: 68px; line-height: 1.04; letter-spacing: -0.034em; color: var(--ink); font-weight: 700; max-width: 15ch; text-wrap: balance;">Got something messy? I like messy.</h2>
+        <p style="margin: 0; font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 44ch;">Products that don't exist yet, research nobody has time for, or a tool your team keeps wishing for.</p>
+      </div>
+      <div class="ctarow" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <a class="btn btn-ghost" href="#download-cv" style="display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 26px; border-radius: 999px; font-size: 16px; font-weight: 600;">Download CV<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg></a>
+        <a class="btn btn-terra" data-magnetic href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 30px; border-radius: 999px; font-size: 16.5px; font-weight: 600;">Say hello<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9 6 9-6"></path><rect x="3" y="5" width="18" height="14" rx="3"></rect></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="pad" style="box-sizing: border-box; width: 100%; padding: 34px 80px 42px 80px; background: var(--sunken); border-top: 1px solid var(--border);">
+    <div class="wrap" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+      <div>
+        <p style="margin: 0 0 6px 0; font-size: 14px; color: var(--ink-2);">© 2026 Mahesh</p>
+        <p class="cap" style="margin: 0; font-size: 12.5px;">Set in Bricolage Grotesque, Instrument Sans, Newsreader and Caveat</p>
+      </div>
+      <div style="display: flex; gap: 26px; font-size: 14px; font-weight: 500;">
+        <a class="nv" href="Main.dc.html">Home</a>
+        <a class="nv" href="Work.dc.html">Work</a>
+        <a class="nv" href="About.dc.html">About</a>
+        <a class="nv" href="mailto:mahesh00005@gmail.com">Say hello</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="curring" data-cursor-ring aria-hidden="true"><span class="cl" data-cursor-label></span></div>
+  <div class="curdot" data-cursor-dot aria-hidden="true"></div>
+
+</div>
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light"},"$preview":{"width":1440,"height":6400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { theme: this.readTheme() || (props && props.theme === 'dark' ? 'dark' : 'light'), filter: 'all', tool: 0 };
+    this.cleanups = [];
+    this.lenis = null;
+    this.setRoot = (el) => { this.rootEl = el; };
+    this.setTabs = (el) => { this.tabsEl = el; };
+    this.toggleTheme = (e) => this.switchTheme(e);
+
+    /* Order here is the order on the page; cats decide which tabs show a project. */
+    this.projects = [
+      { key: 'edabroad', cats: ['product', 'research'] },
+      { key: 'texitag', cats: ['product', 'research'] },
+      { key: 'optimity', cats: ['web'] },
+      { key: 'eb5', cats: ['web'] },
+      { key: 'aiia', cats: ['web', 'research'] },
+      { key: 'ipl', cats: ['research'] },
+      { key: 'comicbuff', cats: ['fun', 'research'] },
+      { key: 'glassgarden', cats: ['fun'] }
+    ];
+    this.filterNames = { all: 'all projects', product: '0-1 Product', research: 'Research', web: 'Web', fun: 'Fun' };
+    this.fAll = () => this.setFilter('all');
+    this.fProduct = () => this.setFilter('product');
+    this.fResearch = () => this.setFilter('research');
+    this.fWeb = () => this.setFilter('web');
+    this.fFun = () => this.setFilter('fun');
+
+    this.tools = [
+      { name: 'design-system', ext: '.skill.md', type: 'Claude skill', tint: 'var(--p-lav)', ink: 'var(--primary)', dot: 'var(--primary)',
+        desc: 'Point it at a screenshot or a live site and it returns a full token set, contrast already checked.',
+        snippet: '---\nname: design-system\ndescription: Turn a reference into a usable token set\n---\n\n1. Pull the palette, check every pair for AA\n2. Build the type and spacing scale\n3. Write the tokens out as CSS variables' },
+      { name: 'drd-writer', ext: '.skill.md', type: 'Claude skill', tint: 'var(--p-lav)', ink: 'var(--primary)', dot: 'var(--primary)',
+        desc: 'Turns a pile of messy call notes into a design requirement doc a team can argue with.',
+        snippet: '---\nname: drd-writer\ndescription: Notes in, design requirement doc out\n---\n\nProblem\nWho it is for\nIn scope / out of scope\nHow we know it worked\nOpen questions' },
+      { name: 'research-synth', ext: '.skill.md', type: 'Claude skill', tint: 'var(--p-sage)', ink: 'var(--petrol)', dot: 'var(--petrol)',
+        desc: 'Reads raw interview transcripts and clusters them into themes, quotes still attached.',
+        snippet: '$ claude research-synth ./interviews\n\n  6 transcripts read\n  4 themes, 31 quotes\n  strongest: \"I never know what happens next\"' },
+      { name: 'portfolio-room', ext: '', type: 'Three.js, in progress', tint: 'var(--p-peach)', ink: 'var(--terra)', dot: 'var(--terra)',
+        desc: 'A 3D room where every object on the desk opens a different piece of work.',
+        snippet: '// desk.js\nroom.add(monitor, notebook, camera, mug)\n\nmonitor.onClick = () => open(\'edabroad\')\nnotebook.onClick = () => open(\'texitag\')' }
+    ];
+    this.toolPicks = this.tools.map((t, i) => () => { if (this.state.tool !== i) this.setState({ tool: i }); });
+  }
+
+  mq(q) { return window.matchMedia ? window.matchMedia(q).matches : false; }
+
+  /* The pill is one element that slides between tabs. The cards used to run
+     inside a view transition, but that snapshots the whole page, so the pill
+     could only cross-fade and the labels flickered while it travelled. The
+     grid dips instead, and the pill animates live. */
+  placePill(animate) {
+    const tabs = this.tabsEl || (this.rootEl ? this.rootEl.querySelector('.ftabs') : null);
+    if (!tabs) return;
+    const glide = tabs.querySelector('[data-fglide]');
+    const on = tabs.querySelector('.ftab[aria-pressed="true"]');
+    if (!glide || !on) return;
+    const box = tabs.getBoundingClientRect();
+    const hit = on.getBoundingClientRect();
+    if (!animate) glide.style.transition = 'none';
+    glide.style.width = hit.width + 'px';
+    glide.style.transform = 'translate3d(' + Math.round(hit.left - box.left) + 'px,0,0)';
+    glide.style.opacity = '1';
+    if (!animate) { void glide.offsetWidth; glide.style.transition = ''; }
+  }
+
+  setFilter(f) {
+    if (f === this.state.filter) return;
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    const grid = this.rootEl ? this.rootEl.querySelector('[data-proj-grid]') : null;
+    if (grid && !reduced) grid.classList.add('swapping');
+    this.setState({ filter: f }, () => {
+      this.placePill(!reduced);
+      if (!grid || reduced) return;
+      const t = setTimeout(() => grid.classList.remove('swapping'), 60);
+      this.cleanups.push(() => clearTimeout(t));
+    });
+  }
+
+  initTabs() {
+    this.placePill(false);
+    /* fonts land late and change the tab widths */
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.placePill(false));
+    const onResize = () => this.placePill(false);
+    window.addEventListener('resize', onResize);
+    this.cleanups.push(() => window.removeEventListener('resize', onResize));
+  }
+
+  componentDidMount() {
+    const saved = this.readTheme();
+    const initial = saved || (this.props.theme === 'dark' ? 'dark' : 'light');
+    if (initial !== this.state.theme) this.setState({ theme: initial });
+    this.syncBody(initial);
+    this.initThemeSync();
+    const root = this.rootEl || document.getElementById('home-root');
+    if (!root) return;
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    this.initSmooth(root, reduced);
+    this.initStickyNav(root);
+    this.initTabs();
+    this.initBurger(root);
+    if (!reduced) this.initReveal(root);
+    if (!reduced && this.mq('(pointer: fine)')) this.initPointer(root);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    /* The canvas hands props over just after mount, so the first 'light' is
+       the default arriving, not a choice. Only a switch from one set value to
+       another (the Tweaks panel) counts, and the visitor's pick stays put. */
+    const was = prevProps.theme, now = this.props.theme;
+    const set = (v) => v === 'light' || v === 'dark';
+    if (was !== now && set(was) && set(now)) {
+      this.setState({ theme: now });
+    }
+    if (this.syncedTheme !== this.state.theme) { this.syncedTheme = this.state.theme; this.syncBody(this.state.theme); }
+  }
+
+  componentWillUnmount() {
+    for (let i = 0; i < this.cleanups.length; i++) this.cleanups[i]();
+    this.cleanups = [];
+    clearTimeout(this.switchTimer);
+  }
+
+  /* Each screen is its own artboard with its own component, so the pick is
+     parked outside it, in every place that might outlive the swap, and read
+     back from the first that kept it. The canvas frame's window.name is the
+     one that survives that frame reloading even with storage blocked. */
+  themeCarriers(theme) {
+    const w = typeof window === 'undefined' ? null : window;
+    if (!w) return [];
+    let up = null;
+    try { up = w.parent && w.parent !== w ? w.parent : null; } catch (err) { up = null; }
+    const tag = 'mr-theme:';
+    const fromName = (n) => (n && n.indexOf(tag) === 0 ? n.slice(tag.length) : null);
+    return [
+      { k: 'global', get: () => w.__mrTheme, set: () => { w.__mrTheme = theme; } },
+      { k: 'parent', get: () => (up ? up.__mrTheme : null), set: () => { if (up) up.__mrTheme = theme; } },
+      { k: 'parent.name', get: () => (up ? fromName(up.name || '') : null),
+        set: () => { if (!up) return; const n = up.name || ''; if (!n || n.indexOf(tag) === 0) up.name = tag + theme; } },
+      { k: 'session', get: () => w.sessionStorage.getItem('mr-theme'), set: () => w.sessionStorage.setItem('mr-theme', theme) },
+      { k: 'local', get: () => w.localStorage.getItem('mr-theme'), set: () => w.localStorage.setItem('mr-theme', theme) },
+      { k: 'cookie', get: () => { const m = /(?:^|;\s*)mr-theme=(light|dark)/.exec(document.cookie || ''); return m ? m[1] : null; },
+        set: () => { document.cookie = 'mr-theme=' + theme + ';path=/;max-age=31536000;samesite=lax'; } },
+      { k: 'name', get: () => fromName(w.name || ''),
+        set: () => { const n = w.name || ''; if (!n || n.indexOf(tag) === 0) w.name = tag + theme; } }
+    ];
+  }
+
+  readTheme() {
+    const list = this.themeCarriers(null);
+    for (let i = 0; i < list.length; i += 1) {
+      try {
+        const v = list[i].get();
+        if (v === 'dark' || v === 'light') { this.themeSrc = list[i].k; return v; }
+      } catch (err) {}
+    }
+    this.themeSrc = 'none';
+    return null;
+  }
+
+  writeTheme(theme) {
+    if (theme !== 'dark' && theme !== 'light') return;
+    const list = this.themeCarriers(theme);
+    for (let i = 0; i < list.length; i += 1) { try { list[i].set(); } catch (err) {} }
+  }
+
+  /* Every page is mounted at once in the canvas; moving between them only
+     changes which one is in front. So a toggle is sent to the other pages
+     the moment it happens, and each one listening switches to match. */
+  initThemeSync() {
+    const apply = (t) => { if ((t === 'dark' || t === 'light') && t !== this.state.theme) this.setState({ theme: t }); };
+    const onMsg = (e) => { const d = e && e.data; if (d && d.type === 'mr-theme') apply(d.theme); };
+    const onStorage = (e) => { if (e && e.key === 'mr-theme') apply(e.newValue); };
+    window.addEventListener('message', onMsg);
+    window.addEventListener('storage', onStorage);
+    let bc = null;
+    try { bc = new BroadcastChannel('mr-theme'); bc.onmessage = (e) => apply(e.data); } catch (err) { bc = null; }
+    this.themeBc = bc;
+    this.cleanups.push(() => {
+      window.removeEventListener('message', onMsg);
+      window.removeEventListener('storage', onStorage);
+      if (bc) { try { bc.close(); } catch (err) {} }
+    });
+  }
+
+  broadcastTheme(theme) {
+    try { if (this.themeBc) this.themeBc.postMessage(theme); } catch (err) {}
+    /* and straight to every sibling frame, which needs no shared storage */
+    try {
+      const up = window.parent;
+      if (up && up !== window) {
+        for (let i = 0; i < up.frames.length; i += 1) {
+          const f = up.frames[i];
+          if (f !== window) { try { f.postMessage({ type: 'mr-theme', theme }, '*'); } catch (err) {} }
+        }
+      }
+    } catch (err) {}
+  }
+  syncBody(theme) {
+    try {
+      document.body.style.backgroundColor = theme === 'dark' ? '#1D141F' : '#F8F0E7';
+      document.documentElement.style.colorScheme = theme;
+    } catch (err) {}
+  }
+
+  initSmooth(root, reduced) {
+    const L = window.Lenis;
+    if (typeof L === 'function' && !reduced) {
+      try {
+        const lenis = new L({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 1 });
+        this.lenis = lenis;
+        const loop = (t) => { lenis.raf(t); this.lenisRaf = window.requestAnimationFrame(loop); };
+        this.lenisRaf = window.requestAnimationFrame(loop);
+        this.cleanups.push(() => { window.cancelAnimationFrame(this.lenisRaf); lenis.destroy(); this.lenis = null; });
+      } catch (err) { this.lenis = null; }
+    }
+    const onClick = (e) => {
+      const a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!a || !root.contains(a)) return;
+      const id = a.getAttribute('href').slice(1);
+      const target = id ? document.getElementById(id) : null;
+      if (!target) return;
+      e.preventDefault();
+      if (this.lenis) this.lenis.scrollTo(target, { offset: -84, duration: 1.5, easing: (t) => 1 - Math.pow(1 - t, 4) });
+      else target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    };
+    root.addEventListener('click', onClick);
+    this.cleanups.push(() => root.removeEventListener('click', onClick));
+  }
+
+  switchTheme(e) {
+    const next = this.state.theme === 'dark' ? 'light' : 'dark';
+    this.writeTheme(next);
+    this.broadcastTheme(next);
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    let x = window.innerWidth - 80, y = 38;
+    const btn = e && e.currentTarget;
+    if (btn && btn.getBoundingClientRect) { const r = btn.getBoundingClientRect(); x = r.left + r.width / 2; y = r.top + r.height / 2; }
+    if (!reduced && typeof document.startViewTransition === 'function') {
+      try {
+        const vt = document.startViewTransition(() => new Promise((resolve) => this.setState({ theme: next }, resolve)));
+        const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+        vt.ready.then(() => {
+          document.documentElement.animate(
+            { clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + radius + 'px at ' + x + 'px ' + y + 'px)'] },
+            { duration: 820, easing: 'cubic-bezier(.22,1,.36,1)', pseudoElement: '::view-transition-new(root)' }
+          );
+        }).catch(() => {});
+        return;
+      } catch (err) {}
+    }
+    const root = this.rootEl || document.getElementById('home-root');
+    if (root && !reduced) {
+      root.classList.add('switching');
+      clearTimeout(this.switchTimer);
+      this.switchTimer = setTimeout(() => root.classList.remove('switching'), 650);
+    }
+    this.setState({ theme: next });
+  }
+
+  /* Cards shown later by a filter are observed from the start, so they
+     reveal the first time they become visible. */
+  initReveal(root) {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const nodes = root.querySelectorAll('[data-reveal]');
+    root.classList.add('anim');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+    for (let i = 0; i < nodes.length; i++) io.observe(nodes[i]);
+    this.cleanups.push(() => io.disconnect());
+  }
+
+  initBurger(root) {
+    const btns = Array.prototype.slice.call(root.querySelectorAll('[data-burger]'));
+    const btn = btns[0];
+    const hdr = root.querySelector('[data-header]');
+    if (!btns.length || !hdr) return;
+    const set = (open) => {
+      hdr.classList.toggle('mopen', open);
+      root.classList.toggle('gated', open);
+      if (btn) { btn.setAttribute('aria-expanded', open ? 'true' : 'false'); btn.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu'); }
+    };
+    const toggle = () => set(!hdr.classList.contains('mopen'));
+    btns.forEach((b) => b.addEventListener('click', toggle));
+    /* a link was picked, or the window grew back to desktop: close it */
+    const panel = root.querySelector('[data-mnav]');
+    const close = () => set(false);
+    if (panel) panel.addEventListener('click', (e) => { if (e.target.closest('a')) close(); });
+    const mq = window.matchMedia ? window.matchMedia('(min-width: 701px)') : null;
+    if (mq && mq.addEventListener) mq.addEventListener('change', close);
+    this.cleanups.push(() => {
+      btns.forEach((b) => b.removeEventListener('click', toggle));
+      if (mq && mq.removeEventListener) mq.removeEventListener('change', close);
+      hdr.classList.remove('mopen');
+      root.classList.remove('gated');
+    });
+  }
+  initStickyNav(root) {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const sentinel = root.querySelector('[data-top-sentinel]');
+    const header = root.querySelector('[data-header]');
+    if (!sentinel || !header) return;
+    const io = new IntersectionObserver((entries) => { header.classList.toggle('stuck', !entries[0].isIntersecting); });
+    io.observe(sentinel);
+    this.cleanups.push(() => io.disconnect());
+  }
+
+  initPointer(root) {
+    const dot = root.querySelector('[data-cursor-dot]');
+    const ring = root.querySelector('[data-cursor-ring]');
+    if (!dot || !ring) return;
+    const label = ring.querySelector('[data-cursor-label]');
+    /* the pull is a mouse trick; small screens never get it */
+    const pullMagnets = this.mq('(min-width: 701px)');
+    const magnets = pullMagnets ? Array.prototype.slice.call(root.querySelectorAll('[data-magnetic]')) : [];
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my, px = mx, py = my, moved = true;
+    root.classList.add('has-cursor');
+
+    /* what the blob says over a given thing */
+    const wordFor = (el) => {
+      const said = el.getAttribute('data-cursor');
+      if (said) return said;
+      if (el.hasAttribute('data-drag')) return 'drag me';
+      if (el.hasAttribute('data-note')) return 'read';
+      if (el.hasAttribute('data-bug')) return 'catch it';
+      if (el.classList.contains('proj')) return 'case study';
+      if (el.classList.contains('skrow')) return 'skill file';
+      if (el.classList.contains('vcard')) return 'have a look';
+      return '';
+    };
+    const onMove = (e) => { mx = e.clientX; my = e.clientY; moved = true; };
+    const onOver = (e) => {
+      const t = e.target && e.target.closest ? e.target.closest('a, button, input, [data-drag], [data-hover], [data-note], [data-cursor]') : null;
+      const word = t ? wordFor(t) : '';
+      if (label) label.textContent = word;
+      ring.classList.toggle('lab', !!word);
+      ring.classList.toggle('grow', !!t && !word);
+    };
+    const onDown = () => root.classList.add('grabbing');
+    const onUp = () => root.classList.remove('grabbing');
+    const onLeave = () => { ring.style.opacity = '0'; dot.style.opacity = '0'; };
+    const onEnter = () => { ring.style.opacity = ''; dot.style.opacity = ''; };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('mouseover', onOver, { passive: true });
+    window.addEventListener('mousedown', onDown, { passive: true });
+    window.addEventListener('mouseup', onUp, { passive: true });
+    document.addEventListener('mouseleave', onLeave);
+    document.addEventListener('mouseenter', onEnter);
+
+    const tick = () => {
+      rx += (mx - rx) * 0.16;
+      ry += (my - ry) * 0.16;
+      /* the blob leans and stretches into the direction it is travelling */
+      const vx = rx - px, vy = ry - py;
+      px = rx; py = ry;
+      const speed = Math.min(Math.sqrt(vx * vx + vy * vy), 34);
+      const ang = speed > 0.6 ? Math.atan2(vy, vx) * 180 / Math.PI : 0;
+      const st = 1 + speed * 0.014, sq = 1 - speed * 0.009;
+      dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+      /* only the bare dot leans; a pill with words in it stays level so they read and fit */
+      ring.style.transform = ring.classList.contains('lab')
+        ? 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0)'
+        : 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0) rotate(' + ang.toFixed(2) + 'deg) scale(' + st.toFixed(3) + ',' + sq.toFixed(3) + ')';
+      if (moved) {
+        for (let i = 0; i < magnets.length; i++) {
+          const el = magnets[i];
+          const r = el.getBoundingClientRect();
+          if (r.width === 0) continue;
+          const dx = mx - (r.left + r.width / 2), dy = my - (r.top + r.height / 2);
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const range = Math.max(r.width, r.height) * 0.8 + 44;
+          if (dist < range) {
+            const k = (1 - dist / range) * 0.22;
+            el.style.transform = 'translate(' + (dx * k).toFixed(2) + 'px,' + (dy * k).toFixed(2) + 'px)';
+          } else if (el.style.transform) {
+            el.style.transform = '';
+          }
+        }
+        moved = false;
+      }
+      this.raf = window.requestAnimationFrame(tick);
+    };
+    this.raf = window.requestAnimationFrame(tick);
+
+    this.cleanups.push(() => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseover', onOver);
+      window.removeEventListener('mousedown', onDown);
+      window.removeEventListener('mouseup', onUp);
+      document.removeEventListener('mouseleave', onLeave);
+      document.removeEventListener('mouseenter', onEnter);
+      if (this.raf) window.cancelAnimationFrame(this.raf);
+    });
+  }
+  renderVals() {
+    const dark = this.state.theme === 'dark';
+    const f = this.state.filter;
+
+    /* Visible cards take the staggered rhythm in turn: full, right, left. */
+    const layout = ['cell pos-a', 'cell pos-b', 'cell pos-c'];
+    const p = {};
+    let shown = 0;
+    this.projects.forEach((proj) => {
+      const visible = f === 'all' || proj.cats.indexOf(f) !== -1;
+      p[proj.key] = { hidden: !visible, cls: visible ? layout[shown % 3] : 'cell' };
+      if (visible) shown += 1;
+    });
+
+    const ti = this.state.tool;
+    const tools = this.tools.map((t, i) => ({ ...t, pick: this.toolPicks[i], on: i === ti ? 'on' : '' }));
+    const cur = this.tools[ti];
+
+    return {
+      setRoot: this.setRoot,
+      themeClass: dark ? 'theme-dark' : 'theme-light',
+      isDark: dark,
+      isLight: !dark,
+      themeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      toggleTheme: this.toggleTheme,
+      p: p,
+      f: {
+        all: f === 'all', product: f === 'product', research: f === 'research', web: f === 'web', fun: f === 'fun',
+        notAll: f !== 'all', notProduct: f !== 'product', notResearch: f !== 'research', notWeb: f !== 'web', notFun: f !== 'fun'
+      },
+      setTabs: this.setTabs,
+      fAll: this.fAll, fProduct: this.fProduct, fResearch: this.fResearch, fWeb: this.fWeb, fFun: this.fFun,
+      filterSummary: 'Showing ' + shown + (shown === 1 ? ' project' : ' projects') + (f === 'all' ? '' : ' in ' + this.filterNames[f]),
+      tools: tools,
+    };
+  }
+}
+</script>
+</body>
+</html>

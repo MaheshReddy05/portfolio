@@ -1,0 +1,548 @@
+
+/* ================= THOUGHTS PAGE ================= */
+[hidden] { display: none !important; }
+.theme-light { --p-olive: #E3E6CB; --p-rose: #F2D8DA; --pat: rgba(63,20,77,.09); --scrim: rgba(42,15,51,.52); }
+.theme-dark { --p-olive: #2A2D1B; --p-rose: #3A2529; --pat: rgba(246,240,234,.07); --scrim: rgba(8,5,9,.7); }
+.nv[aria-current="page"] { color: var(--ink); }
+.nv[aria-current="page"]::after { right: 0; }
+
+/* thumbnails: tinted card + pattern + a drawing made of three stroked paths */
+.thumb { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 16px; }
+.thumb-art { height: 56%; width: auto; overflow: visible; transition: transform .8s cubic-bezier(.22,1,.36,1); }
+.pat-dots { background-image: radial-gradient(var(--pat) 1.2px, transparent 1.6px); background-size: 14px 14px; }
+.pat-grid { background-image: linear-gradient(var(--pat) 1px, transparent 1px), linear-gradient(90deg, var(--pat) 1px, transparent 1px); background-size: 22px 22px; }
+.pat-lines { background-image: repeating-linear-gradient(-45deg, var(--pat) 0 1px, transparent 1px 12px); }
+
+/* cards are real buttons; their insides are spans laid out as blocks */
+.tcard { display: block; width: 100%; padding: 0; margin: 0; border: none; background: none; text-align: left; cursor: pointer; font: inherit; color: inherit; }
+.tcard > span, .tcard span.b { display: block; }
+.tcard .tsurf { background: var(--raised); border: 1px solid var(--border); border-radius: 22px; padding: 12px 12px 22px 12px; box-shadow: var(--shadow); transition: transform .55s cubic-bezier(.22,1,.36,1), box-shadow .55s ease; }
+.tcard:hover .tsurf { transform: translateY(-6px); box-shadow: var(--shadow-lift); }
+.tcard:hover .thumb-art { transform: rotate(-4deg) scale(1.07); }
+.tcard .ttl { transition: color .3s ease; }
+.tcard:hover .ttl { color: var(--primary); }
+.tcard .go { transition: transform .45s cubic-bezier(.22,1,.36,1); }
+.tcard:hover .go { transform: translateX(5px); }
+.tag { display: inline-flex; align-items: center; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--petrol-line); color: var(--petrol); font-size: 12px; font-weight: 600; }
+.tgrid > *:nth-child(3n+2) { margin-top: 56px; }
+/* the shelf is not full yet, and says so */
+.tsoon { display: grid; place-items: center; min-height: 210px; padding: 28px; border-radius: 22px; border: 1.5px dashed var(--border-strong); background: var(--sunken); }
+.tsoon p { margin: 0; font-size: 22px; color: var(--ink-3); text-align: center; }
+
+.ulink { position: relative; color: var(--ink-2); }
+.ulink::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px; background: var(--border); transition: background-color .3s ease; }
+.ulink:hover { color: var(--primary); }
+.ulink:hover::after { background: var(--primary); }
+
+/* ================= REDUCED MOTION ================= */
+@media (prefers-reduced-motion: reduce) {
+  .anim [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .anim [data-reveal] .ln > span, .anim [data-reveal] .rule { transform: none !important; }
+  .anim [data-reveal] .squig path { stroke-dashoffset: 0 !important; }
+  .curdot, .curring { display: none !important; }
+  * { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+/* ---------- tablet ---------- */
+@media (max-width: 1020px) {
+  .pad { padding-left: 40px !important; padding-right: 40px !important; }
+  .split { grid-template-columns: repeat(6, minmax(0,1fr)) !important; }
+  .cell { grid-column: 1 / -1 !important; }
+  .tgrid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+  .tgrid > *:nth-child(3n+2) { margin-top: 0; }
+  .tgrid > *:nth-child(2n) { margin-top: 40px; }
+  .d1 { font-size: 64px !important; }
+  .d2 { font-size: 40px !important; }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 700px) {
+  .pad { padding-left: 20px !important; padding-right: 20px !important; }
+  .navlinks, .navcta { display: none !important; }
+  .secpad { padding-top: 64px !important; padding-bottom: 64px !important; }
+  .d1 { font-size: 52px !important; }
+  .d2 { font-size: 30px !important; }
+  .tgrid { grid-template-columns: 1fr !important; }
+  .tgrid > *:nth-child(n) { margin-top: 0; }
+  .ctarow { flex-direction: column !important; align-items: stretch !important; }
+  .ctarow > a { justify-content: center !important; }
+  .pnav { grid-template-columns: 1fr; padding: 16px; }
+  .rhead { height: 180px !important; }
+  .rpad { padding-left: 22px !important; padding-right: 22px !important; }
+  .rtitle { font-size: 30px !important; }
+  .hide-sm { display: none !important; }
+}
+</style>
+</helmet>
+
+<div class="{{themeClass}}" style="background: var(--canvas); min-height: 100vh;">
+<div id="home-root" ref="{{setRoot}}" class="sheet" style="position: relative; box-sizing: border-box; background: var(--canvas); color: var(--ink); font-family: 'Space Grotesk', sans-serif; overflow-x: clip;">
+
+  <div data-top-sentinel aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 1px; height: 1px;"></div>
+
+  <!-- ================= NAV ================= -->
+  <header data-header class="hdr pad" style="box-sizing: border-box; width: 100%; padding: 0 80px;">
+    <nav class="wrap" style="height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a class="brand" href="Main.dc.html" aria-label="Mahesh Reddy, back to the homepage"><span class="mark" aria-hidden="true"><img class="only-light" src="/_blob/ca5d19d0709653cac4b90f0a2090e512" alt=""><img class="only-dark" src="/_blob/1eedbc90d84e2f8eaeeedef4982330cd" alt=""></span></a>
+      <div style="display: flex; align-items: center; gap: 28px;">
+        <div class="navlinks" style="display: flex; align-items: center; gap: 30px; font-size: 15px; font-weight: 500;">
+          <a class="nv" href="Work.dc.html">Work</a>
+          <a class="nv" href="About.dc.html">About</a>
+          <a class="nv" href="Skills.dc.html">Playground</a>
+          <a class="nv" href="Thoughts.dc.html" aria-current="page">Thoughts</a>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="toggle" aria-label="{{themeLabel}}" title="{{themeLabel}}" onClick="{{toggleTheme}}">
+            <sc-if value="{{isDark}}" hint-placeholder-val="{{false}}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"></path></svg>
+            </sc-if>
+            <sc-if value="{{isLight}}" hint-placeholder-val="{{true}}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8z"></path></svg>
+            </sc-if>
+          </button>
+          <a class="btn btn-primary navcta" data-magnetic href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Say hello</a>
+          <button type="button" class="burger" data-burger aria-label="Open the menu" aria-expanded="false"><i aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </nav>
+    <div class="mnav" data-mnav>
+      <button type="button" class="mclose" data-burger aria-label="Close the menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+      <div class="mlinks">
+        <a class="nv" href="Main.dc.html">Home</a>
+        <a class="nv" href="Work.dc.html">Work</a>
+        <a class="nv" href="About.dc.html">About</a>
+        <a class="nv" href="Skills.dc.html">Playground</a>
+        <a class="nv" href="Thoughts.dc.html" aria-current="page">Thoughts</a>
+      </div>
+      <div class="mfoot">
+        <p class="mg">(quickest way to reach me)</p>
+        <a class="btn btn-primary" href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Say hello</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HEADER ================= -->
+  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 96px 80px 64px 80px;">
+    <div class="wrap" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px 48px; flex-wrap: wrap;">
+      <div data-reveal>
+        <h1 class="d1" style="margin: 0 0 18px 0; font-family: 'Space Grotesk', sans-serif; font-size: 94px; line-height: 1; letter-spacing: -0.043em; color: var(--ink); font-weight: 700;"><span class="ln"><span>Thoughts</span></span></h1>
+        <p style="margin: 0; font-size: 19px; line-height: 1.6; color: var(--ink-2); max-width: 46ch;">Notes on design, building, and the occasional comic book. Short, honest, mostly written on trains.</p>
+      </div>
+      <p data-reveal data-d="1" class="mg rot hide-sm" style="margin: 0 0 8px 0; rotate: -3deg; font-size: 25px;">newest first, click one to read</p>
+    </div>
+  </section>
+
+  <!-- ================= FEATURED (latest) ================= -->
+  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 0 80px 72px 80px;">
+    <div class="wrap" data-reveal>
+      <button type="button" class="tcard" data-note="0" aria-haspopup="dialog">
+        <span class="tsurf split" style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 32px; align-items: center; padding: 14px 14px 14px 14px;">
+          <span class="cell b" style="grid-column: span 7;">
+            <span class="thumb {{feat.pat}}" style="height: 380px; background-color: {{feat.bg}}; color: {{feat.ink}};">
+              <svg class="thumb-art" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{feat.d1}}" vector-effect="non-scaling-stroke"></path><path d="{{feat.d2}}" vector-effect="non-scaling-stroke"></path><path d="{{feat.d3}}" vector-effect="non-scaling-stroke"></path></svg>
+            </span>
+          </span>
+          <span class="cell b" style="grid-column: 8 / span 5; padding: 12px 24px 12px 0;">
+            <span class="b" style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;"><span class="tag">{{feat.tag}}</span><span class="cap">Latest, {{feat.date}}</span></span>
+            <span class="b ttl" style="margin-bottom: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 38px; line-height: 1.1; letter-spacing: -0.027em; color: var(--ink); font-weight: 700; text-wrap: balance;">{{feat.title}}</span>
+            <span class="b" style="margin-bottom: 26px; font-size: 17px; line-height: 1.65; color: var(--ink-2);">{{feat.excerpt}}</span>
+            <span class="b" style="display: flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 600; color: var(--primary);">Read the note<svg class="go" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10"></path><path d="M9 4l4 4-4 4"></path></svg><span class="cap" style="margin-left: 6px; font-weight: 500;">{{feat.mins}}</span></span>
+          </span>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ================= GRID ================= -->
+  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 16px 80px 136px 80px;">
+    <div class="wrap tgrid" style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 28px; align-items: start;">
+      <sc-for list="{{rest}}" as="t" hint-placeholder-count="6">
+        <button type="button" class="tcard" data-note="{{t.idx}}" aria-haspopup="dialog" data-reveal>
+          <span class="tsurf">
+            <span class="thumb {{t.pat}}" style="height: 210px; background-color: {{t.bg}}; color: {{t.ink}};">
+              <svg class="thumb-art" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.d1}}" vector-effect="non-scaling-stroke"></path><path d="{{t.d2}}" vector-effect="non-scaling-stroke"></path><path d="{{t.d3}}" vector-effect="non-scaling-stroke"></path></svg>
+            </span>
+            <span class="b" style="padding: 20px 12px 0 12px;">
+              <span class="b" style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px;"><span class="tag">{{t.tag}}</span><span class="cap">{{t.date}}</span></span>
+              <span class="b ttl" style="margin-bottom: 10px; font-family: 'Space Grotesk', sans-serif; font-size: 23px; line-height: 1.2; letter-spacing: -0.019em; color: var(--ink); font-weight: 700; text-wrap: balance;">{{t.title}}</span>
+              <span class="b" style="font-size: 15.5px; line-height: 1.6; color: var(--ink-2);">{{t.excerpt}}</span>
+            </span>
+          </span>
+        </button>
+      </sc-for>
+      <div class="tsoon" data-reveal data-d="1"><p class="mg">(more soon)</p></div>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING ================= -->
+  <section class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 96px 80px 96px 80px; background: var(--sunken); border-top: 1px solid var(--border);">
+    <div class="wrap" data-reveal style="display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; flex-wrap: wrap;">
+      <div>
+        <h2 class="d2" style="margin: 0 0 14px 0; font-family: 'Space Grotesk', sans-serif; font-size: 52px; line-height: 1.06; letter-spacing: -0.029em; color: var(--ink); font-weight: 700;">Disagree with something?</h2>
+        <p style="margin: 0; font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 44ch;">Good. Tell me why. The best replies usually turn into the next note.</p>
+      </div>
+      <div class="ctarow" style="display: flex; gap: 12px;">
+        <a class="btn btn-terra" data-magnetic href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 30px; border-radius: 999px; font-size: 16.5px; font-weight: 600;">Say hello<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9 6 9-6"></path><rect x="3" y="5" width="18" height="14" rx="3"></rect></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="pad" style="box-sizing: border-box; width: 100%; padding: 34px 80px 42px 80px; background: var(--sunken); border-top: 1px solid var(--border);">
+    <div class="wrap" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+      <div>
+        <p style="margin: 0 0 6px 0; font-size: 14px; color: var(--ink-2);">© 2026 Mahesh</p>
+        <p class="cap" style="margin: 0; font-size: 12.5px;">Set in Bricolage Grotesque, Instrument Sans and Caveat</p>
+      </div>
+      <div style="display: flex; gap: 26px; font-size: 14px; font-weight: 500;">
+        <a class="nv" href="Main.dc.html">Home</a>
+        <a class="nv" href="Work.dc.html">Work</a>
+        <a class="nv" href="About.dc.html">About</a>
+        <a class="nv" href="mailto:mahesh00005@gmail.com">Say hello</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="curring" data-cursor-ring aria-hidden="true"><span class="cl" data-cursor-label></span></div>
+  <div class="curdot" data-cursor-dot aria-hidden="true"></div>
+
+</div>
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light"},"$preview":{"width":1440,"height":2900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { theme: this.readTheme() || (props && props.theme === 'dark' ? 'dark' : 'light') };
+    this.cleanups = [];
+    this.lenis = null;
+    this.setRoot = (el) => { this.rootEl = el; };
+    this.toggleTheme = (e) => this.switchTheme(e);
+    this.notes = this.readerNotes();
+  }
+
+  mq(q) { return window.matchMedia ? window.matchMedia(q).matches : false; }
+
+  minutes(n) {
+    const words = (n.body.join(' ') + ' ' + n.quote).split(/\s+/).length;
+    return Math.max(1, Math.round(words / 220)) + ' min read';
+  }
+
+  componentDidMount() {
+    const saved = this.readTheme();
+    const initial = saved || (this.props.theme === 'dark' ? 'dark' : 'light');
+    if (initial !== this.state.theme) this.setState({ theme: initial });
+    this.syncBody(initial);
+    this.initThemeSync();
+    const root = this.rootEl || document.getElementById('home-root');
+    if (!root) return;
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    this.initSmooth(root, reduced);
+    this.initStickyNav(root);
+    this.initBurger(root);
+    if (!reduced) this.initReveal(root);
+    if (!reduced && this.mq('(pointer: fine)')) this.initPointer(root);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    /* The canvas hands props over just after mount, so the first 'light' is
+       the default arriving, not a choice. Only a switch from one set value to
+       another (the Tweaks panel) counts, and the visitor's pick stays put. */
+    const was = prevProps.theme, now = this.props.theme;
+    const set = (v) => v === 'light' || v === 'dark';
+    if (was !== now && set(was) && set(now)) {
+      this.setState({ theme: now });
+    }
+    if (this.syncedTheme !== this.state.theme) { this.syncedTheme = this.state.theme; this.syncBody(this.state.theme); }
+  }
+
+  componentWillUnmount() {
+    for (let i = 0; i < this.cleanups.length; i++) this.cleanups[i]();
+    this.cleanups = [];
+    clearTimeout(this.switchTimer);
+    clearTimeout(this.closeTimer);
+  }
+
+  /* Each screen is its own artboard with its own component, so the pick is
+     parked outside it, in every place that might outlive the swap, and read
+     back from the first that kept it. The canvas frame's window.name is the
+     one that survives that frame reloading even with storage blocked. */
+  themeCarriers(theme) {
+    const w = typeof window === 'undefined' ? null : window;
+    if (!w) return [];
+    let up = null;
+    try { up = w.parent && w.parent !== w ? w.parent : null; } catch (err) { up = null; }
+    const tag = 'mr-theme:';
+    const fromName = (n) => (n && n.indexOf(tag) === 0 ? n.slice(tag.length) : null);
+    return [
+      { k: 'global', get: () => w.__mrTheme, set: () => { w.__mrTheme = theme; } },
+      { k: 'parent', get: () => (up ? up.__mrTheme : null), set: () => { if (up) up.__mrTheme = theme; } },
+      { k: 'parent.name', get: () => (up ? fromName(up.name || '') : null),
+        set: () => { if (!up) return; const n = up.name || ''; if (!n || n.indexOf(tag) === 0) up.name = tag + theme; } },
+      { k: 'session', get: () => w.sessionStorage.getItem('mr-theme'), set: () => w.sessionStorage.setItem('mr-theme', theme) },
+      { k: 'local', get: () => w.localStorage.getItem('mr-theme'), set: () => w.localStorage.setItem('mr-theme', theme) },
+      { k: 'cookie', get: () => { const m = /(?:^|;\s*)mr-theme=(light|dark)/.exec(document.cookie || ''); return m ? m[1] : null; },
+        set: () => { document.cookie = 'mr-theme=' + theme + ';path=/;max-age=31536000;samesite=lax'; } },
+      { k: 'name', get: () => fromName(w.name || ''),
+        set: () => { const n = w.name || ''; if (!n || n.indexOf(tag) === 0) w.name = tag + theme; } }
+    ];
+  }
+
+  readTheme() {
+    const list = this.themeCarriers(null);
+    for (let i = 0; i < list.length; i += 1) {
+      try {
+        const v = list[i].get();
+        if (v === 'dark' || v === 'light') { this.themeSrc = list[i].k; return v; }
+      } catch (err) {}
+    }
+    this.themeSrc = 'none';
+    return null;
+  }
+
+  writeTheme(theme) {
+    if (theme !== 'dark' && theme !== 'light') return;
+    const list = this.themeCarriers(theme);
+    for (let i = 0; i < list.length; i += 1) { try { list[i].set(); } catch (err) {} }
+  }
+
+  /* Every page is mounted at once in the canvas; moving between them only
+     changes which one is in front. So a toggle is sent to the other pages
+     the moment it happens, and each one listening switches to match. */
+  initThemeSync() {
+    const apply = (t) => { if ((t === 'dark' || t === 'light') && t !== this.state.theme) this.setState({ theme: t }); };
+    const onMsg = (e) => { const d = e && e.data; if (d && d.type === 'mr-theme') apply(d.theme); };
+    const onStorage = (e) => { if (e && e.key === 'mr-theme') apply(e.newValue); };
+    window.addEventListener('message', onMsg);
+    window.addEventListener('storage', onStorage);
+    let bc = null;
+    try { bc = new BroadcastChannel('mr-theme'); bc.onmessage = (e) => apply(e.data); } catch (err) { bc = null; }
+    this.themeBc = bc;
+    this.cleanups.push(() => {
+      window.removeEventListener('message', onMsg);
+      window.removeEventListener('storage', onStorage);
+      if (bc) { try { bc.close(); } catch (err) {} }
+    });
+  }
+
+  broadcastTheme(theme) {
+    try { if (this.themeBc) this.themeBc.postMessage(theme); } catch (err) {}
+    /* and straight to every sibling frame, which needs no shared storage */
+    try {
+      const up = window.parent;
+      if (up && up !== window) {
+        for (let i = 0; i < up.frames.length; i += 1) {
+          const f = up.frames[i];
+          if (f !== window) { try { f.postMessage({ type: 'mr-theme', theme }, '*'); } catch (err) {} }
+        }
+      }
+    } catch (err) {}
+  }
+  syncBody(theme) {
+    try {
+      document.body.style.backgroundColor = theme === 'dark' ? '#1D141F' : '#F8F0E7';
+      document.documentElement.style.colorScheme = theme;
+    } catch (err) {}
+  }
+
+  initSmooth(root, reduced) {
+    const L = window.Lenis;
+    if (typeof L === 'function' && !reduced) {
+      try {
+        const lenis = new L({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 1 });
+        this.lenis = lenis;
+        const loop = (t) => { lenis.raf(t); this.lenisRaf = window.requestAnimationFrame(loop); };
+        this.lenisRaf = window.requestAnimationFrame(loop);
+        this.cleanups.push(() => { window.cancelAnimationFrame(this.lenisRaf); lenis.destroy(); this.lenis = null; });
+      } catch (err) { this.lenis = null; }
+    }
+  }
+
+  switchTheme(e) {
+    const next = this.state.theme === 'dark' ? 'light' : 'dark';
+    this.writeTheme(next);
+    this.broadcastTheme(next);
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    let x = window.innerWidth - 80, y = 38;
+    const btn = e && e.currentTarget;
+    if (btn && btn.getBoundingClientRect) { const r = btn.getBoundingClientRect(); x = r.left + r.width / 2; y = r.top + r.height / 2; }
+    if (!reduced && typeof document.startViewTransition === 'function') {
+      try {
+        const vt = document.startViewTransition(() => new Promise((resolve) => this.setState({ theme: next }, resolve)));
+        const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+        vt.ready.then(() => {
+          document.documentElement.animate(
+            { clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + radius + 'px at ' + x + 'px ' + y + 'px)'] },
+            { duration: 820, easing: 'cubic-bezier(.22,1,.36,1)', pseudoElement: '::view-transition-new(root)' }
+          );
+        }).catch(() => {});
+        return;
+      } catch (err) {}
+    }
+    const root = this.rootEl || document.getElementById('home-root');
+    if (root && !reduced) {
+      root.classList.add('switching');
+      clearTimeout(this.switchTimer);
+      this.switchTimer = setTimeout(() => root.classList.remove('switching'), 650);
+    }
+    this.setState({ theme: next });
+  }
+
+  initReveal(root) {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const nodes = root.querySelectorAll('[data-reveal]');
+    root.classList.add('anim');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+    for (let i = 0; i < nodes.length; i++) io.observe(nodes[i]);
+    this.cleanups.push(() => io.disconnect());
+  }
+
+  initBurger(root) {
+    const btns = Array.prototype.slice.call(root.querySelectorAll('[data-burger]'));
+    const btn = btns[0];
+    const hdr = root.querySelector('[data-header]');
+    if (!btns.length || !hdr) return;
+    const set = (open) => {
+      hdr.classList.toggle('mopen', open);
+      root.classList.toggle('gated', open);
+      if (btn) { btn.setAttribute('aria-expanded', open ? 'true' : 'false'); btn.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu'); }
+    };
+    const toggle = () => set(!hdr.classList.contains('mopen'));
+    btns.forEach((b) => b.addEventListener('click', toggle));
+    /* a link was picked, or the window grew back to desktop: close it */
+    const panel = root.querySelector('[data-mnav]');
+    const close = () => set(false);
+    if (panel) panel.addEventListener('click', (e) => { if (e.target.closest('a')) close(); });
+    const mq = window.matchMedia ? window.matchMedia('(min-width: 701px)') : null;
+    if (mq && mq.addEventListener) mq.addEventListener('change', close);
+    this.cleanups.push(() => {
+      btns.forEach((b) => b.removeEventListener('click', toggle));
+      if (mq && mq.removeEventListener) mq.removeEventListener('change', close);
+      hdr.classList.remove('mopen');
+      root.classList.remove('gated');
+    });
+  }
+  initStickyNav(root) {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const sentinel = root.querySelector('[data-top-sentinel]');
+    const header = root.querySelector('[data-header]');
+    if (!sentinel || !header) return;
+    const io = new IntersectionObserver((entries) => { header.classList.toggle('stuck', !entries[0].isIntersecting); });
+    io.observe(sentinel);
+    this.cleanups.push(() => io.disconnect());
+  }
+
+  initPointer(root) {
+    const dot = root.querySelector('[data-cursor-dot]');
+    const ring = root.querySelector('[data-cursor-ring]');
+    if (!dot || !ring) return;
+    const label = ring.querySelector('[data-cursor-label]');
+    /* the pull is a mouse trick; small screens never get it */
+    const pullMagnets = this.mq('(min-width: 701px)');
+    const magnets = pullMagnets ? Array.prototype.slice.call(root.querySelectorAll('[data-magnetic]')) : [];
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my, px = mx, py = my, moved = true;
+    root.classList.add('has-cursor');
+
+    /* what the blob says over a given thing */
+    const wordFor = (el) => {
+      const said = el.getAttribute('data-cursor');
+      if (said) return said;
+      if (el.hasAttribute('data-drag')) return 'drag me';
+      if (el.hasAttribute('data-note')) return 'read';
+      if (el.hasAttribute('data-bug')) return 'catch it';
+      if (el.classList.contains('proj')) return 'case study';
+      if (el.classList.contains('skrow')) return 'skill file';
+      if (el.classList.contains('vcard')) return 'have a look';
+      return '';
+    };
+    const onMove = (e) => { mx = e.clientX; my = e.clientY; moved = true; };
+    const onOver = (e) => {
+      const t = e.target && e.target.closest ? e.target.closest('a, button, input, [data-drag], [data-hover], [data-note], [data-cursor]') : null;
+      const word = t ? wordFor(t) : '';
+      if (label) label.textContent = word;
+      ring.classList.toggle('lab', !!word);
+      ring.classList.toggle('grow', !!t && !word);
+    };
+    const onDown = () => root.classList.add('grabbing');
+    const onUp = () => root.classList.remove('grabbing');
+    const onLeave = () => { ring.style.opacity = '0'; dot.style.opacity = '0'; };
+    const onEnter = () => { ring.style.opacity = ''; dot.style.opacity = ''; };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('mouseover', onOver, { passive: true });
+    window.addEventListener('mousedown', onDown, { passive: true });
+    window.addEventListener('mouseup', onUp, { passive: true });
+    document.addEventListener('mouseleave', onLeave);
+    document.addEventListener('mouseenter', onEnter);
+
+    const tick = () => {
+      rx += (mx - rx) * 0.16;
+      ry += (my - ry) * 0.16;
+      /* the blob leans and stretches into the direction it is travelling */
+      const vx = rx - px, vy = ry - py;
+      px = rx; py = ry;
+      const speed = Math.min(Math.sqrt(vx * vx + vy * vy), 34);
+      const ang = speed > 0.6 ? Math.atan2(vy, vx) * 180 / Math.PI : 0;
+      const st = 1 + speed * 0.014, sq = 1 - speed * 0.009;
+      dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+      /* only the bare dot leans; a pill with words in it stays level so they read and fit */
+      ring.style.transform = ring.classList.contains('lab')
+        ? 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0)'
+        : 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0) rotate(' + ang.toFixed(2) + 'deg) scale(' + st.toFixed(3) + ',' + sq.toFixed(3) + ')';
+      if (moved) {
+        for (let i = 0; i < magnets.length; i++) {
+          const el = magnets[i];
+          const r = el.getBoundingClientRect();
+          if (r.width === 0) continue;
+          const dx = mx - (r.left + r.width / 2), dy = my - (r.top + r.height / 2);
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const range = Math.max(r.width, r.height) * 0.8 + 44;
+          if (dist < range) {
+            const k = (1 - dist / range) * 0.22;
+            el.style.transform = 'translate(' + (dx * k).toFixed(2) + 'px,' + (dy * k).toFixed(2) + 'px)';
+          } else if (el.style.transform) {
+            el.style.transform = '';
+          }
+        }
+        moved = false;
+      }
+      this.raf = window.requestAnimationFrame(tick);
+    };
+    this.raf = window.requestAnimationFrame(tick);
+
+    this.cleanups.push(() => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseover', onOver);
+      window.removeEventListener('mousedown', onDown);
+      window.removeEventListener('mouseup', onUp);
+      document.removeEventListener('mouseleave', onLeave);
+      document.removeEventListener('mouseenter', onEnter);
+      if (this.raf) window.cancelAnimationFrame(this.raf);
+    });
+  }
+  renderVals() {
+    const dark = this.state.theme === 'dark';
+    const all = this.notes.map((note, i) => ({ ...note, idx: i, mins: this.minutes(note) }));
+    return {
+      setRoot: this.setRoot,
+      themeClass: dark ? 'theme-dark' : 'theme-light',
+      isDark: dark,
+      isLight: !dark,
+      themeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      toggleTheme: this.toggleTheme,
+      feat: all[0],
+      rest: all.slice(1)
+    };
+  }
+}
+</script>
+</body>
+</html>

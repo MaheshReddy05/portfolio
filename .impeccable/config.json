@@ -1,0 +1,23 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "instrument sans",
+        "createdAt": "2026-09-18T21:47:09.681Z",
+        "reason": "builder: body face inherited from the established homepage type system (Main.dc.html); switching it on one page would split the site identity"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "project/About.dc.html"
+        ],
+        "createdAt": "2026-09-18T21:47:10.106Z",
+        "reason": "builder: flagged elements are centered placeholder art (.pf, .comic-art), a vertical ticket-number column (.stub-no) and the page theme wrapper, not text against an edge; confirmed visually in desktop/mobile captures"
+      }
+    ]
+  }
+}

@@ -1,0 +1,202 @@
+
+/* ================= WORK PAGE ================= */
+[hidden] { display: none !important; }
+.theme-light { --p-olive: #E3E6CB; --p-rose: #F2D8DA; }
+.theme-dark { --p-olive: #2A2D1B; --p-rose: #3A2529; }
+.nv[aria-current="page"] { color: var(--ink); }
+.nv[aria-current="page"]::after { right: 0; }
+.ulink { position: relative; color: var(--ink-2); }
+.ulink::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px; background: var(--border); transition: background-color .3s ease; }
+.ulink:hover { color: var(--primary); }
+.ulink:hover::after { background: var(--primary); }
+
+/* filter tabs: one pill, positioned by script, sliding on transform alone */
+.ftabs { position: relative; display: inline-flex; align-items: center; gap: 2px; padding: 5px; border-radius: 999px; background: var(--sunken); border: 1px solid var(--border-strong); }
+.fglide {
+  position: absolute; left: 0; top: 5px; bottom: 5px; width: 0; z-index: 0;
+  border-radius: 999px; background: var(--primary); opacity: 0;
+  transform: translate3d(0,0,0); will-change: transform, width;
+  transition: transform .52s cubic-bezier(.32,.72,0,1), width .52s cubic-bezier(.32,.72,0,1), opacity .3s ease;
+}
+.ftab {
+  position: relative; z-index: 1; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px; padding: 0 18px; border: none; border-radius: 999px; background: transparent;
+  font-family: 'Space Grotesk', sans-serif; font-size: 14.5px; font-weight: 600; letter-spacing: 0; color: var(--ink-2);
+  transition: color .28s ease, background-color .28s ease;
+}
+/* the label turns light as the pill gets there, not before it leaves */
+.ftab[aria-pressed="true"] { color: var(--on-primary); transition: color .26s ease .16s; }
+.ftab:not([aria-pressed="true"]):hover { color: var(--ink); background: color-mix(in srgb, var(--primary) 11%, transparent); }
+.ftab .n { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; font-weight: 500; opacity: .75; }
+@media (prefers-reduced-motion: reduce) { .fglide { transition: none; } }
+::view-transition-group(*) { animation-duration: .65s; animation-timing-function: cubic-bezier(.22,1,.36,1); }
+
+.projgrid { transition: opacity .26s ease; }
+.projgrid.swapping { opacity: .28; }
+.pos-a { grid-column: 1 / span 12; }
+.pos-b { grid-column: 3 / span 10; }
+.pos-c { grid-column: 1 / span 9; }
+
+/* extra project mockups */
+.m4 { transform: rotate(-2deg); }
+.proj:hover .m4 { transform: rotate(-.6deg) translateY(-12px); }
+.stick { box-sizing: border-box; padding: 10px 11px; border-radius: 3px; font-size: 11.5px; line-height: 1.4; color: var(--ink); box-shadow: 0 6px 12px -8px rgba(63,20,77,.35); }
+.m5 { transition: transform 1.1s cubic-bezier(.22,1,.36,1); }
+.m5.l { transform: rotate(-8deg) translate(10px, 26px); }
+.m5.c { transform: rotate(0deg); }
+.m5.r { transform: rotate(8deg) translate(-10px, 26px); }
+.proj:hover .m5.l { transform: rotate(-14deg) translate(-10px, 16px); }
+.proj:hover .m5.c { transform: translateY(-16px); }
+.proj:hover .m5.r { transform: rotate(14deg) translate(10px, 16px); }
+.ticket { position: relative; box-sizing: border-box; width: 230px; background: var(--m-bg); border-radius: 16px; box-shadow: var(--shadow-lift); overflow: hidden; }
+.ticket .perf { position: relative; height: 0; border-top: 2px dashed var(--m-line); margin: 0 18px; }
+.ticket .perf::before, .ticket .perf::after { content: ""; position: absolute; top: -12px; width: 22px; height: 22px; border-radius: 999px; background: var(--p-rose); }
+.ticket .perf::before { left: -30px; } .ticket .perf::after { right: -30px; }
+.vote { display: inline-flex; align-items: center; justify-content: center; height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--m-line); font-size: 11.5px; font-weight: 600; color: var(--ink-2); }
+.m6 { transform: rotate(3deg); }
+.proj:hover .m6 { transform: rotate(1deg) translateY(-14px); }
+.cpanel { position: relative; border-radius: 4px; border: 2px solid var(--ink); overflow: hidden; background-color: var(--m-bg); background-image: radial-gradient(var(--m-line) 1.2px, transparent 1.4px); background-size: 7px 7px; }
+.bubble { position: absolute; padding: 6px 10px; border-radius: 14px; background: var(--m-bg); border: 2px solid var(--ink); font-family: 'Caveat', cursive; font-weight: 700; font-size: 17px; line-height: 1; color: var(--ink); }
+
+/* vibe-coded tools: a list on one side, a pinned code window on the other */
+.toolrow {
+  display: grid; grid-template-columns: 48px minmax(0,1fr) auto; gap: 18px; align-items: center;
+  padding: 18px 18px; border-radius: 16px; border: 1px solid transparent; color: inherit; cursor: pointer;
+  transition: background-color .3s ease, border-color .3s ease, transform .45s cubic-bezier(.22,1,.36,1);
+}
+.toolrow:hover { color: inherit; }
+.toolrow.on { background: var(--raised); border-color: var(--border); box-shadow: var(--shadow); }
+.toolrow:hover { transform: translateX(4px); }
+.toolicon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+.tooltype { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+.tooltype i { display: block; width: 7px; height: 7px; border-radius: 999px; }
+.toolrow {
+  display: grid; grid-template-columns: 48px minmax(0,1fr) auto; gap: 18px; align-items: center;
+  padding: 18px 18px; border-radius: 16px; border: 1px solid transparent; color: inherit; cursor: pointer;
+  transition: background-color .3s ease, border-color .3s ease, transform .45s cubic-bezier(.22,1,.36,1);
+}
+.toolrow:hover { color: inherit; }
+.toolrow.on { background: var(--raised); border-color: var(--border); box-shadow: var(--shadow); }
+.toolrow:hover { transform: translateX(4px); }
+.toolicon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+.tooltype { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+.tooltype i { display: block; width: 7px; height: 7px; border-radius: 999px; }
+/* ================= REDUCED MOTION ================= */
+@media (prefers-reduced-motion: reduce) {
+  .anim [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .anim [data-reveal] .ln > span, .anim [data-reveal] .rule { transform: none !important; }
+  .anim [data-reveal] .wipe { clip-path: none !important; }
+  .anim [data-reveal] .squig path { stroke-dashoffset: 0 !important; }
+  .curdot, .curring { display: none !important; }
+  * { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+/* ---------- tablet ---------- */
+@media (max-width: 1020px) {
+  .pad { padding-left: 40px !important; padding-right: 40px !important; }
+  .split { grid-template-columns: repeat(6, minmax(0,1fr)) !important; }
+  .cell { grid-column: 1 / -1 !important; }
+  .d1 { font-size: 64px !important; }
+  .d2 { font-size: 40px !important; }
+  .sdtext { max-width: 52% !important; }
+  .toolside { position: static !important; }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 700px) {
+  .pad { padding-left: 20px !important; padding-right: 20px !important; }
+  .navlinks, .navcta { display: none !important; }
+  .secpad { padding-top: 72px !important; padding-bottom: 72px !important; }
+  .d1 { font-size: 52px !important; }
+  .d2 { font-size: 32px !important; }
+  .rot { rotate: 0deg !important; }
+  .ctarow { flex-direction: column !important; align-items: stretch !important; }
+  .ctarow > a { justify-content: center !important; }
+  .ftabs { overflow-x: auto; max-width: 100%; }
+  .ftab { padding: 0 13px; font-size: 13.5px; }
+  .hide-sm { display: none !important; }
+  .panel { height: 380px !important; }
+  .sdtext { max-width: 100% !important; top: 70px !important; }
+  .sdtext .serif { font-size: 34px !important; }
+  .m2 { right: -60px !important; top: 190px !important; }
+  .m3b { left: 30% !important; top: 190px !important; }
+  .m3a { width: 300px !important; }
+  .pnote { display: none !important; }
+  .toolrow { grid-template-columns: 40px minmax(0,1fr); }
+  .toolrow .tooltype { grid-column: 2; }
+  .toolicon { width: 40px; height: 40px; }
+}
+</style>
+</helmet>
+
+<div class="{{themeClass}}" style="background: var(--canvas); min-height: 100vh;">
+<div id="home-root" ref="{{setRoot}}" class="sheet" style="position: relative; box-sizing: border-box; background: var(--canvas); color: var(--ink); font-family: 'Space Grotesk', sans-serif; overflow-x: clip;">
+
+  <div data-top-sentinel aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 1px; height: 1px;"></div>
+
+  <!-- ================= NAV ================= -->
+  <header data-header class="hdr pad" style="box-sizing: border-box; width: 100%; padding: 0 80px;">
+    <nav class="wrap" style="height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a class="brand" href="Main.dc.html" aria-label="Mahesh Reddy, back to the homepage"><span class="mark" aria-hidden="true"><img class="only-light" src="/_blob/ca5d19d0709653cac4b90f0a2090e512" alt=""><img class="only-dark" src="/_blob/1eedbc90d84e2f8eaeeedef4982330cd" alt=""></span></a>
+      <div style="display: flex; align-items: center; gap: 28px;">
+        <div class="navlinks" style="display: flex; align-items: center; gap: 30px; font-size: 15px; font-weight: 500;">
+          <a class="nv" href="Work.dc.html" aria-current="page">Work</a>
+          <a class="nv" href="About.dc.html">About</a>
+          <a class="nv" href="Skills.dc.html">Playground</a>
+          <a class="nv" href="Thoughts.dc.html">Thoughts</a>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="toggle" aria-label="{{themeLabel}}" title="{{themeLabel}}" onClick="{{toggleTheme}}">
+            <sc-if value="{{isDark}}" hint-placeholder-val="{{false}}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"></path></svg>
+            </sc-if>
+            <sc-if value="{{isLight}}" hint-placeholder-val="{{true}}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8z"></path></svg>
+            </sc-if>
+          </button>
+          <a class="btn btn-primary navcta" data-magnetic href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Say hello</a>
+          <button type="button" class="burger" data-burger aria-label="Open the menu" aria-expanded="false"><i aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </nav>
+    <div class="mnav" data-mnav>
+      <button type="button" class="mclose" data-burger aria-label="Close the menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+      <div class="mlinks">
+        <a class="nv" href="Main.dc.html">Home</a>
+        <a class="nv" href="Work.dc.html" aria-current="page">Work</a>
+        <a class="nv" href="About.dc.html">About</a>
+        <a class="nv" href="Skills.dc.html">Playground</a>
+        <a class="nv" href="Thoughts.dc.html">Thoughts</a>
+      </div>
+      <div class="mfoot">
+        <p class="mg">(quickest way to reach me)</p>
+        <a class="btn btn-primary" href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Say hello</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HEADER: headline left, filters right ================= -->
+  <section id="projects" class="pad" style="box-sizing: border-box; width: 100%; padding: 96px 80px 136px 80px;">
+    <div class="wrap">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 32px 48px; flex-wrap: wrap; margin-bottom: 72px;">
+        <div data-reveal>
+          <h1 class="d1" style="margin: 0 0 18px 0; font-family: 'Space Grotesk', sans-serif; font-size: 94px; line-height: 1; letter-spacing: -0.043em; color: var(--ink); font-weight: 700;"><span class="ln"><span>Work</span></span></h1>
+          <p style="margin: 0; font-size: 19px; line-height: 1.6; color: var(--ink-2); max-width: 40ch;">Products, research and the odd thing I made for fun.</p>
+        </div>
+        <div data-reveal data-d="1" style="position: relative; padding-bottom: 4px;">
+          <p class="mg rot hide-sm" aria-hidden="true" style="position: absolute; right: 8px; top: -30px; margin: 0; rotate: -3deg; font-size: 17px; white-space: nowrap; opacity: .85;">the good stuff is in Fun
+            <svg width="17" height="14" viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M3 3c8 2 14 7 18 15"></path><path d="M14 16l7 3 1-8"></path></svg></p>
+          <div class="ftabs" role="group" aria-label="Filter projects" ref="{{setTabs}}">
+            <span class="fglide" data-fglide aria-hidden="true"></span>
+            <button type="button" class="ftab" aria-pressed="{{f.all}}" onClick="{{fAll}}">All <span class="n">8</span></button>
+            <button type="button" class="ftab" aria-pressed="{{f.product}}" onClick="{{fProduct}}">0-1 Product <span class="n">2</span></button>
+            <button type="button" class="ftab" aria-pressed="{{f.research}}" onClick="{{fResearch}}">Research <span class="n">5</span></button>
+            <button type="button" class="ftab" aria-pressed="{{f.web}}" onClick="{{fWeb}}">Web <span class="n">3</span></button>
+            <button type="button" class="ftab" aria-pressed="{{f.fun}}" onClick="{{fFun}}">Fun <span class="n">2</span></button>
+          </div>
+        </div>
+      </div>
+      <p class="sr" aria-live="polite">{{filterSummary}}</p>
+
+      <div class="split projgrid" data-proj-grid style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); column-gap: 32px; row-gap: 72px;">
+

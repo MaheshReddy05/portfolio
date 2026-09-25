@@ -1,0 +1,120 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "About.dc.html": {
+      "expand": "fill",
+      "h": 5500,
+      "is_interactive": true,
+      "title": "About",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "EdAbroad.dc.html": {
+      "expand": "fill",
+      "h": 8000,
+      "is_interactive": true,
+      "title": "EdAbroad case study",
+      "w": 1440,
+      "x": 9120,
+      "y": 0
+    },
+    "Main.dc.html": {
+      "expand": "fill",
+      "h": 6500,
+      "is_interactive": true,
+      "title": "Homepage",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Notfound.dc.html": {
+      "expand": "fill",
+      "h": 1400,
+      "is_interactive": true,
+      "title": "404",
+      "w": 1440,
+      "x": 7600,
+      "y": 0
+    },
+    "Optimity.dc.html": {
+      "expand": "fill",
+      "h": 8000,
+      "is_interactive": true,
+      "title": "Optimity case study",
+      "w": 1440,
+      "x": 12160,
+      "y": 0
+    },
+    "Skills.dc.html": {
+      "expand": "fill",
+      "h": 3400,
+      "is_interactive": true,
+      "title": "Playground",
+      "w": 1440,
+      "x": 6080,
+      "y": 0
+    },
+    "Texitag.dc.html": {
+      "expand": "fill",
+      "h": 7400,
+      "is_interactive": true,
+      "title": "Texitag case study",
+      "w": 1440,
+      "x": 10640,
+      "y": 0
+    },
+    "Thoughts.dc.html": {
+      "expand": "fill",
+      "h": 3150,
+      "is_interactive": true,
+      "title": "Thoughts",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "Work.dc.html": {
+      "expand": "fill",
+      "h": 6600,
+      "is_interactive": true,
+      "title": "Work",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "EB5Resources.dc.html": {
+      "expand": "fill",
+      "h": 6400,
+      "is_interactive": true,
+      "title": "EB5 Resources case study",
+      "w": 1440,
+      "x": 13680,
+      "y": 0
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-09-18T11:20:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "file": "Main.dc.html",
+    "view": "focused"
+  },
+  "notes": {},
+  "order": [
+    "Main.dc.html",
+    "Work.dc.html",
+    "About.dc.html",
+    "Thoughts.dc.html",
+    "Skills.dc.html",
+    "Notfound.dc.html",
+    "EdAbroad.dc.html",
+    "Texitag.dc.html",
+    "Optimity.dc.html",
+    "EB5Resources.dc.html"
+  ],
+  "pages": [],
+  "title": "Personal Portfolio Homepage"
+}

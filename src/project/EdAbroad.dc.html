@@ -1,0 +1,1558 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EdAbroad case study, Mahesh Reddy</title>
+<script src="./support.js"></script>
+<script src="/_blob/532bd04a314bea40837dfdce81e1235e"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Caveat:wght@500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&amp;display=swap">
+<style>
+/* =====================================================================
+   Tokens. Light is "paper: warm linen and clay", dark is its night twin.
+   ===================================================================== */
+.theme-light {
+  --canvas: #F8F0E7; --sunken: #F0E6DB; --raised: #FFFBF5;
+  --border: #E5DBD1; --border-strong: #D5C4B4; --border-v: #EAE1E8;
+  --ink: #3F144D; --ink-2: #62396F; --ink-3: #855794; --muted: #A98DB0;
+  --primary: #5603AD; --primary-hover: #600689; --primary-active: #4C0B65; --on-primary: #F8F0E7;
+  --terra: #AB3821; --terra-hover: #942E19; --on-terra: #F8F0E7;
+  --olive: #6D762D; --olive-line: #D3D6B4; --petrol: #32767B; --petrol-line: #B9D0CF; --rose: #BD6B76;
+  --on-accent: #FFFBF5;
+  --shadow: 0 1px 2px rgba(63,20,77,.05), 0 22px 44px -30px rgba(63,20,77,.30);
+  --shadow-lift: 0 2px 4px rgba(63,20,77,.06), 0 34px 60px -30px rgba(63,20,77,.42);
+  --shadow-soft: 0 1px 3px rgba(63,20,77,.04), 0 16px 34px -12px rgba(63,20,77,.16);
+  --tape: rgba(234,225,232,.88);
+  --photo: saturate(.92) sepia(.06);
+  --ring-fill: rgba(86,3,173,.08);
+  --note: #F6DCC8;
+  --rule-line: rgba(63,20,77,.075); --margin-line: rgba(189,107,118,.4);
+  --p-lav: #E6D9F4; --p-peach: #EECBB0; --p-sage: #D2E1DA;
+  --m-bg: #FFFBF5; --m-line: #EDE3D9; --m-soft: #F6EEE5; --bezel: #2A0F33;
+  --grain-o: .045; --grain-f: none;
+}
+.theme-dark {
+  --canvas: #1D141F; --sunken: #281D2A; --raised: #362938;
+  --border: #4B3C4E; --border-strong: #63526B; --border-v: #4A3A4F;
+  --ink: #F6F0EA; --ink-2: #C6B2C7; --ink-3: #AE98AF; --muted: #99829B;
+  --primary: #CE7AF5; --primary-hover: #DA97F8; --primary-active: #B862E0; --on-primary: #1D141F;
+  --terra: #E9795D; --terra-hover: #F08F76; --on-terra: #1D141F;
+  --olive: #B6CA68; --olive-line: #4A5230; --petrol: #60C0C7; --petrol-line: #2F5A5D; --rose: #DF8692;
+  --on-accent: #1D141F;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 22px 44px -28px rgba(0,0,0,.72);
+  --shadow-lift: 0 2px 4px rgba(0,0,0,.3), 0 34px 60px -28px rgba(0,0,0,.82);
+  --shadow-soft: 0 1px 3px rgba(0,0,0,.22), 0 16px 34px -12px rgba(0,0,0,.5);
+  --tape: rgba(98,78,102,.72);
+  --photo: saturate(.86) brightness(.9);
+  --ring-fill: rgba(206,122,245,.12);
+  --note: #4A3530;
+  --rule-line: rgba(246,240,234,.05); --margin-line: rgba(223,134,146,.3);
+  --p-lav: #2E2242; --p-peach: #3B2A25; --p-sage: #1E3131;
+  --m-bg: #241A27; --m-line: #3E3042; --m-soft: #2E2231; --bezel: #0D080E;
+  --grain-o: .03; --grain-f: invert(1);
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body { margin: 0; background: #F8F0E7; -webkit-font-smoothing: antialiased; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--primary-hover); }
+img { display: block; }
+::selection { background: var(--primary); color: var(--on-primary); }
+a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 6px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Lenis smooth scrolling */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* theme switch: circular wipe where supported, soft cross-fade elsewhere */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+.switching, .switching * { transition: background-color .55s ease, color .55s ease, border-color .55s ease, box-shadow .55s ease !important; }
+
+.wrap { max-width: 1280px; margin-left: auto; margin-right: auto; }
+
+.cap { font-size: 13px; font-weight: 500; color: var(--ink-3); }
+.mg { font-family: 'Caveat', cursive; font-weight: 600; font-size: 25px; line-height: 1.1; color: var(--rose); }
+.hand { font-family: 'Caveat', cursive; font-weight: 600; }
+.mono { font-family: 'Space Grotesk', sans-serif; }
+.lbl { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
+.serif { font-family: 'Newsreader', Georgia, serif; font-optical-sizing: auto; font-weight: 400; }
+.photo { filter: var(--photo); transition: filter .6s ease, transform 1.1s cubic-bezier(.22,1,.36,1); }
+
+/* ================= TEXTURE =================
+   z-index scale: header 40, grain 80, cursor 90. Nothing else layers. */
+.grain {
+  position: fixed; inset: 0; z-index: 80; pointer-events: none;
+  background-image: url(/_blob/341b3175735f56d1c75bf5aeb5250a36); background-size: 220px 220px;
+  opacity: var(--grain-o); filter: var(--grain-f);
+}
+.ruled {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(to right, transparent 0 56px, var(--margin-line) 56px 57px, transparent 57px),
+    repeating-linear-gradient(to bottom, transparent 0 35px, var(--rule-line) 35px 36px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+}
+
+/* ================= SCROLL REVEALS ================= */
+.anim [data-reveal] { opacity: 0; transform: translateY(16px); }
+.anim [data-reveal].in { opacity: 1; transform: none; transition: opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.1s cubic-bezier(.22,1,.36,1); }
+.anim [data-reveal][data-d="1"].in { transition-delay: .12s; }
+.anim [data-reveal][data-d="2"].in { transition-delay: .24s; }
+.anim [data-reveal][data-d="3"].in { transition-delay: .36s; }
+
+.ln { display: block; overflow: hidden; padding-bottom: .16em; margin-bottom: -.16em; }
+.ln > span { display: block; }
+.anim [data-reveal] .ln > span { transform: translateY(105%); }
+.anim [data-reveal].in .ln > span { transform: none; transition: transform 1.15s cubic-bezier(.22,1,.36,1); }
+.anim [data-reveal].in .ln:nth-child(2) > span { transition-delay: .12s; }
+
+.squig path { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.anim [data-reveal] .squig path { stroke-dashoffset: 100; }
+.anim [data-reveal].in .squig path { stroke-dashoffset: 0; transition: stroke-dashoffset 1.2s cubic-bezier(.65,0,.35,1) .75s; }
+
+.anim [data-reveal] .wipe { clip-path: inset(0 0 100% 0 round 22px); }
+.anim [data-reveal].in .wipe { clip-path: inset(0 0 0 0 round 22px); transition: clip-path 1.3s cubic-bezier(.22,1,.36,1), filter .6s ease; }
+
+.rule { display: block; width: 56px; height: 2px; border-radius: 2px; background: var(--primary); transform-origin: 0 50%; }
+.anim [data-reveal] .rule { transform: scaleX(0); }
+.anim [data-reveal].in .rule { transform: scaleX(1); transition: transform 1s cubic-bezier(.22,1,.36,1) .2s; }
+
+.anim [data-reveal] .pop { opacity: 0; }
+.anim [data-reveal].in .pop { animation: popin 1s cubic-bezier(.22,1,.36,1) both; }
+.anim [data-reveal].in .pop[data-p="2"] { animation-delay: .12s; }
+.anim [data-reveal].in .pop[data-p="3"] { animation-delay: .24s; }
+.anim [data-reveal].in .pop[data-p="4"] { animation-delay: .36s; }
+.anim [data-reveal].in .pop[data-p="5"] { animation-delay: .48s; }
+@keyframes popin { from { opacity: 0; transform: translateY(26px) scale(.92); } to { opacity: 1; transform: none; } }
+
+/* ================= AMBIENT MOTION ================= */
+.spark { position: absolute; color: var(--rose); pointer-events: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .spark { animation: twinkle 3.6s ease-in-out infinite alternate; }
+  .spark.s3 { animation-delay: -2.2s; animation-duration: 3.9s; }
+  @keyframes twinkle { 0% { transform: scale(.7) rotate(0deg); opacity: .55; } 100% { transform: scale(1.05) rotate(18deg); opacity: 1; } }
+  .spin { animation: spin 24s linear infinite; }
+  @keyframes spin { to { rotate: 360deg; } }
+  .live::after { content: ""; position: absolute; inset: -5px; border-radius: 999px; border: 2px solid var(--olive); animation: pulse 2.6s ease-out infinite; }
+  @keyframes pulse { from { opacity: .75; transform: scale(.55); } to { opacity: 0; transform: scale(1.7); } }
+  .wander { animation: wander 17s ease-in-out infinite; }
+  @keyframes wander {
+    0% { translate: 300px 436px; } 18% { translate: 150px 232px; } 36% { translate: 270px 180px; }
+    54% { translate: 400px 320px; } 72% { translate: 110px 414px; } 100% { translate: 300px 436px; }
+  }
+  .mouse-dot { animation: wheel 1.9s cubic-bezier(.65,0,.35,1) infinite; }
+  @keyframes wheel {
+    0% { transform: translateY(0); opacity: 0; }
+    20% { opacity: 1; }
+    75% { transform: translateY(-16px); opacity: 1; }
+    100% { transform: translateY(-18px); opacity: 0; }
+  }
+}
+@media (prefers-reduced-motion: reduce) { .wander { translate: 300px 436px; } }
+
+/* ================= CURSOR ================= */
+.curdot { display: none; }
+.curring { position: fixed; left: 0; top: 0; z-index: 90; pointer-events: none; opacity: 0; will-change: transform; }
+.has-cursor .curring { opacity: 1; }
+.curring {
+  display: flex; align-items: center; justify-content: center;
+  min-width: 12px; height: 12px; margin: -6px 0 0 -6px; padding: 0; border-radius: 999px; box-sizing: border-box;
+  background: var(--primary); color: var(--on-primary);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; letter-spacing: .04em;
+  transition: min-width .42s cubic-bezier(.22,1,.36,1), height .42s cubic-bezier(.22,1,.36,1), margin .42s cubic-bezier(.22,1,.36,1), padding .42s cubic-bezier(.22,1,.36,1), background-color .42s ease, opacity .3s ease;
+}
+.curring .cl { max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0; transition: max-width .42s cubic-bezier(.22,1,.36,1), opacity .3s ease; }
+.curring.grow { min-width: 26px; height: 26px; margin: -13px 0 0 -13px; background: color-mix(in srgb, var(--primary) 30%, transparent); }
+.curring.lab { min-width: 0; height: 30px; margin: -15px 0 0 -15px; padding: 0 15px; background: var(--primary); }
+.curring.lab .cl { max-width: 160px; opacity: 1; }
+.has-cursor.grabbing .curring { background: var(--terra); }
+
+/* ================= HEADER ================= */
+.hdr { position: sticky; top: 0; z-index: 40; background: var(--canvas); border-bottom: 1px solid transparent; transition: border-color .4s ease, box-shadow .4s ease, background-color .4s ease; }
+.hdr.stuck { border-bottom-color: var(--border); box-shadow: 0 12px 28px -26px rgba(63,20,77,.6); }
+.nv { position: relative; color: var(--ink-2); }
+.nv:hover { color: var(--ink); }
+.nv::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -6px; height: 1.5px; border-radius: 2px; background: var(--primary); transition: right .45s cubic-bezier(.22,1,.36,1); }
+.nv:hover::after { right: 0; }
+.toggle { cursor: pointer; width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--raised); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: border-color .3s ease, transform .5s cubic-bezier(.22,1,.36,1); }
+.toggle:hover { border-color: var(--primary); color: var(--primary); }
+.toggle svg { transition: transform .6s cubic-bezier(.22,1,.36,1); }
+.toggle:hover svg { transform: rotate(-24deg); }
+.toggle:active { transform: scale(.94); }
+
+/* ================= SCROLL-LINKED (CSS only, no listeners) ================= */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .par-a, .par-b, .par-c, .rise, .grow { animation-timeline: view(); animation-fill-mode: both; animation-timing-function: linear; }
+    .par-a { animation-name: pa; animation-range: entry 0% exit 100%; }
+    .par-b { animation-name: pb; animation-range: entry 0% exit 100%; }
+    .par-c { animation-name: pc; animation-range: entry 0% exit 100%; }
+    .rise { animation-name: rise; animation-range: entry 0% cover 55%; }
+    .grow { animation-name: growin; animation-range: entry 0% cover 30%; }
+    @keyframes pa { from { translate: 0 22px; } to { translate: 0 -22px; } }
+    @keyframes pb { from { translate: 0 40px; } to { translate: 0 -30px; } }
+    @keyframes pc { from { translate: 0 12px; } to { translate: 0 -18px; } }
+    @keyframes rise { from { translate: 0 56px; } to { translate: 0 0; } }
+    @keyframes growin { from { scale: .95; } to { scale: 1; } }
+  }
+}
+
+/* ================= BUTTONS ================= */
+.btn { transition: transform .45s cubic-bezier(.22,1,.36,1), background-color .3s ease, border-color .3s ease, color .3s ease; }
+.btn:active { transform: translateY(1px) scale(.98) !important; }
+.btn-primary { background: var(--primary); color: var(--on-primary); }
+.btn-primary:hover { background: var(--primary-hover); color: var(--on-primary); }
+.btn-primary:active { background: var(--primary-active); }
+.btn-ghost { border: 1px solid var(--border-strong); color: var(--ink); background: transparent; }
+.btn-ghost:hover { border-color: var(--primary); color: var(--primary); background: var(--ring-fill); }
+.btn-terra { background: var(--terra); color: var(--on-terra); }
+.btn-terra:hover { background: var(--terra-hover); color: var(--on-terra); }
+[data-magnetic] { transition: transform .7s cubic-bezier(.22,1,.36,1), background-color .3s ease, color .3s ease; }
+.dl svg { transition: transform .45s cubic-bezier(.22,1,.36,1); }
+.dl:hover svg { transform: translateY(2px); }
+
+/* ---------- logo (cropped from the supplied 2000x2000 files) ---------- */
+.brand { display: inline-flex; align-items: center; gap: 11px; color: var(--ink); }
+.mark { --h: 23px; position: relative; flex: none; height: var(--h); width: calc(var(--h) * 1052 / 698); overflow: hidden; }
+.mark img { position: absolute; width: calc(var(--h) * 2000 / 698); height: auto; left: calc(var(--h) * -474 / 698); top: calc(var(--h) * -508 / 698); }
+.theme-light .only-dark, .theme-dark .only-light { display: none; }
+@media (max-width: 700px) { .mark { --h: 20px; } }
+/* ================= ENTRY GATE ================= */
+.sheet.gated { max-height: 100vh; overflow: hidden; }
+.gate { position: absolute; z-index: 95; left: 0; right: 0; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px; overflow-y: auto; overscroll-behavior: contain; box-sizing: border-box; background: var(--canvas); transform: translateY(0); transition: transform .95s cubic-bezier(.76,0,.24,1); }
+.gate::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 90% at 50% 0%, transparent 40%, color-mix(in srgb, var(--primary) 7%, transparent) 100%); }
+.gate.off { transform: translateY(-101%); }
+.gatein { position: relative; z-index: 1; width: 100%; max-width: 1000px; }
+.gload, .gpick { transition: opacity .5s ease, transform .6s cubic-bezier(.22,1,.36,1); }
+.gload { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.gnum { margin: 6px 0 0 0; display: flex; align-items: baseline; font-family: 'Space Grotesk', sans-serif; font-size: 76px; line-height: 1; letter-spacing: -0.04em; color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+.gnum .pc { font-size: 24px; color: var(--ink-3); margin-left: 4px; }
+.gbar { width: min(420px, 70vw); height: 3px; border-radius: 999px; background: var(--border); overflow: hidden; }
+.gbar i { display: block; width: 0%; height: 100%; border-radius: 999px; background: var(--primary); }
+.gsay { margin: 0; font-size: 21px; color: var(--ink-2); }
+.gpick { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; transform: translateY(16px); pointer-events: none; }
+.gate.pick .gload { opacity: 0; transform: translateY(-16px); pointer-events: none; }
+.gate.pick .gpick { opacity: 1; transform: none; pointer-events: auto; position: static; }
+.gpick { overflow: visible; }
+.gh { position: relative; margin: 0 0 44px 0; font-family: 'Space Grotesk', sans-serif; font-size: 62px; line-height: 1.02; letter-spacing: -0.035em; color: var(--ink); font-weight: 700; }
+/* the stage: a floor that drifts toward you, a slow beam, and dust in the light */
+.gstage { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.gpick > :not(.gstage) { position: relative; z-index: 1; }
+.gfloor { position: absolute; left: -50%; right: -50%; bottom: -8%; height: 46%; transform: perspective(520px) rotateX(64deg); transform-origin: 50% 100%; background-image: linear-gradient(var(--border-strong) 1px, transparent 1px), linear-gradient(90deg, var(--border-strong) 1px, transparent 1px); background-size: 64px 64px; -webkit-mask-image: linear-gradient(to top, #000 30%, transparent 95%); mask-image: linear-gradient(to top, #000 30%, transparent 95%); animation: floor 5s linear infinite; }
+@keyframes floor { to { background-position: 0 64px, 0 0; } }
+.gbeam { position: absolute; left: 50%; top: -30%; width: 70vmax; height: 120vmax; margin-left: -35vmax; background: conic-gradient(from 180deg at 50% 0%, transparent 42%, color-mix(in srgb, var(--primary) 16%, transparent) 50%, transparent 58%); transform-origin: 50% 0%; animation: beam 9s ease-in-out infinite alternate; }
+@keyframes beam { from { transform: rotate(-9deg); } to { transform: rotate(9deg); } }
+.gdust i { position: absolute; left: var(--x); bottom: -10px; width: 4px; height: 4px; border-radius: 999px; background: var(--primary); opacity: 0; animation: dust var(--d) linear var(--w) infinite; }
+.gdust i:nth-child(3n) { background: var(--terra); width: 3px; height: 3px; }
+.gdust i:nth-child(4n) { background: var(--olive); }
+@keyframes dust { 0% { transform: translate(0, 0); opacity: 0; } 15% { opacity: .5; } 80% { opacity: .35; } 100% { transform: translate(24px, -92vh); opacity: 0; } }
+/* the doors */
+.doors { display: flex; align-items: flex-start; justify-content: center; gap: 72px; }
+.door { all: unset; box-sizing: border-box; position: relative; display: flex; flex-direction: column; align-items: center; width: 220px; cursor: pointer; text-align: center; -webkit-tap-highlight-color: transparent; }
+.door:focus-visible .dframe { outline: 2px solid var(--primary); outline-offset: 6px; }
+.dframe { position: relative; width: 176px; height: 268px; border-radius: 88px 88px 6px 6px; background: var(--raised); box-shadow: 0 0 0 1px var(--border-strong), 0 24px 44px -26px rgba(40,20,60,.35); perspective: 900px; }
+.dbehind { position: absolute; inset: 9px 9px 0 9px; border-radius: 80px 80px 2px 2px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.door.site .dbehind { background: radial-gradient(90% 70% at 50% 60%, color-mix(in srgb, var(--primary) 55%, var(--canvas)) 0%, var(--primary) 100%); }
+.door.soon .dbehind { background: radial-gradient(90% 70% at 50% 60%, color-mix(in srgb, var(--terra) 45%, var(--canvas)) 0%, var(--terra) 100%); color: var(--on-primary); }
+.dsite { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 96px; }
+.dsite i { display: block; height: 10px; border-radius: 3px; background: rgba(255,255,255,.85); animation: bars 2.4s ease-in-out infinite alternate; }
+.dsite .b1 { grid-column: span 2; height: 26px; }
+.dsite .b2 { animation-delay: -.6s; } .dsite .b3 { animation-delay: -1.1s; } .dsite .b4 { grid-column: span 2; animation-delay: -1.6s; } .dsite .b5 { width: 60%; animation-delay: -.3s; }
+@keyframes bars { from { opacity: .45; transform: scaleX(.8); transform-origin: 0 50%; } to { opacity: 1; transform: none; } }
+.dcube { width: 74px; height: 74px; animation: cube 6s ease-in-out infinite alternate; }
+@keyframes cube { from { transform: rotate(-8deg) translateY(4px); } to { transform: rotate(8deg) translateY(-4px); } }
+.dpanel { position: absolute; inset: 9px 9px 0 9px; border-radius: 80px 80px 2px 2px; background: var(--sunken); box-shadow: inset 0 0 0 1px var(--border-strong); transform-origin: 0 50%; transition: transform .9s cubic-bezier(.22,1,.36,1), box-shadow .6s ease; backface-visibility: hidden; }
+.dpanel::before, .dpanel::after { content: ""; position: absolute; left: 18px; right: 18px; border: 1px solid var(--border-strong); }
+.dpanel::before { top: 34px; height: 92px; border-radius: 60px 60px 4px 4px; }
+.dpanel::after { bottom: 20px; height: 84px; border-radius: 4px; }
+.dknob { position: absolute; right: 16px; top: 54%; width: 10px; height: 10px; border-radius: 999px; background: var(--ink-3); box-shadow: 0 1px 0 rgba(255,255,255,.4); }
+.dplaque { position: absolute; left: 50%; top: 14px; translate: -50% 0; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10px; letter-spacing: .1em; color: var(--ink-3); }
+.door:hover .dpanel, .door:focus-visible .dpanel { transform: rotateY(-58deg); box-shadow: inset 0 0 0 1px var(--border-strong), 14px 0 30px -12px rgba(40,20,60,.35); }
+.door.opening .dpanel { transform: rotateY(-115deg); transition-duration: .66s; transition-timing-function: cubic-bezier(.3,.8,.35,1); }
+/* light spilling out onto the floor */
+.dspill { width: 190px; height: 34px; margin-top: -2px; border-radius: 50%; opacity: 0; filter: blur(10px); transition: opacity .6s ease, transform .8s cubic-bezier(.22,1,.36,1); }
+.door.site .dspill { background: color-mix(in srgb, var(--primary) 40%, transparent); }
+.door.soon .dspill { background: color-mix(in srgb, var(--terra) 40%, transparent); }
+.door:hover .dspill, .door.opening .dspill { opacity: 1; }
+.door.opening .dspill { transform: scale(1.35, 1.2); }
+/* once a door is picked, everything else steps back so you watch it swing */
+.gate.going .gh, .gate.going .glink, .gate.going .door:not(.opening) { opacity: .2; transition: opacity .5s ease; }
+.gate.going .door.opening .dname, .gate.going .door.opening .dsub { opacity: .35; transition: opacity .5s ease .1s; }
+.dname { display: flex; align-items: center; gap: 10px; margin-top: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.022em; color: var(--ink); font-weight: 700; }
+.dsub { margin-top: 6px; font-size: 15px; line-height: 1.55; color: var(--ink-2); max-width: 24ch; }
+.gtag { padding: 4px 9px; border-radius: 999px; border: 1px solid var(--olive-line); font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; letter-spacing: .06em; color: var(--olive); font-weight: 600; }
+.gnote { position: absolute; top: 118px; left: calc(100% - 10px); margin: 0; font-size: 20px; color: var(--terra); white-space: nowrap; opacity: 0; transform: translateY(6px) rotate(-4deg); transition: opacity .4s ease, transform .5s cubic-bezier(.34,1.56,.64,1); }
+.door.knocked .gnote { opacity: 1; transform: rotate(-4deg); }
+.door.knocked .dpanel { animation: knock .5s ease; }
+@keyframes knock { 20% { transform: rotateY(-6deg); } 45% { transform: rotateY(3deg); } 70% { transform: rotateY(-2deg); } 100% { transform: none; } }
+.glink { margin-top: 34px; padding: 8px 4px; background: none; border: none; cursor: pointer; font-family: inherit; font-size: 15px; color: var(--ink-3); border-bottom: 1px solid var(--border-strong); transition: color .35s ease, border-color .35s ease; }
+.glink:hover { color: var(--primary); border-color: var(--primary); }
+@media (max-width: 860px) { .gate { align-items: flex-start; padding: 36px 16px 48px 16px; } .gh { font-size: 40px; margin-bottom: 30px; } .gnum { font-size: 54px; } .doors { gap: 18px; } .door { width: 160px; } .dframe { width: 132px; height: 200px; } .dpanel::before { top: 26px; height: 64px; } .dpanel::after { height: 60px; } .dsite { width: 72px; } .dcube { width: 56px; height: 56px; } .dname { font-size: 19px; flex-wrap: wrap; justify-content: center; } .dsub { font-size: 13.5px; } .gnote { position: static; margin-top: 8px; font-size: 17px; opacity: 1; transform: none; white-space: normal; } }
+@media (prefers-reduced-motion: reduce) { .gate { display: none; } }
+/* ---------- shared links and cards ---------- */
+.fill-link { position: relative; display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); transition: color .35s ease; }
+.fill-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; background: var(--primary); transform: scaleX(0); transform-origin: 0 50%; transition: transform .5s cubic-bezier(.22,1,.36,1); }
+.fill-link:hover { color: var(--primary); }
+.fill-link:hover::after { transform: scaleX(1); }
+.fill-link svg { transition: transform .4s cubic-bezier(.22,1,.36,1); }
+.fill-link:hover svg { transform: translate(2px, -2px); }
+/* back links: the arrow sits level with the words and nudges the other way */
+.fill-link.back { gap: 7px; line-height: 1; }
+.fill-link.back svg { flex: none; display: block; }
+.fill-link.back:hover svg { transform: translateX(-3px); }
+/* vibe coded things */
+.vcard { position: relative; overflow: hidden; box-sizing: border-box; border-radius: 22px; padding: 30px 32px; min-height: 236px; display: flex; flex-direction: column; justify-content: space-between; transition: transform .55s cubic-bezier(.22,1,.36,1), box-shadow .55s ease; }
+.vcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+/* only the ones you can actually click lift and cast anything */
+.vcard:not(a):hover { transform: none; box-shadow: none; }
+.vcard h3 { margin: 22px 0 10px 0; font-family: 'Space Grotesk', sans-serif; font-size: 25px; line-height: 1.22; letter-spacing: -0.022em; font-weight: 700; }
+.vcard p.d { margin: 0; font-size: 15.5px; line-height: 1.62; }
+.vcard .go { transition: transform .4s cubic-bezier(.22,1,.36,1); }
+.vcard:hover .go { transform: translateX(4px); }
+/* ---------- phone nav ---------- */
+.burger { display: none; width: 44px; height: 44px; padding: 0; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--raised); color: var(--ink); cursor: pointer; align-items: center; justify-content: center; transition: border-color .3s ease, color .3s ease; }
+.burger:hover { border-color: var(--primary); color: var(--primary); }
+.burger i { position: relative; display: block; width: 18px; height: 1.8px; border-radius: 2px; background: currentColor; transition: background-color .25s ease; }
+.burger i::before, .burger i::after { content: ""; position: absolute; left: 0; width: 18px; height: 1.8px; border-radius: 2px; background: currentColor; transition: transform .4s cubic-bezier(.22,1,.36,1); }
+.burger i::before { top: -6px; }
+.burger i::after { top: 6px; }
+.hdr.mopen .burger i { background: transparent; }
+.hdr.mopen .burger i::before { transform: translateY(6px) rotate(45deg); }
+.hdr.mopen .burger i::after { transform: translateY(-6px) rotate(-45deg); }
+.hdr nav { position: relative; z-index: 2; }
+.hdr.mopen .burger { display: none; }
+.mclose { position: absolute; top: 16px; right: 20px; width: 44px; height: 44px; padding: 0; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--raised); color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color .3s ease, color .3s ease, transform .4s cubic-bezier(.22,1,.36,1); }
+.mclose:hover { border-color: var(--primary); color: var(--primary); transform: rotate(90deg); }
+.mnav { position: fixed; inset: 0; z-index: 39; display: none; flex-direction: column; box-sizing: border-box; padding: 96px 24px calc(30px + env(safe-area-inset-bottom, 0px)) 24px; background: var(--canvas); }
+.hdr.mopen .mnav { display: flex; animation: mnavin .4s cubic-bezier(.22,1,.36,1); }
+@keyframes mnavin { from { opacity: 0; transform: translateY(-12px); } }
+.mlinks { flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+.mnav .nv { position: relative; display: inline-block; padding: 12px 2px; font-family: 'Space Grotesk', sans-serif; font-size: 30px; line-height: 1.2; letter-spacing: -0.022em; font-weight: 600; color: var(--ink); border: 0; transition: color .35s ease; }
+.mnav .nv::after { content: ""; position: absolute; left: 2px; right: 2px; bottom: 8px; height: 2px; border-radius: 2px; background: var(--primary); transform: scaleX(0); transform-origin: 0 50%; transition: transform .45s cubic-bezier(.22,1,.36,1); }
+.mnav .nv:hover, .mnav .nv:focus-visible, .mnav .nv[aria-current="page"] { color: var(--primary); }
+.mnav .nv:hover::after, .mnav .nv:focus-visible::after, .mnav .nv[aria-current="page"]::after { transform: scaleX(1); }
+.mnav .btn { width: 100%; justify-content: center; min-height: 58px; font-size: 17px; }
+.mnav .mfoot { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.mnav .mfoot .mg { margin: 0; font-size: 20px; color: var(--ink-3); }
+@media (max-width: 700px) { .burger { display: inline-flex; } }
+@media (prefers-reduced-motion: reduce) { .hdr.mopen .mnav { animation: none; } }
+/* ---------- tablet ---------- */
+@media (max-width: 1020px) {
+  .ruled { background-image: repeating-linear-gradient(to bottom, transparent 0 35px, var(--rule-line) 35px 36px) !important; }
+  .pad { padding-left: 40px !important; padding-right: 40px !important; }
+  .rail { --rail-pad: 40px !important; }
+  .split { grid-template-columns: repeat(6, minmax(0,1fr)) !important; }
+  .cell { grid-column: 1 / -1 !important; }
+  .nudge { margin-top: 0 !important; }
+  .herorow { flex-direction: column !important; align-items: stretch !important; gap: 56px !important; }
+  .herotext { flex: none !important; width: auto !important; }
+  .deskwrap { flex: none !important; align-self: center !important; }
+  .d1 { font-size: 56px !important; }
+  .d2 { font-size: 40px !important; }
+  .stmt { font-size: 36px !important; }
+  .panelbox { padding: 40px !important; }
+  .sdtext { max-width: 52% !important; }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 700px) {
+  .pad { padding-left: 20px !important; padding-right: 20px !important; }
+  .rail { --rail-pad: 20px !important; }
+  .navlinks, .navcta, .mouse { display: none !important; }
+  .seeall { display: block !important; }
+  .seeall .btn { width: 100% !important; box-sizing: border-box !important; }
+  .secpad { padding-top: 76px !important; padding-bottom: 76px !important; }
+  .d1 { font-size: 42px !important; }
+  .d2 { font-size: 31px !important; }
+  .stmt { font-size: 27px !important; }
+  .rot { rotate: 0deg !important; }
+  .ctarow { flex-direction: column !important; align-items: stretch !important; }
+  .ctarow > a, .ctarow > button { justify-content: center !important; }
+  .sampleword { font-size: 48px !important; }
+  .collage > * { margin: 0 !important; }
+  .collage { flex-wrap: wrap !important; gap: 14px !important; }
+  .panelbox { padding: 26px !important; border-radius: 22px !important; }
+  .note { width: 268px !important; }
+  .hide-sm { display: none !important; }
+  .only-sm { display: inline-flex !important; }
+  .deskwrap { width: 386px !important; height: 400px !important; }
+  .desk { transform: scale(.86) !important; transform-origin: 0 0 !important; }
+  .desk [data-drag] { cursor: default !important; }
+  /* nothing is draggable here, so let a finger scroll the page */
+  .desk [data-drag] { touch-action: auto !important; }
+  .tidy, .deskhint { display: none !important; }
+  .panel { height: 380px !important; }
+  .sdtext { max-width: 100% !important; top: 70px !important; }
+  .sdtext .serif { font-size: 34px !important; }
+  .m2 { right: -60px !important; top: 190px !important; }
+  .m3b { left: 30% !important; top: 190px !important; }
+  .m3a { width: 300px !important; }
+  .pnote { display: none !important; }
+}
+/* ---------- touch screens: no hover, so the hover look is the resting look ---------- */
+@media (hover: none) {
+  [data-drag] { touch-action: auto !important; }
+  [data-magnetic] { transform: none !important; transition: background-color .3s ease, color .3s ease, border-color .3s ease !important; }
+  .btn-primary { background: var(--primary-hover) !important; }
+  .btn-ghost { border-color: var(--primary) !important; color: var(--primary) !important; background: var(--ring-fill) !important; }
+  .btn-terra { background: var(--terra-hover) !important; }
+  .fill-link { color: var(--primary) !important; }
+  .fill-link::after { transform: scaleX(1) !important; }
+  .femail::after { transform: scaleX(1) !important; }
+  .social { color: var(--primary) !important; }
+  .railbtn:not(:disabled) { border-color: var(--primary) !important; color: var(--primary) !important; background: var(--ring-fill) !important; }
+  .totop { border-color: var(--primary) !important; color: var(--primary) !important; }
+  .burger { border-color: var(--primary) !important; color: var(--primary) !important; }
+  .ulink { color: var(--primary) !important; }
+  .ulink::after { background: var(--primary) !important; }
+  .widrow h3, .skrow .skttl { color: var(--primary) !important; }
+}
+/* the desk takes the full width each phone offers */
+@media (max-width: 430px) { .deskwrap { width: 350px !important; height: 362px !important; } .desk { transform: scale(.78) !important; } }
+@media (max-width: 360px) { .deskwrap { width: 296px !important; height: 306px !important; } .desk { transform: scale(.66) !important; } }
+/* phones: buttons stay where they are put */
+@media (max-width: 700px) { [data-magnetic] { transform: none !important; } }
+/* shown on phones only, the pair to hide-sm */
+.only-sm { display: none; }
+
+
+/* ================= CASE STUDY ================= */
+.nv[aria-current="page"] { color: var(--ink); }
+.nv[aria-current="page"]::after { right: 0; }
+.cs-head { margin-top: 38px; }
+.cs-title { margin: 0 0 18px 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(56px, 8vw, 100px); line-height: .94; letter-spacing: -0.05em; color: var(--ink); font-weight: 700; }
+.cs-lede { margin: 0; font-size: 20px; line-height: 1.5; letter-spacing: -0.01em; color: var(--ink-2); max-width: 34ch; }
+.cs-meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: stretch; gap: 20px 32px; margin: 64px 0 0 0; padding: 26px 0 0 0; border-top: 1px solid var(--border); }
+.cs-meta > div { box-sizing: border-box; flex: 0 1 auto; max-width: 300px; }
+.cs-meta dt { margin-bottom: 8px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.cs-meta dd { margin: 0; font-size: 16px; line-height: 1.5; color: var(--ink); font-weight: 500; }
+/* results sit beside the title, two cards stacked */
+.cs-headrow { display: grid; grid-template-columns: minmax(0,1fr) minmax(260px,340px); gap: 32px 56px; align-items: center; margin-top: 38px; }
+.cs-headrow .cs-head { margin-top: 0; min-width: 0; }
+.cs-hstats { display: flex; flex-direction: column; gap: 14px; }
+.cs-hstat { display: flex; flex-direction: column; gap: 6px; padding: 20px 22px; border-radius: 22px; background: var(--p-lav); }
+.cs-hstat .n { font-family: 'Space Grotesk', sans-serif; font-size: 44px; line-height: .95; letter-spacing: -0.045em; color: var(--primary); font-weight: 700; }
+.cs-hstat .t { font-size: 15.5px; line-height: 1.45; color: var(--ink); }
+.cs-hstat.alt { background: var(--raised); border: 1px solid var(--border); }
+.cs-hstat.alt .n { color: var(--ink); }
+@media (max-width: 1020px) { .cs-headrow { grid-template-columns: minmax(0,1fr); } .cs-hstats { flex-direction: row; } .cs-hstat { flex: 1; } }
+@media (max-width: 700px) { .cs-hstat { padding: 18px 18px; } .cs-hstat .n { font-size: 38px; } .cs-hstat .t { font-size: 14px; } }
+.cs-cover { margin: 0; border-radius: 24px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); }
+.cs-cover img { display: block; width: 100%; height: auto; }
+.cs-intro { margin: 56px 0 0 auto; max-width: 62ch; font-size: 21px; line-height: 1.65; color: var(--ink); }
+.cs-grid { display: grid; grid-template-columns: 220px minmax(0,1fr); gap: 72px; align-items: start; border-top: 1px solid var(--border); padding-top: 72px; }
+.cs-toc { position: sticky; top: 104px; display: flex; flex-direction: column; gap: 2px; }
+.cs-toc a { position: relative; padding: 7px 0 7px 16px; font-size: 14.5px; color: var(--ink-3); transition: color .3s ease; }
+.cs-toc a::before { content: ""; position: absolute; left: 0; top: 50%; width: 6px; height: 6px; margin-top: -3px; border-radius: 999px; background: var(--border-strong); transition: background-color .3s ease, transform .4s cubic-bezier(.34,1.56,.64,1); }
+.cs-toc a:hover { color: var(--ink); }
+.cs-toc a.on { color: var(--primary); font-weight: 600; }
+.cs-toc a.on::before { background: var(--primary); transform: scale(1.4); }
+.cs-main { min-width: 0; max-width: 780px; }
+.cs-sec { scroll-margin-top: 112px; padding-bottom: 96px; }
+.cs-idx { margin: 0 0 12px 0; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 12.5px; letter-spacing: .04em; color: var(--primary); }
+.cs-h2 { margin: 0 0 24px 0; font-family: 'Space Grotesk', sans-serif; font-size: 42px; line-height: 1.08; letter-spacing: -0.028em; color: var(--ink); font-weight: 700; }
+.cs-p { margin: 0 0 18px 0; font-size: 18px; line-height: 1.72; color: var(--ink-2); }
+.cs-p strong { color: var(--ink); }
+.cs-sub { margin: 44px 0 18px 0; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.cs-ol, .cs-ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; counter-reset: cs; }
+.cs-ol li, .cs-ul li { position: relative; padding-left: 40px; font-size: 17.5px; line-height: 1.62; color: var(--ink-2); }
+.cs-ol li { counter-increment: cs; }
+.cs-ol li::before { content: "0" counter(cs); position: absolute; left: 0; top: 3px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 13px; color: var(--primary); }
+.cs-ul li::before { content: ""; position: absolute; left: 6px; top: .72em; width: 14px; height: 1.5px; background: var(--primary); }
+.cs-big { display: flex; align-items: center; gap: 26px; margin: 10px 0 34px 0; padding: 28px 30px; border-radius: 20px; background: var(--p-lav); }
+.cs-big .n { font-family: 'Space Grotesk', sans-serif; font-size: 84px; line-height: .9; letter-spacing: -0.05em; color: var(--primary); font-weight: 700; }
+.cs-big .t { font-size: 19px; line-height: 1.5; color: var(--ink); font-weight: 500; max-width: 30ch; }
+.cs-hmw { padding: 40px 0 8px 0; }
+.cs-hmw .mg { margin: 0 0 6px 0; font-size: 28px; color: var(--terra); }
+.cs-hmw .q { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 36px; line-height: 1.22; letter-spacing: -0.024em; color: var(--ink); font-weight: 600; text-wrap: balance; }
+.cs-fig { margin: 34px 0 0 0; }
+.cs-fig img { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--border); background: #fff; }
+.cs-fig.narrow img { max-width: 520px; margin: 0 auto; }
+.cs-fig figcaption { margin-top: 12px; font-size: 14.5px; line-height: 1.55; color: var(--ink-3); }
+.cs-stats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+.cs-stat { display: flex; flex-direction: column; gap: 10px; padding: 24px 24px 22px 24px; border-radius: 18px; background: var(--raised); border: 1px solid var(--border); }
+.cs-stat .n { font-family: 'Space Grotesk', sans-serif; font-size: 52px; line-height: 1; letter-spacing: -0.04em; color: var(--primary); font-weight: 700; height: 52px; display: flex; align-items: center; }
+.cs-stat .t { font-size: 15.5px; line-height: 1.5; color: var(--ink-2); }
+.cs-feats { display: flex; flex-direction: column; border-top: 1px solid var(--border); }
+.cs-feat { display: grid; grid-template-columns: 56px minmax(0,1fr); column-gap: 18px; padding: 26px 0; border-bottom: 1px solid var(--border); }
+.cs-feat .k { grid-row: span 2; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 13px; color: var(--primary); padding-top: 6px; }
+.cs-feat h3 { margin: 0 0 8px 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.02em; color: var(--ink); font-weight: 700; }
+.cs-feat p { margin: 0; font-size: 16.5px; line-height: 1.66; color: var(--ink-2); }
+.cs-quotes { display: grid; grid-template-columns: minmax(0,1fr); gap: 16px; margin-top: 28px; }
+.cs-quote { margin: 0; display: grid; grid-template-columns: 120px minmax(0,1fr); gap: 4px 24px; padding: 26px 28px; border-radius: 20px; background: var(--raised); border: 1px solid var(--border); }
+.cs-quote .f { grid-row: span 2; margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 58px; line-height: .95; letter-spacing: -0.05em; color: var(--terra); font-weight: 700; }
+.cs-quote .f span { font-size: 22px; letter-spacing: 0; color: var(--ink-3); }
+.cs-quote .l { margin: 0 0 10px 0; font-size: 16.5px; color: var(--ink); font-weight: 600; }
+.cs-quote blockquote { margin: 0; font-size: 16px; line-height: 1.62; color: var(--ink-2); font-style: italic; }
+.cs-exps { display: flex; flex-direction: column; gap: 16px; }
+.cs-exp { padding: 26px 28px; border-radius: 20px; background: var(--raised); border: 1px solid var(--border); }
+.cs-exp header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.cs-exp .k { font-family: 'Space Grotesk', sans-serif; font-size: 20px; letter-spacing: -0.015em; color: var(--ink); font-weight: 700; }
+.cs-exp .dur { padding: 5px 11px; border-radius: 999px; border: 1px solid var(--border-strong); font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11.5px; color: var(--ink-3); white-space: nowrap; }
+.cs-exp .m { margin: 0 0 12px 0; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; font-family: 'Space Grotesk', sans-serif; font-size: 46px; line-height: 1; letter-spacing: -0.04em; color: var(--primary); font-weight: 700; }
+.cs-exp .m span { font-size: 15px; letter-spacing: 0; color: var(--ink-2); font-weight: 500; }
+.cs-exp p:last-child { margin: 0; font-size: 16px; line-height: 1.66; color: var(--ink-2); }
+.cs-finds { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; margin-top: 24px; }
+.cs-find { padding: 22px 24px; border-radius: 18px; background: var(--p-peach); }
+.cs-find .k { display: block; margin-bottom: 10px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 12px; letter-spacing: .04em; color: var(--terra); }
+.cs-find p { margin: 0; font-size: 17px; line-height: 1.55; color: var(--ink); }
+.cs-rev { margin: 0; padding: 0; list-style: none; counter-reset: rv; border-top: 1px solid var(--border); }
+.cs-rev li { counter-increment: rv; display: grid; grid-template-columns: 44px 220px minmax(0,1fr); gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.cs-rev li::before { content: "0" counter(rv); font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 13px; color: var(--primary); }
+.cs-rev strong { font-size: 17px; color: var(--ink); }
+.cs-rev span { font-size: 16px; line-height: 1.55; color: var(--ink-2); }
+.cs-next { margin-top: 40px; padding: 28px 30px; border-radius: 20px; background: var(--sunken); border: 1.5px dashed var(--border-strong); }
+.cs-nexthead { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+.cs-nexthead .k { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.02em; color: var(--ink); font-weight: 700; }
+.cs-load { position: relative; width: 140px; height: 6px; border-radius: 999px; background: var(--border); overflow: hidden; }
+.cs-load i { position: absolute; inset: 0 auto 0 0; width: 40%; border-radius: 999px; background: var(--primary); animation: csload 2.4s cubic-bezier(.65,0,.35,1) infinite; }
+@keyframes csload { 0% { transform: translateX(-100%); } 100% { transform: translateX(260%); } }
+.cs-next ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
+.cs-next li { padding: 9px 16px; border-radius: 999px; background: var(--raised); border: 1px solid var(--border); font-size: 15px; color: var(--ink); }
+.cs-learn { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+.cs-learn div { padding: 24px 24px 22px 24px; border-radius: 18px; background: var(--raised); border: 1px solid var(--border); }
+.cs-learn div:nth-child(1) { background: var(--p-lav); border-color: transparent; }
+.cs-learn div:nth-child(4) { background: var(--p-sage); border-color: transparent; }
+.cs-learn h3 { margin: 0 0 8px 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px; letter-spacing: -0.015em; color: var(--ink); font-weight: 700; }
+.cs-learn p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+.cs-thanks { margin: 48px 0 0 0; rotate: -2deg; font-size: 30px; color: var(--terra); }
+/* previous and next, one at each end */
+.cs-jumps { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; border-top: 1px solid var(--border); padding-top: 34px; }
+.cs-jump { display: flex; gap: 18px; align-items: center; padding: 16px; border-radius: 22px; border: 1px solid var(--border); background: var(--raised); color: var(--ink); transition: transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s ease, border-color .4s ease; }
+.cs-jump.next { flex-direction: row-reverse; text-align: right; }
+.cs-jump:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); border-color: var(--primary); color: var(--ink); }
+.cs-jumpimg { flex: none; width: 116px; height: 92px; border-radius: 14px; overflow: hidden; background: var(--sunken); }
+.cs-jumpimg img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.22,1,.36,1); }
+.cs-jump:hover .cs-jumpimg img { transform: scale(1.06); }
+.cs-jumptext { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.cs-jumplbl { display: flex; align-items: center; gap: 7px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--primary); }
+.cs-jump.prev .cs-jumplbl svg:last-child, .cs-jump.next .cs-jumplbl svg:first-child { display: none; }
+.cs-jump.next .cs-jumplbl { justify-content: flex-end; }
+.cs-jumpttl { font-family: 'Space Grotesk', sans-serif; font-size: 24px; line-height: 1.15; letter-spacing: -0.022em; color: var(--ink); font-weight: 700; transition: color .35s ease; }
+.cs-jump:hover .cs-jumpttl { color: var(--primary); }
+.cs-jumpline { font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
+@media (hover: none) { .cs-jump { border-color: var(--primary); } .cs-jumpttl { color: var(--primary); } }
+@media (max-width: 860px) { .cs-jumps { grid-template-columns: minmax(0,1fr); } .cs-jump.next { flex-direction: row; text-align: left; } .cs-jump.next .cs-jumplbl { justify-content: flex-start; } }
+@media (max-width: 700px) { .cs-jumpimg { width: 92px; height: 76px; } .cs-jumpttl { font-size: 20px; } .cs-jumpline { font-size: 13.5px; } }
+@media (max-width: 1020px) { .cs-grid { grid-template-columns: minmax(0,1fr); gap: 0; padding-top: 56px; } .cs-meta > div { flex: 0 0 50%; max-width: none; padding: 0 16px 0 0; } .cs-intro { margin-left: 0; } }
+@media (max-width: 700px) { .cs-lede { font-size: 17.5px; } .cs-intro { font-size: 18px; margin-top: 36px; } .cs-h2 { font-size: 31px; } .cs-sec { padding-bottom: 72px; } .cs-big { flex-direction: column; align-items: flex-start; gap: 12px; } .cs-big .n { font-size: 64px; } .cs-hmw .q { font-size: 26px; } .cs-stats, .cs-finds, .cs-learn { grid-template-columns: minmax(0,1fr); } .cs-quote { grid-template-columns: minmax(0,1fr); } .cs-rev li { grid-template-columns: 36px minmax(0,1fr); } .cs-rev span { grid-column: 2; } .cs-more { padding: 28px 26px; } .cs-more .t { font-size: 28px; } .cs-cover { border-radius: 16px; } }
+@media (prefers-reduced-motion: reduce) { .cs-load i { animation: none; width: 55%; } }
+
+/* ================= SITE FOOTER (identical on every page) =================
+   The bug crawls at z 2; anything marked data-hide sits at z 3 with an opaque
+   background, which is what lets the bug duck behind it.
+   z-index scale for the page: header 40, back-to-top 50, reader 70, grain 80, cursor 90. */
+.sitefoot { position: relative; overflow: hidden; background: var(--sunken); border-top: 1px solid var(--border); }
+.sitefoot [data-hide] { position: relative; z-index: 3; }
+.sitefoot .wrap { position: relative; }
+.fchip { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 24px 0; padding: 8px 16px 8px 13px; border-radius: 999px; background: var(--raised); border: 1px solid var(--olive-line); font-size: 14px; font-weight: 600; color: var(--olive); }
+.femail { position: relative; display: inline-block; padding-bottom: 4px; font-family: 'Space Grotesk', sans-serif; font-size: 24px; line-height: 1.2; letter-spacing: -0.019em; color: var(--primary); font-weight: 700; }
+.femail::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: currentColor; transform: scaleX(0); transform-origin: 0 50%; transition: transform .5s cubic-bezier(.22,1,.36,1); }
+.femail:hover { color: var(--primary-hover); }
+.femail:hover::after { transform: scaleX(1); }
+.fcopy {
+  cursor: pointer; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px;
+  border: 1px solid var(--border-strong); background: transparent; color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600;
+  transition: border-color .3s ease, color .3s ease, background-color .3s ease, transform .35s cubic-bezier(.22,1,.36,1);
+}
+.fcopy:hover { border-color: var(--primary); color: var(--primary); background: var(--ring-fill); }
+.fcopy:active { transform: scale(.97); }
+.fcopy .ok-i { display: none; color: var(--olive); }
+.fcopy.ok .ok-i { display: inline-flex; }
+.fcopy.ok .cp-i { display: none; }
+.fcopy .cp-i { display: inline-flex; }
+.social { display: inline-flex; align-items: center; gap: 7px; padding: 2px 0 4px 0; background: transparent; border: none; color: var(--ink); font-size: 14.5px; font-weight: 600; }
+.social svg { transition: transform .4s cubic-bezier(.22,1,.36,1); }
+.social:hover svg { transform: translate(2px, -2px); }
+.fline { height: 1px; margin: 64px 0 26px 0; background: var(--border); opacity: .7; }
+.fbottom { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 12px 24px; }
+.fhint { margin: 0; font-size: 21px; text-align: center; white-space: nowrap; }
+.fnav { display: flex; justify-content: flex-end; gap: 26px; font-size: 14px; font-weight: 500; }
+
+.bug {
+  position: absolute; left: 0; top: 0; z-index: 2; width: 40px; height: 40px; margin: 0; padding: 0; border: none; border-radius: 999px;
+  background: transparent; color: var(--ink); cursor: crosshair; display: flex; align-items: center; justify-content: center;
+  will-change: transform; transition: opacity .4s ease;
+}
+.bug svg { width: 22px; height: 22px; overflow: visible; transition: transform .25s ease, opacity .5s ease .3s; }
+.bug .legs { transform-origin: 12px 14px; }
+.bug.away { opacity: 0; pointer-events: none; }
+.bug.caught svg { transform: scale(1.35, .3); opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .bug:not(.still) .legs { animation: scuttle .2s linear infinite alternate; }
+  @keyframes scuttle { from { transform: rotate(-8deg); } to { transform: rotate(8deg); } }
+}
+.bugtoast {
+  position: absolute; left: 0; top: 0; z-index: 4; display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px; border-radius: 999px;
+  background: var(--olive); color: var(--on-accent); font-size: 13.5px; font-weight: 700; white-space: nowrap; pointer-events: none;
+  box-shadow: var(--shadow); opacity: 0; translate: -50% 0; transition: opacity .3s ease;
+}
+.bugtoast.show { opacity: 1; }
+@media (max-width: 1020px) {
+  .fbottom { grid-template-columns: 1fr; justify-items: start; }
+  .fhint { text-align: left; white-space: normal; }
+  .fnav { justify-content: flex-start; }
+}
+@media (max-width: 700px) {
+  .femail { font-size: 20px; }
+  .fline { margin-top: 48px; }
+  .fnav { flex-wrap: wrap; gap: 18px; }
+}
+
+@media (max-width: 700px) {
+  .sitefoot .ctarow { width: 100%; gap: 10px; }
+  .sitefoot .ctarow > a { width: 100%; box-sizing: border-box; justify-content: center; }
+}
+
+/* ================= BACK TO TOP =================
+   Appears once the reader reaches the third section; the ring fills with
+   page scroll progress where scroll-driven animation is supported. */
+.totop {
+  position: fixed; right: 28px; bottom: 28px; z-index: 50; width: 52px; height: 52px; padding: 0; border-radius: 999px;
+  border: 1px solid var(--border-strong); background: transparent; color: var(--ink); cursor: pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transform: translateY(14px) scale(.9);
+  transition: opacity .35s ease, transform .5s cubic-bezier(.22,1,.36,1), visibility .35s, border-color .3s ease, color .3s ease;
+}
+.totop.show { opacity: 1; visibility: visible; transform: none; }
+.totop:hover { color: var(--primary); border-color: var(--primary); }
+.totop-arrow { transition: transform .4s cubic-bezier(.22,1,.36,1); }
+.totop:hover .totop-arrow { transform: translateY(-3px); }
+.totop-ring { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px); rotate: -90deg; pointer-events: none; }
+.totop-ring circle { fill: none; stroke: var(--primary); stroke-width: 2; stroke-dasharray: 100; stroke-dashoffset: 100; }
+@supports (animation-timeline: scroll()) {
+  .totop-ring circle { animation: ringfill linear both; animation-timeline: scroll(root block); }
+  @keyframes ringfill { to { stroke-dashoffset: 0; } }
+}
+@media (max-width: 700px) { .totop { right: 16px; bottom: 16px; width: 46px; height: 46px; } }
+</style>
+</helmet>
+<div class="{{themeClass}}" style="background: var(--canvas); min-height: 100vh;">
+<div id="home-root" ref="{{setRoot}}" class="sheet" style="position: relative; box-sizing: border-box; background: var(--canvas); color: var(--ink); font-family: 'Space Grotesk', sans-serif; overflow-x: clip;">
+
+  <div data-top-sentinel aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 1px; height: 1px;"></div>
+
+  <!-- ================= NAV ================= -->
+  <header data-header class="hdr pad" style="box-sizing: border-box; width: 100%; padding: 0 80px;">
+    <nav class="wrap" style="height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a class="brand" href="Main.dc.html" aria-label="Mahesh Reddy, back to the homepage"><span class="mark" aria-hidden="true"><img class="only-light" src="/_blob/ca5d19d0709653cac4b90f0a2090e512" alt=""><img class="only-dark" src="/_blob/1eedbc90d84e2f8eaeeedef4982330cd" alt=""></span></a>
+      <div style="display: flex; align-items: center; gap: 28px;">
+        <div class="navlinks" style="display: flex; align-items: center; gap: 30px; font-size: 15px; font-weight: 500;">
+          <a class="nv" href="Work.dc.html" aria-current="page">Work</a>
+          <a class="nv" href="About.dc.html">About</a>
+          <a class="nv" href="Skills.dc.html">Playground</a>
+          <a class="nv" href="Thoughts.dc.html">Thoughts</a>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="toggle" aria-label="{{themeLabel}}" title="{{themeLabel}}" onClick="{{toggleTheme}}">
+            <sc-if value="{{isDark}}" hint-placeholder-val="{{false}}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"></path></svg>
+            </sc-if>
+            <sc-if value="{{isLight}}" hint-placeholder-val="{{true}}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8z"></path></svg>
+            </sc-if>
+          </button>
+          <a class="btn btn-primary navcta" data-magnetic href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Say hello</a>
+          <button type="button" class="burger" data-burger aria-label="Open the menu" aria-expanded="false"><i aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </nav>
+    <div class="mnav" data-mnav>
+      <button type="button" class="mclose" data-burger aria-label="Close the menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+      <div class="mlinks">
+        <a class="nv" href="Main.dc.html">Home</a>
+        <a class="nv" href="Work.dc.html" aria-current="page">Work</a>
+        <a class="nv" href="About.dc.html">About</a>
+        <a class="nv" href="Skills.dc.html">Playground</a>
+        <a class="nv" href="Thoughts.dc.html">Thoughts</a>
+      </div>
+      <div class="mfoot">
+        <p class="mg">(quickest way to reach me)</p>
+        <a class="btn btn-primary" href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Say hello</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= CASE STUDY HEADER ================= -->
+  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 64px 80px 80px 80px;">
+    <div class="wrap">
+      <a class="fill-link back" href="Work.dc.html" style="font-size: 14.5px; font-weight: 600; padding-bottom: 4px;"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3"></path><path d="M7 4L3 8l4 4"></path></svg>All work</a>
+      <div class="cs-headrow">
+      <div class="cs-head" data-reveal>
+        <p class="lbl" style="margin: 0 0 18px 0;">Case study / UX master's thesis</p>
+        <h1 class="cs-title">EdAbroad</h1>
+        <p class="cs-lede">An AI-powered platform guiding Indian students through smarter, more transparent study abroad journeys.</p>
+      </div>
+        <div class="cs-hstats" data-reveal data-d="1" aria-label="Results">
+          <div class="cs-hstat"><span class="n">90%</span><span class="t">task success in usability testing</span></div>
+          <div class="cs-hstat alt"><span class="n">100</span><span class="t">Net Promoter Score</span></div>
+        </div>
+      </div>
+      <dl class="cs-meta" data-reveal data-d="1">
+        <div><dt>Timeline</dt><dd>8 months</dd></div>
+        <div><dt>My role</dt><dd>Product strategy, UX research, end-to-end product design</dd></div>
+        <div><dt>Platform</dt><dd>Mobile app, 0 to 1</dd></div>
+        <div><dt>Research</dt><dd>12 interviews, 3 pretotype tests, 5 usability sessions</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 0 80px 96px 80px;">
+    <div class="wrap">
+      <figure class="cs-cover" data-reveal><img src="/_blob/3fe48ebd774e2e720a4c4411d439c294" alt="EdAbroad cover: the app logo and tagline, Unlock your creative future in the USA, beside a phone showing the app"></figure>
+      <p class="cs-intro" data-reveal>EdAbroad is a platform designed to help Indian students confidently plan their study abroad journey, starting with the most underserved group: design and art students. It replaces biased consultancy advice with personalized program matching, mentorship, and application tracking. Built as my UX master's thesis, EdAbroad was validated through user research, lean experiments, market validation, and multiple rounds of testing.</p>
+    </div>
+  </section>
+
+  <!-- ================= BODY: contents rail + chapters ================= -->
+  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 0 80px 120px 80px;">
+    <div class="wrap cs-grid">
+      <nav class="cs-toc hide-sm" data-toc aria-label="On this page">
+        <p class="cap" style="margin: 0 0 14px 0;">On this page</p>
+        <a href="#problem">The problem</a>
+        <a href="#challenge">The challenge</a>
+        <a href="#opportunity">The opportunity</a>
+        <a href="#solution">The solution</a>
+        <a href="#outcomes">Design outcomes</a>
+        <a href="#research">Research</a>
+        <a href="#validation">Validation</a>
+        <a href="#testing">User testing</a>
+        <a href="#business">Business vision</a>
+        <a href="#learnings">Learnings</a>
+      </nav>
+
+      <div class="cs-main">
+
+        <!-- problem -->
+        <section id="problem" class="cs-sec" data-reveal>
+          <p class="cs-idx">01 / The problem</p>
+          <h2 class="cs-h2">Good students, bad advice.</h2>
+          <p class="cs-p">Indian students in creative fields (like design, fine arts, and architecture) often face misinformation, biased consultancy advice, and a lack of personalized guidance. My research showed:</p>
+          <div class="cs-big"><span class="n">85%</span><span class="t">of creative field students reported receiving misaligned or incomplete guidance.</span></div>
+          <ol class="cs-ol">
+            <li>Students rely heavily on consultancy agents who often prioritize commissions over student fit.</li>
+            <li>85% of creative field students reported receiving misaligned or incomplete guidance.</li>
+            <li>There's a lack of visibility into deadlines, program requirements, or community support.</li>
+            <li>Poor program fit leads to wasted money, delays, and even visa rejection.</li>
+          </ol>
+        </section>
+
+        <!-- challenge -->
+        <section id="challenge" class="cs-sec" data-reveal>
+          <p class="cs-idx">02 / The challenge</p>
+          <h2 class="cs-h2">One question to design around.</h2>
+          <div class="cs-hmw"><p class="mg">how might we</p><p class="q">help Indian students misguided by traditional consultancies make better decisions about studying in the U.S.?</p></div>
+        </section>
+
+        <!-- opportunity -->
+        <section id="opportunity" class="cs-sec" data-reveal>
+          <p class="cs-idx">03 / The opportunity</p>
+          <h2 class="cs-h2">A gap for something student-first.</h2>
+          <p class="cs-p">India's study abroad landscape is dominated by profit-driven consultancies and generic, one-size-fits-all advice. Students lack trusted tools for independent planning, leading to confusion, misdirection, and missed opportunities.</p>
+          <p class="cs-p"><strong>There's a clear gap for a transparent, student-first platform.</strong></p>
+          <figure class="cs-fig" data-reveal>
+            <img src="/_blob/4e041ab2f3e2944dd69ec0ba2c8a9b43" alt="Venn diagram of three overlapping problems: broken guidance systems, neglect of creative student needs, and lack of tools for independent planning. Where all three meet, creative students face confusion, lack of guidance and misdirection." loading="lazy">
+            <figcaption>Three failures overlap on the same student: broken guidance, ignored creative needs and no tools to plan alone.</figcaption>
+          </figure>
+        </section>
+
+        <!-- solution -->
+        <section id="solution" class="cs-sec" data-reveal>
+          <p class="cs-idx">04 / The solution</p>
+          <h2 class="cs-h2">Clarity and control, in one app.</h2>
+          <p class="cs-p">EdAbroad is a personalized, AI-powered mobile platform that helps Indian students, starting with creative fields, plan their study abroad journey with clarity and control.</p>
+          <ul class="cs-ul">
+            <li>Matches students with best-fit U.S. programs using AI-powered recommendations.</li>
+            <li>Reduces stress with clear timelines, guided steps, and real-time application tracking.</li>
+            <li>Supports students from exploration to admission, saving them time, energy, and missteps.</li>
+          </ul>
+          <p class="cs-sub">Expected impact</p>
+          <div class="cs-stats">
+            <div class="cs-stat"><span class="n">75%</span><span class="t">less time spent shortlisting programs</span></div>
+            <div class="cs-stat"><span class="n">50%</span><span class="t">better program and student alignment</span></div>
+            <div class="cs-stat"><span class="n">50%</span><span class="t">fewer dropouts and last-minute deadline panics</span></div>
+            <div class="cs-stat"><span class="n"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"></path><path d="M6 11l6-6 6 6"></path></svg></span><span class="t">student confidence and autonomy in decision-making</span></div>
+          </div>
+        </section>
+
+        <!-- outcomes -->
+        <section id="outcomes" class="cs-sec" data-reveal>
+          <p class="cs-idx">05 / Design outcomes</p>
+          <h2 class="cs-h2">Three things the app does for you.</h2>
+          <div class="cs-feats">
+            <div class="cs-feat"><span class="k">01</span><h3>Smart shortlisting</h3><p>AI recommends programs based on quiz data, like preferred programs, goals, academic background, and test scores like IELTS and GRE, and gives transparent match scores. This replaces guesswork and biased suggestions with clarity and relevance, addressing the core issue of program and university misalignment.</p></div>
+            <div class="cs-feat"><span class="k">02</span><h3>Mentor matching</h3><p>Students are paired with alumni-based mentors who studied similar fields, solving the problem of isolation and generalized advice by providing real guidance from those who've been through the process.</p></div>
+            <div class="cs-feat"><span class="k">03</span><h3>Application support and tracker</h3><p>In-app application support, personalized task breakdowns, and reminders ensure students stay on track and meet deadlines without stress. This reduces deadline anxiety and prevents delays, a common failure point reported in user interviews.</p></div>
+          </div>
+          <figure class="cs-fig narrow" data-reveal>
+            <img src="/_blob/27b43b10c760d637c04ee63b0a6ca445" alt="Three phone screens of the application process: the application fee and document checklist, reviewing and confirming details, and an application status tracker." loading="lazy">
+            <figcaption>A guided flow to complete and track applications, submit documents, and get status updates, without jumping between websites.</figcaption>
+          </figure>
+        </section>
+
+        <!-- research -->
+        <section id="research" class="cs-sec" data-reveal>
+          <p class="cs-idx">06 / Research, phase 1</p>
+          <h2 class="cs-h2">Finding the root cause.</h2>
+          <ul class="cs-ul">
+            <li>Interviewed 12 students across various academic backgrounds.</li>
+            <li>Identified 4 key pain points:</li>
+          </ul>
+          <div class="cs-quotes">
+            <figure class="cs-quote"><p class="f">07<span>/12</span></p><p class="l">Students faced financial loss</p><blockquote>&ldquo;I ended up paying them ₹7000 and I got my certificates back, and I did not work with that consultancy anymore.&rdquo;</blockquote></figure>
+            <figure class="cs-quote"><p class="f">11<span>/12</span></p><p class="l">Students received irrelevant guidance</p><blockquote>&ldquo;So they were trying to hook me up to this technical courses like information systems or computer science, which I had zero interest pursuing.&rdquo;</blockquote></figure>
+            <figure class="cs-quote"><p class="f">09<span>/12</span></p><p class="l">Students faced stress, regret, and mental health strain</p><blockquote>&ldquo;They demotivated me&hellip; they were like, you won't be getting into this college&hellip; I had to raise my voice for them to apply it.&rdquo;</blockquote></figure>
+          </div>
+        </section>
+
+        <!-- validation -->
+        <section id="validation" class="cs-sec" data-reveal>
+          <p class="cs-idx">07 / Research, phase 2</p>
+          <h2 class="cs-h2">Market validation through pretotyping.</h2>
+          <div class="cs-exps">
+            <article class="cs-exp"><header><span class="k">Fake front door test</span><span class="dur">7 days</span></header><p class="m">31.1%<span>conversion, 14 of 45 signed up</span></p><p>I launched a simple one-page landing site to explain EdAbroad's benefits and measure interest. In 7 days, the page had 45 unique visitors and 14 signups, giving a 31.1% conversion rate. Since this was above the 25% success threshold, the experiment is considered a success.</p></article>
+            <article class="cs-exp"><header><span class="k">Mechanical Turk test</span><span class="dur">30 days</span></header><p class="m">3/3<span>trusted the AI matches</span></p><p>To simulate AI recommendations, I manually curated university matches for 3 students based on their profile inputs and presented them as AI-generated, with a short explanation for each: &ldquo;Why is this a good match for you?&rdquo; Surprisingly, 2 out of 3 students had already shortlisted some of the programs I suggested, reinforcing the match accuracy. After 30 days, I followed up to check if they had considered or shortlisted any of those programs. All 3 confirmed they had and expressed greater trust in AI-based suggestions over consultancies' generic advice.</p></article>
+            <article class="cs-exp"><header><span class="k">Pinocchio test</span><span class="dur">form vs. app</span></header><p class="m">1/4<span>completed the form flow</span></p><p>I created a long Google Form that mimicked the full application process, asking for profile details, academic history, interests, and preferences in separate forms linked internally. Half of the participants dropped off midway, saying it felt like &ldquo;just another boring form.&rdquo; But after I showed them the EdAbroad app flow (same steps, but designed interactively), they were impressed and felt more motivated to complete it.</p></article>
+          </div>
+        </section>
+
+        <!-- testing -->
+        <section id="testing" class="cs-sec" data-reveal>
+          <p class="cs-idx">08 / Research, phase 3</p>
+          <h2 class="cs-h2">Five students, seven tasks each.</h2>
+          <p class="cs-p">I tested the EdAbroad prototype with 5 students. Each completed 7 tasks designed to simulate real usage.</p>
+          <figure class="cs-fig" data-reveal>
+            <img src="/_blob/e830f2f64fc1d65e128e043f114e480c" alt="User testing summary: 5 participants, 40 minutes on average, 85.7% success rate, and four findings including users missing the shortlisting feature and struggling to find mentorship." loading="lazy">
+          </figure>
+          <div class="cs-finds">
+            <div class="cs-find"><span class="k">Finding 1</span><p><strong>5/5 users</strong> missed the AI-powered program matching feature.</p></div>
+            <div class="cs-find"><span class="k">Finding 2</span><p><strong>4/5 users</strong> didn't notice the mentorship feature unless guided, because it was hidden in the side menu.</p></div>
+          </div>
+          <p class="cs-sub">What changed</p>
+          <figure class="cs-fig" data-reveal>
+            <img src="/_blob/9f821fb834112888514da9d5d2cf9810" alt="Task analysis, before and after: the program shortlisting banner on the home screen was skipped by every user, so a shortlisting prompt was added to the Explore screen." loading="lazy">
+            <figcaption>AI-powered program match: the prompt moved to where students actually go looking.</figcaption>
+          </figure>
+          <figure class="cs-fig" data-reveal>
+            <img src="/_blob/dae45aa8c905988bca60e65b36e90fa2" alt="Task analysis, before and after: mentorship was hidden in the side menu, so a home screen popup promoting mentor support was introduced." loading="lazy">
+            <figcaption>Mentorship: out of the side menu and in front of students at the right moment.</figcaption>
+          </figure>
+          <figure class="cs-fig" data-reveal>
+            <img src="/_blob/97adec2265a2ec251d3eb62e651b947e" alt="Task analysis, before and after: users landed on the home screen with no orientation, so a four-step walkthrough was added after onboarding." loading="lazy">
+            <figcaption>Feature awareness: a four-step walkthrough right after onboarding, and again from the side menu.</figcaption>
+          </figure>
+        </section>
+
+        <!-- business -->
+        <section id="business" class="cs-sec" data-reveal>
+          <p class="cs-idx">09 / Business and strategic vision</p>
+          <h2 class="cs-h2">More than an app.</h2>
+          <p class="cs-p">EdAbroad is more than an app: it's a scalable ecosystem. Starting with creative students and the USA was intentional, but it supports other fields (CS, medicine, business) and global expansion (Canada, UK). Designed to align with ethical partners and scalable through community trust.</p>
+          <p class="cs-sub">Revenue model</p>
+          <ol class="cs-rev">
+            <li><strong>Freemium</strong><span>Core features free for all</span></li>
+            <li><strong>Premium tier</strong><span>₹15,000 one-time upgrade for mentorship and full application support</span></li>
+            <li><strong>University partnerships</strong><span>Ethically aligned referrals</span></li>
+            <li><strong>Application processing</strong><span>Service fee per successful submission</span></li>
+            <li><strong>White-label licensing</strong><span>For undergrad schools and consultancies</span></li>
+          </ol>
+          <div class="cs-next">
+            <div class="cs-nexthead"><p class="k">EdAbroad 2.0</p><span class="cs-load" aria-hidden="true"><i></i></span><span class="lbl" style="color: var(--ink-3);">loading&hellip;</span></div>
+            <ul><li>AI-powered chatbot</li><li>Pre-existing shortlist analyzer</li><li>Expand to other fields and countries</li></ul>
+          </div>
+        </section>
+
+        <!-- learnings -->
+        <section id="learnings" class="cs-sec" data-reveal>
+          <p class="cs-idx">10 / Key learnings</p>
+          <h2 class="cs-h2">What I would keep doing.</h2>
+          <div class="cs-learn">
+            <div><h3>Start with a sharp niche</h3><p>Creative students faced the most pain, which gave the product immediate relevance.</p></div>
+            <div><h3>Validate early</h3><p>Pretotyping helped avoid wasted design cycles.</p></div>
+            <div><h3>Trust is the real UX</h3><p>AI only worked because the match reasoning was explained clearly.</p></div>
+            <div><h3>Good design reduces emotional load</h3><p>Confidence and structure were just as important as clean UI.</p></div>
+            <div><h3>Scaling ethically is a strategy</h3><p>Avoided affiliate revenue to maintain user-first integrity.</p></div>
+          </div>
+          <p class="mg rot cs-thanks">Thank you for reading! :)</p>
+        </section>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PREVIOUS AND NEXT ================= -->
+  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 0 80px 120px 80px;">
+    <div class="wrap">
+      <div class="cs-jumps">
+        <a class="cs-jump prev" href="EB5Resources.dc.html" data-cursor="previous case study" data-reveal>
+          <span class="cs-jumpimg" aria-hidden="true"><img src="/_blob/f2db24ce560af36945c92f528a5787dc" alt="" loading="lazy"></span>
+          <span class="cs-jumptext">
+            <span class="cs-jumplbl"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3"></path><path d="M7 4L3 8l4 4"></path></svg>Previous<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10"></path><path d="M9 4l4 4-4 4"></path></svg></span>
+            <span class="cs-jumpttl">EB5 Resources</span>
+            <span class="cs-jumpline">Clarity and trust for families moving to the U.S.</span>
+          </span>
+        </a>
+        <a class="cs-jump next" href="Texitag.dc.html" data-cursor="next case study" data-reveal>
+          <span class="cs-jumpimg" aria-hidden="true"><img src="/_blob/6c27cb3c4a54cd6bcaf33ce91a7c6d21" alt="" loading="lazy"></span>
+          <span class="cs-jumptext">
+            <span class="cs-jumplbl"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3"></path><path d="M7 4L3 8l4 4"></path></svg>Next<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10"></path><path d="M9 4l4 4-4 4"></path></svg></span>
+            <span class="cs-jumpttl">Texitag</span>
+            <span class="cs-jumpline">Garment recycling made personal, visual and worth doing.</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SITE FOOTER (identical on every page) ================= -->
+  <footer id="contact" class="sitefoot pad" data-foot style="box-sizing: border-box; width: 100%; padding: 104px 80px 36px 80px;">
+    <div class="wrap">
+
+      <div data-reveal style="display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap;">
+        <div>
+          <p class="fchip" data-hide><span class="live" aria-hidden="true" style="position: relative; width: 8px; height: 8px; border-radius: 999px; background: var(--olive);"></span>Open to new roles</p>
+          <h2 class="d1" style="margin: 0 0 16px 0; font-family: 'Space Grotesk', sans-serif; font-size: 62px; line-height: 1.04; letter-spacing: -0.034em; color: var(--ink); font-weight: 700; max-width: 15ch; text-wrap: balance;">Got something messy? I like messy.</h2>
+          <p style="margin: 0; font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 44ch;">Products that don't exist yet, research nobody has time for, or a tool your team keeps wishing for.</p>
+        </div>
+        <div class="ctarow" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <a class="btn btn-ghost" href="#download-cv" style="display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 26px; border-radius: 999px; font-size: 16px; font-weight: 600;">Download CV<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg></a>
+          <a class="btn btn-primary" data-hide data-magnetic href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 30px; border-radius: 999px; font-size: 16.5px; font-weight: 600;">Say hello<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9 6 9-6"></path><rect x="3" y="5" width="18" height="14" rx="3"></rect></svg></a>
+        </div>
+      </div>
+
+      <div class="fcols" data-reveal data-d="1" style="display: flex; align-items: center; justify-content: space-between; gap: 24px 32px; flex-wrap: wrap; margin-top: 80px;">
+        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+          <a class="femail" href="mailto:mahesh00005@gmail.com">mahesh00005@gmail.com</a>
+          <button type="button" class="fcopy" data-copy="mahesh00005@gmail.com">
+            <span class="cp-i" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="3"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg></span>
+            <span class="ok-i" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+            <span data-copy-label aria-live="polite">Copy email</span>
+          </button>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <span class="cap" style="margin-right: 6px;">Elsewhere</span>
+          <a class="social fill-link" href="https://www.linkedin.com/in/maheshuiux" target="_blank" rel="noopener">LinkedIn<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></a>
+          <a class="social fill-link" href="https://maheshuiux.medium.com/" target="_blank" rel="noopener">Medium<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></a>
+          <a class="social fill-link" href="https://www.instagram.com/mahesh.design_" target="_blank" rel="noopener">Instagram<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></a>
+        </div>
+      </div>
+
+      <div class="fline" aria-hidden="true"></div>
+
+      <div class="fbottom">
+        <p style="margin: 0; font-size: 14px; color: var(--ink-2);">© 2026 Mahesh Reddy Remala</p>
+        <p class="mg fhint" data-bug-score aria-live="polite">(psst, a bug got loose down here. catch it?)</p>
+        <nav aria-label="Footer" class="fnav">
+          <a class="nv" href="Work.dc.html">Work</a>
+          <a class="nv" href="About.dc.html">About</a>
+          <a class="nv" href="Skills.dc.html">Playground</a>
+          <a class="nv" href="Thoughts.dc.html">Thoughts</a>
+        </nav>
+      </div>
+    </div>
+
+    <button type="button" class="bug" data-bug aria-label="A bug is loose in the footer. Catch it.">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <g class="legs" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7 11L3.5 8.5M6.6 14.5H2.8M7 18l-3.2 2.4M17 11l3.5-2.5M17.4 14.5h3.8M17 18l3.2 2.4"></path></g>
+        <path d="M11 4.2L9.2 1.6M13 4.2l1.8-2.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
+        <circle cx="12" cy="6.2" r="2.6" style="fill: currentColor;"></circle>
+        <ellipse cx="12" cy="14.6" rx="5.6" ry="7" style="fill: var(--terra);"></ellipse>
+        <path d="M12 8.2v13.2" stroke="currentColor" stroke-width="1.3"></path>
+        <circle cx="9.6" cy="12.6" r="1.1" style="fill: currentColor;"></circle><circle cx="14.4" cy="12.6" r="1.1" style="fill: currentColor;"></circle><circle cx="9.9" cy="17.2" r="1" style="fill: currentColor;"></circle><circle cx="14.1" cy="17.2" r="1" style="fill: currentColor;"></circle>
+      </svg>
+    </button>
+    <span class="bugtoast" data-bug-toast role="status"><span data-bug-msg>Bug fixed</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+  </footer>
+
+  <button type="button" class="totop" data-totop aria-label="Back to top"><svg class="totop-ring" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24.5" pathLength="100"></circle></svg><svg class="totop-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"></path><path d="M6 11l6-6 6 6"></path></svg></button>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="curring" data-cursor-ring aria-hidden="true"><span class="cl" data-cursor-label></span></div>
+  <div class="curdot" data-cursor-dot aria-hidden="true"></div>
+
+</div>
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light"},"$preview":{"width":1440,"height":9800}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { theme: this.readTheme() || (props && props.theme === 'dark' ? 'dark' : 'light') };
+    this.cleanups = [];
+    this.lenis = null;
+    this.setRoot = (el) => { this.rootEl = el; };
+    this.toggleTheme = (e) => this.switchTheme(e);
+  }
+
+  mq(q) { return window.matchMedia ? window.matchMedia(q).matches : false; }
+
+  componentDidMount() {
+    const saved = this.readTheme();
+    const initial = saved || (this.props.theme === 'dark' ? 'dark' : 'light');
+    if (initial !== this.state.theme) this.setState({ theme: initial });
+    this.syncBody(initial);
+    this.initThemeSync();
+    const root = this.rootEl || document.getElementById('home-root');
+    if (!root) return;
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    this.initSmooth(root, reduced);
+    this.initStickyNav(root);
+    this.initFooter(root, reduced);
+    this.initToTop(root, reduced);
+    this.initToc(root, reduced);
+    this.initBurger(root);
+    if (!reduced) this.initReveal(root);
+    if (!reduced && this.mq('(pointer: fine)')) this.initPointer(root);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    /* The canvas hands props over just after mount, so the first 'light' is
+       the default arriving, not a choice. Only a switch from one set value to
+       another (the Tweaks panel) counts, and the visitor's pick stays put. */
+    const was = prevProps.theme, now = this.props.theme;
+    const set = (v) => v === 'light' || v === 'dark';
+    if (was !== now && set(was) && set(now)) {
+      this.setState({ theme: now });
+    }
+    if (this.syncedTheme !== this.state.theme) { this.syncedTheme = this.state.theme; this.syncBody(this.state.theme); }
+  }
+
+  componentWillUnmount() {
+    for (let i = 0; i < this.cleanups.length; i++) this.cleanups[i]();
+    this.cleanups = [];
+    clearTimeout(this.switchTimer);
+    clearTimeout(this.closeTimer);
+  }
+
+  /* Each screen is its own artboard with its own component, so the pick is
+     parked outside it, in every place that might outlive the swap, and read
+     back from the first that kept it. The canvas frame's window.name is the
+     one that survives that frame reloading even with storage blocked. */
+  themeCarriers(theme) {
+    const w = typeof window === 'undefined' ? null : window;
+    if (!w) return [];
+    let up = null;
+    try { up = w.parent && w.parent !== w ? w.parent : null; } catch (err) { up = null; }
+    const tag = 'mr-theme:';
+    const fromName = (n) => (n && n.indexOf(tag) === 0 ? n.slice(tag.length) : null);
+    return [
+      { k: 'global', get: () => w.__mrTheme, set: () => { w.__mrTheme = theme; } },
+      { k: 'parent', get: () => (up ? up.__mrTheme : null), set: () => { if (up) up.__mrTheme = theme; } },
+      { k: 'parent.name', get: () => (up ? fromName(up.name || '') : null),
+        set: () => { if (!up) return; const n = up.name || ''; if (!n || n.indexOf(tag) === 0) up.name = tag + theme; } },
+      { k: 'session', get: () => w.sessionStorage.getItem('mr-theme'), set: () => w.sessionStorage.setItem('mr-theme', theme) },
+      { k: 'local', get: () => w.localStorage.getItem('mr-theme'), set: () => w.localStorage.setItem('mr-theme', theme) },
+      { k: 'cookie', get: () => { const m = /(?:^|;\s*)mr-theme=(light|dark)/.exec(document.cookie || ''); return m ? m[1] : null; },
+        set: () => { document.cookie = 'mr-theme=' + theme + ';path=/;max-age=31536000;samesite=lax'; } },
+      { k: 'name', get: () => fromName(w.name || ''),
+        set: () => { const n = w.name || ''; if (!n || n.indexOf(tag) === 0) w.name = tag + theme; } }
+    ];
+  }
+
+  readTheme() {
+    const list = this.themeCarriers(null);
+    for (let i = 0; i < list.length; i += 1) {
+      try {
+        const v = list[i].get();
+        if (v === 'dark' || v === 'light') { this.themeSrc = list[i].k; return v; }
+      } catch (err) {}
+    }
+    this.themeSrc = 'none';
+    return null;
+  }
+
+  writeTheme(theme) {
+    if (theme !== 'dark' && theme !== 'light') return;
+    const list = this.themeCarriers(theme);
+    for (let i = 0; i < list.length; i += 1) { try { list[i].set(); } catch (err) {} }
+  }
+
+  /* Every page is mounted at once in the canvas; moving between them only
+     changes which one is in front. So a toggle is sent to the other pages
+     the moment it happens, and each one listening switches to match. */
+  initThemeSync() {
+    const apply = (t) => { if ((t === 'dark' || t === 'light') && t !== this.state.theme) this.setState({ theme: t }); };
+    const onMsg = (e) => { const d = e && e.data; if (d && d.type === 'mr-theme') apply(d.theme); };
+    const onStorage = (e) => { if (e && e.key === 'mr-theme') apply(e.newValue); };
+    window.addEventListener('message', onMsg);
+    window.addEventListener('storage', onStorage);
+    let bc = null;
+    try { bc = new BroadcastChannel('mr-theme'); bc.onmessage = (e) => apply(e.data); } catch (err) { bc = null; }
+    this.themeBc = bc;
+    this.cleanups.push(() => {
+      window.removeEventListener('message', onMsg);
+      window.removeEventListener('storage', onStorage);
+      if (bc) { try { bc.close(); } catch (err) {} }
+    });
+  }
+
+  broadcastTheme(theme) {
+    try { if (this.themeBc) this.themeBc.postMessage(theme); } catch (err) {}
+    /* and straight to every sibling frame, which needs no shared storage */
+    try {
+      const up = window.parent;
+      if (up && up !== window) {
+        for (let i = 0; i < up.frames.length; i += 1) {
+          const f = up.frames[i];
+          if (f !== window) { try { f.postMessage({ type: 'mr-theme', theme }, '*'); } catch (err) {} }
+        }
+      }
+    } catch (err) {}
+  }
+  syncBody(theme) {
+    try {
+      document.body.style.backgroundColor = theme === 'dark' ? '#1D141F' : '#F8F0E7';
+      document.documentElement.style.colorScheme = theme;
+    } catch (err) {}
+  }
+
+  initSmooth(root, reduced) {
+    const L = window.Lenis;
+    if (typeof L === 'function' && !reduced) {
+      try {
+        const lenis = new L({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 1 });
+        this.lenis = lenis;
+        const loop = (t) => { lenis.raf(t); this.lenisRaf = window.requestAnimationFrame(loop); };
+        this.lenisRaf = window.requestAnimationFrame(loop);
+        this.cleanups.push(() => { window.cancelAnimationFrame(this.lenisRaf); lenis.destroy(); this.lenis = null; });
+      } catch (err) { this.lenis = null; }
+    }
+  }
+
+  switchTheme(e) {
+    const next = this.state.theme === 'dark' ? 'light' : 'dark';
+    this.writeTheme(next);
+    this.broadcastTheme(next);
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    let x = window.innerWidth - 80, y = 38;
+    const btn = e && e.currentTarget;
+    if (btn && btn.getBoundingClientRect) { const r = btn.getBoundingClientRect(); x = r.left + r.width / 2; y = r.top + r.height / 2; }
+    if (!reduced && typeof document.startViewTransition === 'function') {
+      try {
+        const vt = document.startViewTransition(() => new Promise((resolve) => this.setState({ theme: next }, resolve)));
+        const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+        vt.ready.then(() => {
+          document.documentElement.animate(
+            { clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + radius + 'px at ' + x + 'px ' + y + 'px)'] },
+            { duration: 820, easing: 'cubic-bezier(.22,1,.36,1)', pseudoElement: '::view-transition-new(root)' }
+          );
+        }).catch(() => {});
+        return;
+      } catch (err) {}
+    }
+    const root = this.rootEl || document.getElementById('home-root');
+    if (root && !reduced) {
+      root.classList.add('switching');
+      clearTimeout(this.switchTimer);
+      this.switchTimer = setTimeout(() => root.classList.remove('switching'), 650);
+    }
+    this.setState({ theme: next });
+  }
+
+  initReveal(root) {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const nodes = root.querySelectorAll('[data-reveal]');
+    root.classList.add('anim');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+    for (let i = 0; i < nodes.length; i++) io.observe(nodes[i]);
+    this.cleanups.push(() => io.disconnect());
+  }
+
+  initBurger(root) {
+    const btns = Array.prototype.slice.call(root.querySelectorAll('[data-burger]'));
+    const btn = btns[0];
+    const hdr = root.querySelector('[data-header]');
+    if (!btns.length || !hdr) return;
+    const set = (open) => {
+      hdr.classList.toggle('mopen', open);
+      root.classList.toggle('gated', open);
+      if (btn) { btn.setAttribute('aria-expanded', open ? 'true' : 'false'); btn.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu'); }
+    };
+    const toggle = () => set(!hdr.classList.contains('mopen'));
+    btns.forEach((b) => b.addEventListener('click', toggle));
+    /* a link was picked, or the window grew back to desktop: close it */
+    const panel = root.querySelector('[data-mnav]');
+    const close = () => set(false);
+    if (panel) panel.addEventListener('click', (e) => { if (e.target.closest('a')) close(); });
+    const mq = window.matchMedia ? window.matchMedia('(min-width: 701px)') : null;
+    if (mq && mq.addEventListener) mq.addEventListener('change', close);
+    this.cleanups.push(() => {
+      btns.forEach((b) => b.removeEventListener('click', toggle));
+      if (mq && mq.removeEventListener) mq.removeEventListener('change', close);
+      hdr.classList.remove('mopen');
+      root.classList.remove('gated');
+    });
+  }
+  initStickyNav(root) {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const sentinel = root.querySelector('[data-top-sentinel]');
+    const header = root.querySelector('[data-header]');
+    if (!sentinel || !header) return;
+    const io = new IntersectionObserver((entries) => { header.classList.toggle('stuck', !entries[0].isIntersecting); });
+    io.observe(sentinel);
+    this.cleanups.push(() => io.disconnect());
+  }
+
+  initToc(root, reduced) {
+    const nav = root.querySelector('[data-toc]');
+    if (!nav) return;
+    const links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+    const header = root.querySelector('[data-header]');
+    const navH = () => (header ? header.offsetHeight : 76);
+    /* layout position, unaffected by the reveal transforms */
+    const docTop = (el) => { let y = 0; while (el) { y += el.offsetTop; el = el.offsetParent; } return y; };
+    const mark = (id) => links.forEach((a) => a.classList.toggle('on', a.getAttribute('href') === '#' + id));
+    let lockUntil = 0;
+
+    /* a click lands with the chapter label and heading in view, just under the nav */
+    links.forEach((a) => {
+      const go = (e) => {
+        const el = root.querySelector(a.getAttribute('href'));
+        if (!el) return;
+        e.preventDefault();
+        const y = Math.max(0, docTop(el) - navH() - 32);
+        mark(el.id);
+        lockUntil = Date.now() + 1500;
+        if (this.lenis) this.lenis.scrollTo(y, { duration: 1.1 });
+        else window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
+      };
+      a.addEventListener('click', go);
+      this.cleanups.push(() => a.removeEventListener('click', go));
+    });
+
+    /* the chapter taking up the most of the screen (below the nav) is the one you are reading */
+    if (!('IntersectionObserver' in window)) return;
+    const shown = {};
+    const pick = () => {
+      if (Date.now() < lockUntil) return;
+      let best = null, most = 0;
+      Object.keys(shown).forEach((id) => { if (shown[id] > most) { most = shown[id]; best = id; } });
+      if (best) mark(best);
+    };
+    const steps = [];
+    for (let i = 0; i <= 40; i++) steps.push(i / 40);
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { shown[e.target.id] = e.isIntersecting ? e.intersectionRect.height : 0; });
+      pick();
+    }, { rootMargin: '-' + navH() + 'px 0px 0px 0px', threshold: steps });
+    links.forEach((a) => { const el = root.querySelector(a.getAttribute('href')); if (el) io.observe(el); });
+    /* once a clicked scroll settles, hand the highlight back to what is on screen */
+    const settle = setInterval(() => { if (lockUntil && Date.now() >= lockUntil) { lockUntil = 0; pick(); } }, 300);
+    this.cleanups.push(() => { io.disconnect(); clearInterval(settle); });
+  }
+
+  initPointer(root) {
+    const dot = root.querySelector('[data-cursor-dot]');
+    const ring = root.querySelector('[data-cursor-ring]');
+    if (!dot || !ring) return;
+    const label = ring.querySelector('[data-cursor-label]');
+    /* the pull is a mouse trick; small screens never get it */
+    const pullMagnets = this.mq('(min-width: 701px)');
+    const magnets = pullMagnets ? Array.prototype.slice.call(root.querySelectorAll('[data-magnetic]')) : [];
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my, px = mx, py = my, moved = true;
+    root.classList.add('has-cursor');
+
+    /* what the blob says over a given thing */
+    const wordFor = (el) => {
+      const said = el.getAttribute('data-cursor');
+      if (said) return said;
+      if (el.hasAttribute('data-drag')) return 'drag me';
+      if (el.hasAttribute('data-note')) return 'read';
+      if (el.hasAttribute('data-bug')) return 'catch it';
+      if (el.classList.contains('proj')) return 'case study';
+      if (el.classList.contains('skrow')) return 'skill file';
+      if (el.classList.contains('vcard')) return 'have a look';
+      return '';
+    };
+    const onMove = (e) => { mx = e.clientX; my = e.clientY; moved = true; };
+    const onOver = (e) => {
+      const t = e.target && e.target.closest ? e.target.closest('a, button, input, [data-drag], [data-hover], [data-note], [data-cursor]') : null;
+      const word = t ? wordFor(t) : '';
+      if (label) label.textContent = word;
+      ring.classList.toggle('lab', !!word);
+      ring.classList.toggle('grow', !!t && !word);
+    };
+    const onDown = () => root.classList.add('grabbing');
+    const onUp = () => root.classList.remove('grabbing');
+    const onLeave = () => { ring.style.opacity = '0'; dot.style.opacity = '0'; };
+    const onEnter = () => { ring.style.opacity = ''; dot.style.opacity = ''; };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('mouseover', onOver, { passive: true });
+    window.addEventListener('mousedown', onDown, { passive: true });
+    window.addEventListener('mouseup', onUp, { passive: true });
+    document.addEventListener('mouseleave', onLeave);
+    document.addEventListener('mouseenter', onEnter);
+
+    const tick = () => {
+      rx += (mx - rx) * 0.16;
+      ry += (my - ry) * 0.16;
+      /* the blob leans and stretches into the direction it is travelling */
+      const vx = rx - px, vy = ry - py;
+      px = rx; py = ry;
+      const speed = Math.min(Math.sqrt(vx * vx + vy * vy), 34);
+      const ang = speed > 0.6 ? Math.atan2(vy, vx) * 180 / Math.PI : 0;
+      const st = 1 + speed * 0.014, sq = 1 - speed * 0.009;
+      dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+      /* only the bare dot leans; a pill with words in it stays level so they read and fit */
+      ring.style.transform = ring.classList.contains('lab')
+        ? 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0)'
+        : 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0) rotate(' + ang.toFixed(2) + 'deg) scale(' + st.toFixed(3) + ',' + sq.toFixed(3) + ')';
+      if (moved) {
+        for (let i = 0; i < magnets.length; i++) {
+          const el = magnets[i];
+          const r = el.getBoundingClientRect();
+          if (r.width === 0) continue;
+          const dx = mx - (r.left + r.width / 2), dy = my - (r.top + r.height / 2);
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const range = Math.max(r.width, r.height) * 0.8 + 44;
+          if (dist < range) {
+            const k = (1 - dist / range) * 0.22;
+            el.style.transform = 'translate(' + (dx * k).toFixed(2) + 'px,' + (dy * k).toFixed(2) + 'px)';
+          } else if (el.style.transform) {
+            el.style.transform = '';
+          }
+        }
+        moved = false;
+      }
+      this.raf = window.requestAnimationFrame(tick);
+    };
+    this.raf = window.requestAnimationFrame(tick);
+
+    this.cleanups.push(() => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseover', onOver);
+      window.removeEventListener('mousedown', onDown);
+      window.removeEventListener('mouseup', onUp);
+      document.removeEventListener('mouseleave', onLeave);
+      document.removeEventListener('mouseenter', onEnter);
+      if (this.raf) window.cancelAnimationFrame(this.raf);
+    });
+  }
+  /* Shared footer: copy-email button and the Kill the Bug game.
+     The bug wanders; when the pointer gets close it bolts, often to hide
+     behind something marked data-hide. Each escape costs stamina, so after
+     a few it tires and can be caught. Runs only while the footer is on screen. */
+  initFooter(root, reduced) {
+    const foot = root.querySelector('[data-foot]');
+    if (!foot) return;
+
+    const copyBtn = foot.querySelector('[data-copy]');
+    const copyLabel = foot.querySelector('[data-copy-label]');
+    let copyTimer;
+    const setCopy = (text, ok) => {
+      copyLabel.textContent = text;
+      copyBtn.classList.toggle('ok', !!ok);
+      clearTimeout(copyTimer);
+      if (text !== 'Copy email') copyTimer = setTimeout(() => setCopy('Copy email', false), 2000);
+    };
+    const onCopy = () => {
+      const email = copyBtn.getAttribute('data-copy');
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(() => setCopy('Copied', true), () => setCopy('Copy blocked here', false));
+          return;
+        }
+      } catch (err) {}
+      setCopy('Copy blocked here', false);
+    };
+    if (copyBtn && copyLabel) copyBtn.addEventListener('click', onCopy);
+
+    const bug = foot.querySelector('[data-bug]');
+    const toast = foot.querySelector('[data-bug-toast]');
+    const score = foot.querySelector('[data-bug-score]');
+    if (!bug || !toast) return;
+
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+    const turnTo = (a, want, max) => {
+      let d = want - a;
+      while (d > Math.PI) d -= Math.PI * 2;
+      while (d < -Math.PI) d += Math.PI * 2;
+      return a + clamp(d, -max, max);
+    };
+    let W = foot.clientWidth, H = foot.clientHeight;
+    let x = W * 0.18, y = H - 70, ang = -0.4, target = null, hideUntil = 0, stamina = 3;
+    let caught = false, fixes = 0, last = 0, raf = 0, visible = false;
+    let mx = -9999, my = -9999;
+    const timers = [];
+
+    const spots = () => {
+      const fr = foot.getBoundingClientRect();
+      return Array.prototype.map.call(foot.querySelectorAll('[data-hide]'), (el) => {
+        const r = el.getBoundingClientRect();
+        return { x: r.left - fr.left + r.width / 2, y: r.top - fr.top + r.height / 2 };
+      });
+    };
+    const place = () => {
+      bug.style.transform = 'translate(' + (x - 20).toFixed(1) + 'px,' + (y - 20).toFixed(1) + 'px) rotate(' + (ang + Math.PI / 2).toFixed(3) + 'rad)';
+    };
+
+    const tick = (t) => {
+      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016;
+      last = t;
+      if (!caught) {
+        const dx = x - mx, dy = y - my, d = Math.hypot(dx, dy) || 1;
+        const tired = stamina < 1;
+        const fleeR = tired ? 40 : 100;
+        if (d < fleeR && t > hideUntil && (!target || !target.flee)) {
+          stamina = Math.max(0, stamina - 1);
+          const far = spots().filter((p) => Math.hypot(p.x - mx, p.y - my) > 170);
+          if (far.length && Math.random() < 0.65) {
+            const p = far[Math.floor(Math.random() * far.length)];
+            target = { x: p.x, y: p.y, flee: true, hide: true };
+          } else {
+            target = { x: clamp(x + (dx / d) * 200, 24, W - 24), y: clamp(y + (dy / d) * 150, 24, H - 24), flee: true };
+          }
+        }
+
+        let speed = 42;
+        if (t < hideUntil) {
+          speed = 0;
+        } else {
+          bug.classList.remove('still');
+          if (target) {
+            const tx = target.x - x, ty = target.y - y;
+            ang = turnTo(ang, Math.atan2(ty, tx), 9 * dt);
+            speed = target.flee ? (tired ? 52 : 108) : 30;
+            if (Math.hypot(tx, ty) < 12) {
+              if (target.hide) { hideUntil = t + 1200 + Math.random() * 900; bug.classList.add('still'); }
+              target = null;
+            }
+          } else {
+            ang += (Math.random() - 0.5) * 2.6 * dt;
+            if (Math.random() < dt * 0.35) ang += (Math.random() - 0.5) * 2.4;
+          }
+        }
+
+        x += Math.cos(ang) * speed * dt;
+        y += Math.sin(ang) * speed * dt;
+        if (x < 22 || x > W - 22) { ang = Math.PI - ang; x = clamp(x, 22, W - 22); target = target && target.hide ? target : null; }
+        if (y < 22 || y > H - 22) { ang = -ang; y = clamp(y, 22, H - 22); target = target && target.hide ? target : null; }
+        stamina = Math.min(3, stamina + dt * 0.1);
+        place();
+      }
+      raf = window.requestAnimationFrame(tick);
+    };
+    const start = () => { if (!raf && !reduced) { last = 0; raf = window.requestAnimationFrame(tick); } };
+    const stop = () => { if (raf) { window.cancelAnimationFrame(raf); raf = 0; } };
+
+    /* every new bug wears the next brand colour */
+    const shells = ['var(--terra)', 'var(--primary)', 'var(--olive)', 'var(--petrol)', 'var(--rose)'];
+    const shell = bug.querySelector('ellipse');
+    const spawn = () => {
+      W = foot.clientWidth; H = foot.clientHeight;
+      if (shell) shell.style.fill = shells[fixes % shells.length];
+      const fromLeft = Math.random() < 0.5;
+      x = fromLeft ? 26 : W - 26; y = H - 60 - Math.random() * 120;
+      ang = fromLeft ? -0.2 : Math.PI + 0.2;
+      target = null; hideUntil = 0; stamina = 3; caught = false;
+      bug.classList.remove('caught', 'away', 'still');
+      if (reduced) bug.classList.add('still');
+      place();
+    };
+
+    const onCatch = () => {
+      if (caught) return;
+      caught = true;
+      fixes += 1;
+      bug.classList.add('caught');
+      toast.style.left = x + 'px';
+      toast.style.top = Math.max(8, y - 54) + 'px';
+      toast.classList.add('show');
+      if (score) score.textContent = 'bugs fixed: ' + fixes + (fixes >= 3 ? '. ship it.' : '');
+      timers.push(setTimeout(() => toast.classList.remove('show'), 1800));
+      timers.push(setTimeout(() => bug.classList.add('away'), 900));
+      timers.push(setTimeout(() => {
+        spawn();
+        if (score) score.textContent = 'bugs fixed: ' + fixes + '. oh no, another one.';
+      }, 4200));
+    };
+
+    const onMove = (e) => {
+      const fr = foot.getBoundingClientRect();
+      mx = e.clientX - fr.left; my = e.clientY - fr.top;
+    };
+    const onLeave = () => { mx = -9999; my = -9999; };
+    const onResize = () => { W = foot.clientWidth; H = foot.clientHeight; x = clamp(x, 22, W - 22); y = clamp(y, 22, H - 22); place(); };
+
+    foot.addEventListener('pointermove', onMove);
+    foot.addEventListener('pointerdown', onMove);
+    foot.addEventListener('pointerleave', onLeave);
+    bug.addEventListener('click', onCatch);
+    window.addEventListener('resize', onResize);
+
+    let io = null;
+    if (typeof IntersectionObserver !== 'undefined') {
+      io = new IntersectionObserver((entries) => {
+        visible = entries[0].isIntersecting;
+        if (visible) start(); else stop();
+      });
+      io.observe(foot);
+    } else {
+      start();
+    }
+    spawn();
+
+    this.cleanups.push(() => {
+      stop();
+      if (io) io.disconnect();
+      timers.forEach(clearTimeout);
+      clearTimeout(copyTimer);
+      if (copyBtn) copyBtn.removeEventListener('click', onCopy);
+      foot.removeEventListener('pointermove', onMove);
+      foot.removeEventListener('pointerdown', onMove);
+      foot.removeEventListener('pointerleave', onLeave);
+      bug.removeEventListener('click', onCatch);
+      window.removeEventListener('resize', onResize);
+    });
+  }
+
+  /* Back-to-top button: shown from the third section onward (or the footer
+     on pages with fewer sections), watched with an observer, not scroll events. */
+  initToTop(root, reduced) {
+    const btn = root.querySelector('[data-totop]');
+    if (!btn || typeof IntersectionObserver === 'undefined') return;
+    const sections = root.querySelectorAll(':scope > section');
+    const mark = sections[2] || root.querySelector('[data-foot]');
+    if (!mark) return;
+    const io = new IntersectionObserver((entries) => {
+      const e = entries[0];
+      btn.classList.toggle('show', e.isIntersecting || e.boundingClientRect.top < 0);
+    });
+    io.observe(mark);
+    const onClick = () => {
+      if (this.lenis) this.lenis.scrollTo(0, { duration: 1.4, easing: (t) => 1 - Math.pow(1 - t, 4) });
+      else window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    };
+    btn.addEventListener('click', onClick);
+    this.cleanups.push(() => { io.disconnect(); btn.removeEventListener('click', onClick); });
+  }
+
+  renderVals() {
+    const dark = this.state.theme === 'dark';
+    return {
+      setRoot: this.setRoot,
+      themeClass: dark ? 'theme-dark' : 'theme-light',
+      isDark: dark,
+      isLight: !dark,
+      themeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      toggleTheme: this.toggleTheme
+    };
+  }
+}
+</script>
+</body>
+</html>

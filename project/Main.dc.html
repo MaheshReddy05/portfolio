@@ -1,0 +1,1284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mahesh, product designer</title>
+<script src="./support.js"></script>
+<script src="/_blob/532bd04a314bea40837dfdce81e1235e"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&amp;family=Instrument+Sans:ital,wght@0,400..700;1,400..700&amp;family=Caveat:wght@500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&amp;display=swap">
+<style>
+/* =====================================================================
+   Tokens. Light is "paper: warm linen and clay", dark is its night twin.
+   ===================================================================== */
+.theme-light {
+  --canvas: #F8F0E7; --sunken: #F0E6DB; --raised: #FFFBF5;
+  --border: #E5DBD1; --border-v: #EAE1E8;
+  --ink: #3F144D; --ink-2: #62396F; --ink-3: #855794; --muted: #A98DB0;
+  --primary: #5603AD; --primary-hover: #600689; --primary-active: #4C0B65; --on-primary: #F8F0E7;
+  --terra: #AB3821; --terra-hover: #942E19; --on-terra: #F8F0E7;
+  --olive: #6D762D; --olive-line: #D3D6B4; --petrol: #32767B; --petrol-line: #B9D0CF; --rose: #BD6B76;
+  --on-accent: #FFFBF5;
+  --shadow: 0 1px 2px rgba(63,20,77,.05), 0 22px 44px -30px rgba(63,20,77,.30);
+  --shadow-lift: 0 2px 4px rgba(63,20,77,.06), 0 34px 60px -30px rgba(63,20,77,.42);
+  --tape: rgba(234,225,232,.88);
+  --photo: saturate(.92) sepia(.06);
+  --ring-fill: rgba(86,3,173,.08);
+  --note: #F6DCC8;
+  --rule-line: rgba(63,20,77,.075); --margin-line: rgba(189,107,118,.4);
+  --p-lav: #E6D9F4; --p-peach: #EECBB0; --p-sage: #D2E1DA;
+  --m-bg: #FFFBF5; --m-line: #EDE3D9; --m-soft: #F6EEE5; --bezel: #2A0F33;
+  --grain-o: .045; --grain-f: none;
+}
+.theme-dark {
+  --canvas: #1D141F; --sunken: #281D2A; --raised: #362938;
+  --border: #4B3C4E; --border-v: #4A3A4F;
+  --ink: #F6F0EA; --ink-2: #C6B2C7; --ink-3: #AE98AF; --muted: #99829B;
+  --primary: #CE7AF5; --primary-hover: #DA97F8; --primary-active: #B862E0; --on-primary: #1D141F;
+  --terra: #E9795D; --terra-hover: #F08F76; --on-terra: #1D141F;
+  --olive: #B6CA68; --olive-line: #4A5230; --petrol: #60C0C7; --petrol-line: #2F5A5D; --rose: #DF8692;
+  --on-accent: #1D141F;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 22px 44px -28px rgba(0,0,0,.72);
+  --shadow-lift: 0 2px 4px rgba(0,0,0,.3), 0 34px 60px -28px rgba(0,0,0,.82);
+  --tape: rgba(98,78,102,.72);
+  --photo: saturate(.86) brightness(.9);
+  --ring-fill: rgba(206,122,245,.12);
+  --note: #4A3530;
+  --rule-line: rgba(246,240,234,.05); --margin-line: rgba(223,134,146,.3);
+  --p-lav: #2E2242; --p-peach: #3B2A25; --p-sage: #1E3131;
+  --m-bg: #241A27; --m-line: #3E3042; --m-soft: #2E2231; --bezel: #0D080E;
+  --grain-o: .03; --grain-f: invert(1);
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body { margin: 0; background: #F8F0E7; -webkit-font-smoothing: antialiased; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--primary-hover); }
+img { display: block; }
+::selection { background: var(--primary); color: var(--on-primary); }
+a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 6px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Lenis smooth scrolling */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* theme switch: circular wipe where supported, soft cross-fade elsewhere */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+.switching, .switching * { transition: background-color .55s ease, color .55s ease, border-color .55s ease, box-shadow .55s ease !important; }
+
+.wrap { max-width: 1280px; margin-left: auto; margin-right: auto; }
+
+.cap { font-size: 13px; font-weight: 500; letter-spacing: .01em; color: var(--ink-3); }
+.mg { font-family: 'Caveat', cursive; font-weight: 600; font-size: 25px; line-height: 1.1; color: var(--rose); }
+.hand { font-family: 'Caveat', cursive; font-weight: 600; }
+.mono { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.lbl { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+.serif { font-family: 'Newsreader', Georgia, serif; font-optical-sizing: auto; font-weight: 400; }
+.photo { filter: var(--photo); transition: filter .6s ease, transform 1.1s cubic-bezier(.22,1,.36,1); }
+
+/* ================= TEXTURE =================
+   z-index scale: header 40, grain 80, cursor 90. Nothing else layers. */
+.grain {
+  position: fixed; inset: 0; z-index: 80; pointer-events: none;
+  background-image: url(/_blob/341b3175735f56d1c75bf5aeb5250a36); background-size: 220px 220px;
+  opacity: var(--grain-o); filter: var(--grain-f);
+}
+.ruled {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(to right, transparent 0 56px, var(--margin-line) 56px 57px, transparent 57px),
+    repeating-linear-gradient(to bottom, transparent 0 35px, var(--rule-line) 35px 36px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+}
+
+/* ================= SCROLL REVEALS ================= */
+.anim [data-reveal] { opacity: 0; transform: translateY(16px); }
+.anim [data-reveal].in { opacity: 1; transform: none; transition: opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.1s cubic-bezier(.22,1,.36,1); }
+.anim [data-reveal][data-d="1"].in { transition-delay: .12s; }
+.anim [data-reveal][data-d="2"].in { transition-delay: .24s; }
+.anim [data-reveal][data-d="3"].in { transition-delay: .36s; }
+
+.ln { display: block; overflow: hidden; padding-bottom: .16em; margin-bottom: -.16em; }
+.ln > span { display: block; }
+.anim [data-reveal] .ln > span { transform: translateY(105%); }
+.anim [data-reveal].in .ln > span { transform: none; transition: transform 1.15s cubic-bezier(.22,1,.36,1); }
+.anim [data-reveal].in .ln:nth-child(2) > span { transition-delay: .12s; }
+
+.squig path { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.anim [data-reveal] .squig path { stroke-dashoffset: 100; }
+.anim [data-reveal].in .squig path { stroke-dashoffset: 0; transition: stroke-dashoffset 1.2s cubic-bezier(.65,0,.35,1) .75s; }
+
+.anim [data-reveal] .wipe { clip-path: inset(0 0 100% 0 round 22px); }
+.anim [data-reveal].in .wipe { clip-path: inset(0 0 0 0 round 22px); transition: clip-path 1.3s cubic-bezier(.22,1,.36,1), filter .6s ease; }
+
+.rule { display: block; width: 56px; height: 2px; border-radius: 2px; background: var(--primary); transform-origin: 0 50%; }
+.anim [data-reveal] .rule { transform: scaleX(0); }
+.anim [data-reveal].in .rule { transform: scaleX(1); transition: transform 1s cubic-bezier(.22,1,.36,1) .2s; }
+
+.anim [data-reveal] .pop { opacity: 0; }
+.anim [data-reveal].in .pop { animation: popin 1s cubic-bezier(.22,1,.36,1) both; }
+.anim [data-reveal].in .pop[data-p="2"] { animation-delay: .12s; }
+.anim [data-reveal].in .pop[data-p="3"] { animation-delay: .24s; }
+.anim [data-reveal].in .pop[data-p="4"] { animation-delay: .36s; }
+.anim [data-reveal].in .pop[data-p="5"] { animation-delay: .48s; }
+@keyframes popin { from { opacity: 0; transform: translateY(26px) scale(.92); } to { opacity: 1; transform: none; } }
+
+/* ================= AMBIENT MOTION ================= */
+.spark { position: absolute; color: var(--rose); pointer-events: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .spark { animation: twinkle 3.6s ease-in-out infinite alternate; }
+  .spark.s3 { animation-delay: -2.2s; animation-duration: 3.9s; }
+  @keyframes twinkle { 0% { transform: scale(.7) rotate(0deg); opacity: .55; } 100% { transform: scale(1.05) rotate(18deg); opacity: 1; } }
+  .spin { animation: spin 24s linear infinite; }
+  @keyframes spin { to { rotate: 360deg; } }
+  .live::after { content: ""; position: absolute; inset: -5px; border-radius: 999px; border: 2px solid var(--olive); animation: pulse 2.6s ease-out infinite; }
+  @keyframes pulse { from { opacity: .75; transform: scale(.55); } to { opacity: 0; transform: scale(1.7); } }
+  .wander { animation: wander 17s ease-in-out infinite; }
+  @keyframes wander {
+    0% { translate: 300px 436px; } 18% { translate: 150px 232px; } 36% { translate: 270px 180px; }
+    54% { translate: 400px 320px; } 72% { translate: 110px 414px; } 100% { translate: 300px 436px; }
+  }
+  .mouse-dot { animation: wheel 1.9s cubic-bezier(.65,0,.35,1) infinite; }
+  @keyframes wheel {
+    0% { transform: translateY(0); opacity: 0; }
+    20% { opacity: 1; }
+    75% { transform: translateY(-16px); opacity: 1; }
+    100% { transform: translateY(-18px); opacity: 0; }
+  }
+}
+@media (prefers-reduced-motion: reduce) { .wander { translate: 300px 436px; } }
+
+/* ================= CURSOR ================= */
+.curdot, .curring { position: fixed; left: 0; top: 0; z-index: 90; pointer-events: none; opacity: 0; border-radius: 999px; will-change: transform; }
+.has-cursor .curdot, .has-cursor .curring { opacity: 1; }
+.curdot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: var(--primary); }
+.curring { width: 36px; height: 36px; margin: -18px 0 0 -18px; border: 1.5px solid var(--primary); scale: 1; transition: scale .45s cubic-bezier(.22,1,.36,1), background-color .4s ease, opacity .3s ease; }
+.curring.grow { scale: 1.6; background: var(--ring-fill); }
+
+/* ================= HEADER ================= */
+.hdr { position: sticky; top: 0; z-index: 40; background: var(--canvas); border-bottom: 1px solid transparent; transition: border-color .4s ease, box-shadow .4s ease, background-color .4s ease; }
+.hdr.stuck { border-bottom-color: var(--border); box-shadow: 0 12px 28px -26px rgba(63,20,77,.6); }
+.progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--primary); transform: scaleX(0); transform-origin: 0 50%; }
+@supports (animation-timeline: scroll()) {
+  .progress { animation: prog linear both; animation-timeline: scroll(root block); }
+  @keyframes prog { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
+.nv { position: relative; color: var(--ink-2); }
+.nv:hover { color: var(--ink); }
+.nv::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -6px; height: 1.5px; border-radius: 2px; background: var(--primary); transition: right .45s cubic-bezier(.22,1,.36,1); }
+.nv:hover::after { right: 0; }
+.toggle { cursor: pointer; width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--border); background: var(--raised); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: border-color .3s ease, transform .5s cubic-bezier(.22,1,.36,1); }
+.toggle:hover { border-color: var(--primary); color: var(--primary); }
+.toggle svg { transition: transform .6s cubic-bezier(.22,1,.36,1); }
+.toggle:hover svg { transform: rotate(-24deg); }
+.toggle:active { transform: scale(.94); }
+
+/* ================= SCROLL-LINKED (CSS only, no listeners) ================= */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .par-a, .par-b, .par-c, .rise, .grow { animation-timeline: view(); animation-fill-mode: both; animation-timing-function: linear; }
+    .par-a { animation-name: pa; animation-range: entry 0% exit 100%; }
+    .par-b { animation-name: pb; animation-range: entry 0% exit 100%; }
+    .par-c { animation-name: pc; animation-range: entry 0% exit 100%; }
+    .rise { animation-name: rise; animation-range: entry 0% cover 55%; }
+    .grow { animation-name: growin; animation-range: entry 0% cover 30%; }
+    @keyframes pa { from { translate: 0 22px; } to { translate: 0 -22px; } }
+    @keyframes pb { from { translate: 0 40px; } to { translate: 0 -30px; } }
+    @keyframes pc { from { translate: 0 12px; } to { translate: 0 -18px; } }
+    @keyframes rise { from { translate: 0 56px; } to { translate: 0 0; } }
+    @keyframes growin { from { scale: .95; } to { scale: 1; } }
+  }
+}
+
+/* ================= BUTTONS ================= */
+.btn { transition: transform .45s cubic-bezier(.22,1,.36,1), background-color .3s ease, border-color .3s ease, color .3s ease; }
+.btn:active { transform: translateY(1px) scale(.98) !important; }
+.btn-primary { background: var(--primary); color: var(--on-primary); }
+.btn-primary:hover { background: var(--primary-hover); color: var(--on-primary); }
+.btn-primary:active { background: var(--primary-active); }
+.btn-ghost { border: 1px solid var(--border); color: var(--ink); background: transparent; }
+.btn-ghost:hover { border-color: var(--primary); color: var(--primary); background: var(--ring-fill); }
+.btn-terra { background: var(--terra); color: var(--on-terra); }
+.btn-terra:hover { background: var(--terra-hover); color: var(--on-terra); }
+[data-magnetic] { transition: transform .7s cubic-bezier(.22,1,.36,1), background-color .3s ease, color .3s ease; }
+.dl svg { transition: transform .45s cubic-bezier(.22,1,.36,1); }
+.dl:hover svg { transform: translateY(2px); }
+
+/* ================= HERO ================= */
+.hero { min-height: calc(100vh - 76px); min-height: calc(100svh - 76px); }
+.mouse { position: absolute; left: 50%; bottom: 26px; translate: -50% 0; display: flex; padding: 8px; color: var(--ink-3); border-radius: 999px; transition: color .3s ease; }
+.mouse:hover { color: var(--primary); }
+.mouse-body { position: relative; display: block; width: 24px; height: 38px; box-sizing: border-box; border: 1.8px solid currentColor; border-radius: 14px; }
+.mouse-dot { position: absolute; left: 50%; bottom: 7px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 999px; background: var(--primary); }
+
+/* desk */
+[data-drag] { cursor: grab; touch-action: none; user-select: none; transition: scale .4s cubic-bezier(.22,1,.36,1); }
+[data-drag].lifted { cursor: grabbing; scale: 1.05; }
+.lifted.surf, .lifted .surf { box-shadow: var(--shadow-lift) !important; }
+[data-drag].settling { transition: translate .95s cubic-bezier(.22,1,.36,1), scale .4s ease; }
+.selbox { position: absolute; inset: -7px; border: 1.5px solid var(--primary); border-radius: 3px; pointer-events: none; }
+.selbox i { position: absolute; width: 8px; height: 8px; box-sizing: border-box; background: var(--raised); border: 1.5px solid var(--primary); border-radius: 2px; }
+.selbox i:nth-child(1) { left: -5px; top: -5px; } .selbox i:nth-child(2) { right: -5px; top: -5px; }
+.selbox i:nth-child(3) { left: -5px; bottom: -5px; } .selbox i:nth-child(4) { right: -5px; bottom: -5px; }
+.dim { position: absolute; left: 50%; bottom: -33px; translate: -50% 0; background: var(--primary); color: var(--on-primary); font-size: 11px; padding: 3px 7px; border-radius: 5px; white-space: nowrap; }
+.chip { position: relative; display: block; width: 18px; height: 18px; border-radius: 999px; cursor: help; transition: transform .35s cubic-bezier(.34,1.56,.64,1); }
+.chip:hover { transform: scale(1.18); }
+.chip::after {
+  position: absolute; left: 50%; bottom: calc(100% + 9px); translate: -50% 0;
+  padding: 4px 7px; border-radius: 6px; background: var(--ink); color: var(--canvas);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; line-height: 1; white-space: nowrap;
+  opacity: 0; transform: translateY(4px) scale(.9); transform-origin: 50% 100%; pointer-events: none;
+  transition: opacity .2s ease, transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.chip:hover::after { opacity: 1; transform: none; }
+.theme-light .c-ink::after { content: "#3F144D"; } .theme-dark .c-ink::after { content: "#F6F0EA"; }
+.theme-light .c-pri::after { content: "#5603AD"; } .theme-dark .c-pri::after { content: "#CE7AF5"; }
+.theme-light .c-rose::after { content: "#BD6B76"; } .theme-dark .c-rose::after { content: "#DF8692"; }
+.theme-light .c-olive::after { content: "#6D762D"; } .theme-dark .c-olive::after { content: "#B6CA68"; }
+.theme-light .c-pet::after { content: "#32767B"; } .theme-dark .c-pet::after { content: "#60C0C7"; }
+.sw { position: relative; width: 54px; height: 32px; flex-shrink: 0; border-radius: 999px; border: none; padding: 0; cursor: pointer; background: var(--border); transition: background-color .35s ease; }
+.sw::before { content: ""; position: absolute; inset: -7px -5px; }
+.sw::after { content: ""; position: absolute; top: 4px; left: 4px; width: 24px; height: 24px; border-radius: 999px; background: var(--raised); box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: transform .5s cubic-bezier(.22,1,.36,1), background-color .35s ease; }
+.sw[aria-checked="true"] { background: var(--primary); }
+.sw[aria-checked="true"]::after { transform: translateX(22px); background: var(--on-primary); }
+.tidy {
+  position: absolute; right: 0; bottom: -58px; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px;
+  border-radius: 999px; border: 1px solid var(--border); background: var(--raised); color: var(--ink-2); cursor: pointer;
+  font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 13.5px; font-weight: 600;
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .45s ease, transform .55s cubic-bezier(.22,1,.36,1), visibility .45s, border-color .3s ease, color .3s ease;
+}
+.desk.messy ~ .tidy { opacity: 1; visibility: visible; transform: none; }
+.tidy:hover { border-color: var(--primary); color: var(--primary); }
+
+/* ================= SELECTED WORK ================= */
+.proj { display: block; color: inherit; }
+.proj:hover { color: inherit; }
+.panel { position: relative; overflow: hidden; border-radius: 26px; }
+.parrow {
+  position: absolute; right: 22px; bottom: 22px; z-index: 3; width: 52px; height: 52px; border-radius: 999px;
+  background: var(--raised); color: var(--ink); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow);
+  transition: transform .6s cubic-bezier(.22,1,.36,1), background-color .35s ease, color .35s ease;
+}
+.proj:hover .parrow { transform: rotate(45deg) scale(1.06); background: var(--primary); color: var(--on-primary); }
+.proj .ttl { transition: color .35s ease; }
+.proj:hover .ttl { color: var(--primary); }
+.mock { transition: transform 1.1s cubic-bezier(.22,1,.36,1); }
+.m1 { transform: perspective(1600px) rotateX(8deg) rotateY(-11deg) rotateZ(-1.6deg); transform-origin: 20% 40%; }
+.proj:hover .m1 { transform: perspective(1600px) rotateX(3deg) rotateY(-4deg) rotateZ(-.6deg) translateY(-10px); }
+.m2 { transform: rotate(7deg); }
+.proj:hover .m2 { transform: rotate(3deg) translateY(-14px); }
+.m3a { transform: rotate(-3.5deg); }
+.proj:hover .m3a { transform: rotate(-1.5deg) translate(-10px, -10px); }
+.m3b { transform: rotate(4deg); }
+.proj:hover .m3b { transform: rotate(6.5deg) translate(14px, -4px); }
+.mk-nav { display: flex; align-items: center; gap: 9px; padding: 8px 10px; margin-bottom: 4px; border-radius: 9px; font-size: 12.5px; color: var(--ink-2); }
+.mk-nav.on { background: var(--p-lav); color: var(--primary); font-weight: 600; }
+.mk-tag { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--petrol-line); color: var(--petrol); font-size: 10.5px; font-weight: 500; }
+.wave { display: flex; align-items: center; gap: 2px; height: 26px; }
+.wave i { display: block; width: 3px; border-radius: 2px; background: var(--primary); opacity: .78; transform-origin: 50% 50%; }
+@media (prefers-reduced-motion: no-preference) {
+  .proj:hover .wave i { animation: eq .9s ease-in-out infinite alternate; }
+  .proj:hover .wave i:nth-child(3n) { animation-delay: -.3s; }
+  .proj:hover .wave i:nth-child(3n+1) { animation-delay: -.6s; }
+  @keyframes eq { from { transform: scaleY(.35); } to { transform: scaleY(1); } }
+}
+.rit { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--m-line); font-size: 12.5px; color: var(--ink); }
+.rit b { width: 16px; height: 16px; border-radius: 999px; border: 1.5px solid var(--border); box-sizing: border-box; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.kv { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--m-line); font-size: 12.5px; }
+.kv span:first-child { color: var(--ink-3); }
+.kv span:last-child { color: var(--ink); font-weight: 600; }
+
+/* ================= PLAYGROUND ================= */
+.tile { position: relative; transition: transform .55s cubic-bezier(.22,1,.36,1), box-shadow .55s ease; }
+.tile:hover { transform: translateY(-4px) rotate(-.3deg); box-shadow: var(--shadow-lift); }
+.pill { cursor: pointer; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 13.5px; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; padding: 0 20px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--ink-2); transition: background-color .3s ease, color .3s ease, border-color .3s ease, transform .35s cubic-bezier(.22,1,.36,1); }
+.pill:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
+.pill:active { transform: scale(.97); }
+.pill[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: var(--on-primary); }
+.sample { transition: font-variation-settings .3s cubic-bezier(.22,1,.36,1); overflow-wrap: anywhere; }
+.range { accent-color: var(--primary); height: 44px; margin: 0; cursor: pointer; }
+.ttin { box-sizing: border-box; height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--canvas); color: var(--ink); font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 14.5px; font-weight: 500; transition: border-color .25s ease, box-shadow .25s ease; }
+.ttin::placeholder { color: var(--ink-3); }
+.ttin:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--ring-fill); }
+
+/* plotter: a line draws itself over the photo */
+.plotline path { stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .6s ease; }
+.plot:hover .plotline path { stroke-dashoffset: 0; transition: stroke-dashoffset 2.6s cubic-bezier(.45,0,.2,1); }
+
+/* extension: the sentence gives way to its own type scale */
+.ext-copy { transition: opacity .4s ease, transform .6s cubic-bezier(.22,1,.36,1); }
+.ext:hover .ext-copy { opacity: 0; transform: translateY(-14px); }
+.ext-scale { position: absolute; left: 32px; right: 32px; bottom: 30px; display: flex; flex-direction: column; gap: 9px; pointer-events: none; }
+.ext-scale > div { display: flex; align-items: center; gap: 12px; }
+.ext-scale span { width: 64px; flex-shrink: 0; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; color: var(--on-primary); opacity: 0; transition: opacity .3s ease; }
+.ext-scale i { display: block; border-radius: 3px; background: var(--on-primary); transform: scaleX(0); transform-origin: 0 50%; transition: transform .5s cubic-bezier(.22,1,.36,1); }
+.ext:hover .ext-scale span { opacity: .9; }
+.ext:hover .ext-scale i { transform: scaleX(1); }
+.ext-scale > div:nth-child(2) i, .ext-scale > div:nth-child(2) span { transition-delay: .06s; }
+.ext-scale > div:nth-child(3) i, .ext-scale > div:nth-child(3) span { transition-delay: .12s; }
+.ext-scale > div:nth-child(4) i, .ext-scale > div:nth-child(4) span { transition-delay: .18s; }
+.ext-scale > div:nth-child(5) i, .ext-scale > div:nth-child(5) span { transition-delay: .24s; }
+
+/* icons: the set does a little wave */
+.glyphs svg { transition: color .3s ease; }
+.icons:hover .glyphs svg { color: var(--primary); }
+@media (prefers-reduced-motion: no-preference) {
+  .icons:hover .glyphs svg { animation: hop .7s cubic-bezier(.34,1.56,.64,1) both; }
+  .icons:hover .glyphs svg:nth-child(2) { animation-delay: .06s; }
+  .icons:hover .glyphs svg:nth-child(3) { animation-delay: .12s; }
+  .icons:hover .glyphs svg:nth-child(4) { animation-delay: .18s; }
+  .icons:hover .glyphs svg:nth-child(5) { animation-delay: .24s; }
+  .icons:hover .glyphs svg:nth-child(6) { animation-delay: .3s; }
+  @keyframes hop { 0% { transform: none; } 40% { transform: translateY(-9px) rotate(-10deg); } 100% { transform: none; } }
+}
+
+/* film: shutter flash, colour comes back, frame counter ticks */
+.filmimg { filter: var(--photo) grayscale(.7); }
+.film:hover .filmimg { filter: var(--photo); transform: scale(1.05); }
+.flash { position: absolute; inset: 0; background: #FFFBF5; opacity: 0; pointer-events: none; }
+.film:hover .flash { animation: flash .6s ease-out; }
+@keyframes flash { 0% { opacity: 0; } 12% { opacity: .6; } 100% { opacity: 0; } }
+.frame { position: absolute; left: 14px; bottom: 14px; padding: 5px 10px; border-radius: 999px; background: var(--raised); color: var(--ink); font-size: 11px; opacity: 0; transform: translateY(6px); transition: opacity .3s ease, transform .45s cubic-bezier(.22,1,.36,1); }
+.film:hover .frame { opacity: 1; transform: none; }
+
+/* ================= AWAY FROM THE SCREEN ================= */
+.pic { transition: rotate .7s cubic-bezier(.22,1,.36,1), scale .7s cubic-bezier(.22,1,.36,1); }
+.pic:hover { rotate: 0deg !important; scale: 1.04; z-index: 3; }
+.tip {
+  position: absolute; left: 50%; top: -12px; translate: -50% -100%; z-index: 5;
+  padding: 6px 14px 8px 14px; border-radius: 12px; white-space: nowrap; pointer-events: none;
+  font-family: 'Caveat', cursive; font-weight: 700; font-size: 24px; line-height: 1; color: var(--on-accent);
+  box-shadow: var(--shadow); opacity: 0; transform: translateY(8px) rotate(0deg) scale(.85); transform-origin: 50% 100%;
+  transition: opacity .25s ease, transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.tip::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 12px; height: 12px; margin-left: -6px; background: inherit; border-radius: 2px; transform: rotate(45deg); }
+.pic:hover .tip { opacity: 1; transform: rotate(-4deg); }
+.pic:nth-child(2):hover .tip { transform: rotate(3deg); }
+.t-rose { background: var(--rose); } .t-petrol { background: var(--petrol); } .t-olive { background: var(--olive); }
+
+/* ================= THOUGHTS RAIL =================
+   The rail's inline padding tracks the 1280px content column, and snapping
+   honours it through scroll-padding, so card one lines up with the title. */
+.rail {
+  --rail-pad: max(80px, calc((100% - 1280px) / 2));
+  display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 6px var(--rail-pad) 22px var(--rail-pad); scroll-padding-inline: var(--rail-pad);
+  cursor: grab; scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+}
+.rail.dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.rail > * { scroll-snap-align: start; flex: 0 0 auto; }
+.rail::-webkit-scrollbar { height: 7px; }
+.rail::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+.rail::-webkit-scrollbar-track { background: transparent; }
+.note { transition: transform .55s cubic-bezier(.22,1,.36,1), box-shadow .55s ease; }
+.note:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); }
+.note h3 a { color: inherit; transition: color .3s ease; }
+.note:hover h3 a { color: var(--primary); }
+.ulink { position: relative; color: var(--ink-2); }
+.ulink::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px; background: var(--border); transition: background-color .3s ease; }
+.ulink:hover { color: var(--primary); }
+.ulink:hover::after { background: var(--primary); }
+
+/* ================= REDUCED MOTION ================= */
+@media (prefers-reduced-motion: reduce) {
+  .anim [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .anim [data-reveal] .ln > span, .anim [data-reveal] .rule { transform: none !important; }
+  .anim [data-reveal] .wipe { clip-path: none !important; }
+  .anim [data-reveal] .pop { opacity: 1 !important; animation: none !important; }
+  .anim [data-reveal] .squig path { stroke-dashoffset: 0 !important; }
+  .tile:hover, .note:hover, .pill:hover, .pic:hover { transform: none !important; scale: 1 !important; }
+  .curdot, .curring { display: none !important; }
+  * { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+/* ---------- tablet ---------- */
+@media (max-width: 1020px) {
+  .pad { padding-left: 40px !important; padding-right: 40px !important; }
+  .rail { --rail-pad: 40px; }
+  .split { grid-template-columns: repeat(6, minmax(0,1fr)) !important; }
+  .cell { grid-column: 1 / -1 !important; }
+  .nudge { margin-top: 0 !important; }
+  .herorow { flex-direction: column !important; align-items: stretch !important; gap: 56px !important; }
+  .herotext { flex: none !important; width: auto !important; }
+  .deskwrap { flex: none !important; align-self: center; }
+  .d1 { font-size: 58px !important; }
+  .d2 { font-size: 40px !important; }
+  .stmt { font-size: 36px !important; }
+  .panelbox { padding: 40px !important; }
+  .sdtext { max-width: 52% !important; }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 700px) {
+  .pad { padding-left: 20px !important; padding-right: 20px !important; }
+  .rail { --rail-pad: 20px; }
+  .navlinks, .navcta, .mouse { display: none !important; }
+  .secpad { padding-top: 76px !important; padding-bottom: 76px !important; }
+  .d1 { font-size: 42px !important; }
+  .d2 { font-size: 31px !important; }
+  .stmt { font-size: 27px !important; }
+  .rot { rotate: 0deg !important; }
+  .ctarow { flex-direction: column !important; align-items: stretch !important; }
+  .ctarow > a, .ctarow > button { justify-content: center !important; }
+  .sampleword { font-size: 48px !important; }
+  .collage > * { margin: 0 !important; }
+  .collage { flex-wrap: wrap !important; gap: 14px !important; }
+  .panelbox { padding: 26px !important; border-radius: 22px !important; }
+  .note { width: 268px !important; }
+  .hide-sm { display: none !important; }
+  .deskwrap { width: 330px !important; height: 340px !important; }
+  .desk { transform: scale(.72); transform-origin: 0 0; }
+  .panel { height: 380px !important; }
+  .sdtext { max-width: 100% !important; top: 70px !important; }
+  .sdtext .serif { font-size: 34px !important; }
+  .m2 { right: -60px !important; top: 190px !important; }
+  .m3b { left: 30% !important; top: 190px !important; }
+  .m3a { width: 300px !important; }
+  .pnote { display: none !important; }
+}
+</style>
+</helmet>
+
+<div class="{{themeClass}}" style="background: var(--canvas); min-height: 100vh;">
+<div id="home-root" ref="{{setRoot}}" class="sheet" style="position: relative; box-sizing: border-box; background: var(--canvas); color: var(--ink); font-family: 'Instrument Sans', system-ui, sans-serif; overflow-x: clip;">
+
+  <div data-top-sentinel aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 1px; height: 1px;"></div>
+
+  <!-- ================= NAV ================= -->
+  <header data-header class="hdr pad" style="box-sizing: border-box; width: 100%; padding: 0 80px;">
+    <div class="progress" aria-hidden="true"></div>
+    <nav class="wrap" style="height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a href="#home-root" style="display: inline-flex; align-items: baseline; font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; color: var(--ink); letter-spacing: -0.02em; font-variation-settings: 'wght' 750, 'wdth' 100, 'opsz' 22;">Mahesh<span style="color: var(--rose);">.</span></a>
+      <div style="display: flex; align-items: center; gap: 28px;">
+        <div class="navlinks" style="display: flex; align-items: center; gap: 30px; font-size: 15px; font-weight: 500;">
+          <a class="nv" href="#work">Work</a>
+          <a class="nv" href="#playground">Playground</a>
+          <a class="nv" href="#thoughts">Thoughts</a>
+          <a class="nv" href="About.dc.html">About</a>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="toggle" aria-label="{{themeLabel}}" title="{{themeLabel}}" onClick="{{toggleTheme}}">
+            <sc-if value="{{isDark}}" hint-placeholder-val="{{false}}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"></path></svg>
+            </sc-if>
+            <sc-if value="{{isLight}}" hint-placeholder-val="{{true}}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8z"></path></svg>
+            </sc-if>
+          </button>
+          <a class="btn btn-primary navcta" data-magnetic href="mailto:hello@yourdomain.com" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Say hello</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ================= HERO: a designer's desk =================
+       Text and desk sit as one group, centred on both axes in the first screen. -->
+  <section class="hero pad" style="position: relative; box-sizing: border-box; width: 100%; padding: 32px 80px 120px 80px; display: flex; align-items: center;">
+    <div class="wrap herorow" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 104px;">
+
+      <div class="herotext" style="flex: 0 1 auto; width: max-content; max-width: 100%; min-width: 0; position: relative; z-index: 1;">
+        <h1 data-reveal class="d1" style="margin: 0 0 26px 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 70px; line-height: 1.04; letter-spacing: -0.035em; color: var(--ink); font-variation-settings: 'wght' 650, 'wdth' 100, 'opsz' 70;"><span class="ln"><span>I design products,</span></span><span class="ln"><span>then I <span style="position: relative; display: inline-block; color: var(--primary); font-variation-settings: 'wght' 780, 'wdth' 100, 'opsz' 70;">build<svg class="squig" viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; bottom: -0.08em; width: 100%; height: 0.2em; overflow: visible; color: var(--rose);"><path pathLength="100" d="M1 7 C 14 2, 26 11, 40 6 S 66 2, 80 7 S 94 9, 99 5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"></path></svg></span> them.</span></span></h1>
+        <p data-reveal data-d="1" style="margin: 0 0 26px 0; font-size: 19px; line-height: 1.65; color: var(--ink-2); max-width: 44ch;">I work on interfaces, prototypes and small tools, usually with code open next to Figma.</p>
+        <p data-reveal data-d="1" style="margin: 0 0 40px 0; display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2);"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 999px; background: var(--olive); box-shadow: 0 0 0 4px color-mix(in srgb, var(--olive) 18%, transparent);"></span>Currently designing at <strong style="color: var(--ink); font-weight: 600;">[COMPANY]</strong></p>
+        <div data-reveal data-d="2" class="ctarow" style="display: flex; align-items: center; gap: 14px;">
+          <a class="btn btn-primary dl" data-magnetic href="#download-cv" style="display: inline-flex; align-items: center; gap: 10px; min-height: 54px; padding: 0 28px; border-radius: 999px; font-size: 16px; font-weight: 600;">Download CV<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg></a>
+          <a class="btn btn-ghost" href="mailto:hello@yourdomain.com" style="display: inline-flex; align-items: center; min-height: 54px; padding: 0 28px; border-radius: 999px; font-size: 16px; font-weight: 600;">Say hello</a>
+        </div>
+      </div>
+
+      <div class="deskwrap" style="position: relative; flex: 0 0 458px; width: 458px; height: 470px;">
+        <div data-desk data-reveal class="desk" style="position: relative; left: 8px; width: 470px; height: 470px; isolation: isolate;">
+
+          <div data-drag class="pop surf" data-p="1" style="position: absolute; left: 0; top: 20px; width: 214px; rotate: -5deg; box-sizing: border-box; padding: 22px 22px 18px 22px; background: var(--note); border-radius: 6px; box-shadow: var(--shadow);">
+            <p class="hand" style="margin: 0; font-size: 27px; line-height: 1.08; color: var(--ink);">hi, I'm Mahesh. I make calm software and small, odd tools.</p>
+            <p class="mg" style="margin: 12px 0 0 0; font-size: 21px;">(you can move me)</p>
+          </div>
+
+          <div data-drag class="pop" data-p="2" style="position: absolute; left: 258px; top: 6px; width: 184px; rotate: 4deg;">
+            <div class="surf" style="border-radius: 16px; overflow: hidden; background: var(--raised); border: 1px solid var(--border); box-shadow: var(--shadow);">
+              <div style="height: 104px; background: var(--primary);"></div>
+              <div style="padding: 12px 14px 14px 14px;">
+                <p style="margin: 0 0 3px 0; font-size: 14px; font-weight: 600; color: var(--ink);">{{swatchName}}</p>
+                <p class="mono" style="margin: 0; font-size: 12px; color: var(--ink-3);">{{swatchHex}}</p>
+              </div>
+            </div>
+            <span class="selbox" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <span class="dim mono" aria-hidden="true">184 × 172</span>
+          </div>
+
+          <div data-drag class="pop surf" data-p="3" style="position: absolute; left: 250px; top: 216px; width: 118px; height: 118px; border-radius: 999px; background: var(--raised); border: 1px solid var(--border); box-shadow: var(--shadow);">
+            <span class="sr">Open to new work</span>
+            <svg class="spin" viewBox="0 0 118 118" width="118" height="118" aria-hidden="true" style="position: absolute; left: 0; top: 0; color: var(--olive);">
+              <defs><path id="badgeRing" d="M59,59 m-43,0 a43,43 0 1,1 86,0 a43,43 0 1,1 -86,0"></path></defs>
+              <text style="font-family: 'Instrument Sans', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 1.2px; fill: currentColor;"><textPath href="#badgeRing" textLength="266" lengthAdjust="spacing">OPEN TO NEW WORK / OPEN TO NEW WORK /</textPath></text>
+            </svg>
+            <span class="live" aria-hidden="true" style="position: absolute; left: 50%; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 999px; background: var(--olive);"></span>
+          </div>
+
+          <div data-drag class="pop surf" data-p="4" style="position: absolute; left: 20px; top: 262px; width: 184px; rotate: 6deg; box-sizing: border-box; padding: 16px 18px; background: var(--raised); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow);">
+            <p style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 60px; line-height: 1; letter-spacing: -0.04em; color: var(--ink); font-variation-settings: 'wght' 700, 'wdth' 100, 'opsz' 60;">Aa</p>
+            <p class="cap" style="margin: 10px 0 12px 0; font-size: 12px;">Bricolage Grotesque</p>
+            <div style="display: flex; gap: 7px;">
+              <span class="chip c-ink" style="background: var(--ink);"><span class="sr">Ink</span></span>
+              <span class="chip c-pri" style="background: var(--primary);"><span class="sr">Primary violet</span></span>
+              <span class="chip c-rose" style="background: var(--rose);"><span class="sr">Dusty rose</span></span>
+              <span class="chip c-olive" style="background: var(--olive);"><span class="sr">Olive</span></span>
+              <span class="chip c-pet" style="background: var(--petrol);"><span class="sr">Petrol</span></span>
+            </div>
+          </div>
+
+          <div data-drag class="pop surf" data-p="5" style="position: absolute; left: 216px; top: 374px; width: 232px; rotate: -3deg; box-sizing: border-box; padding: 16px 18px; background: var(--raised); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: space-between; gap: 14px;">
+            <div>
+              <p style="margin: 0 0 3px 0; font-size: 15px; font-weight: 600; color: var(--ink);">Night mode</p>
+              <p class="cap" style="margin: 0; font-size: 12.5px;">This one actually works</p>
+            </div>
+            <button type="button" class="sw" role="switch" aria-checked="{{isDark}}" aria-label="Night mode" onClick="{{toggleTheme}}"></button>
+          </div>
+
+          <div class="wander" aria-hidden="true" style="position: absolute; left: 0; top: 0; z-index: 9999; pointer-events: none;">
+            <svg width="20" height="22" viewBox="0 0 20 22"><path d="M2 2l15 7.5-6.6 1.9L7.6 18z" style="fill: var(--primary); stroke: var(--canvas); stroke-width: 1.6; stroke-linejoin: round;"></path></svg>
+            <span style="position: absolute; left: 15px; top: 18px; background: var(--primary); color: var(--on-primary); font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px 999px 999px 4px; white-space: nowrap;">Mahesh</span>
+          </div>
+        </div>
+        <button type="button" class="tidy" onClick="{{tidyDesk}}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg>Tidy the desk</button>
+      </div>
+
+    </div>
+
+    <a class="mouse" href="#work" aria-label="Scroll to selected work"><span class="mouse-body"><span class="mouse-dot"></span></span></a>
+  </section>
+
+  <!-- ================= SELECTED WORK ================= -->
+  <section id="work" class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 40px 80px 136px 80px;">
+    <div class="wrap">
+      <div data-reveal style="margin-bottom: 60px;">
+        <h2 class="d2" style="margin: 0 0 22px 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 48px; line-height: 1.06; letter-spacing: -0.03em; color: var(--ink); font-variation-settings: 'wght' 650, 'wdth' 100, 'opsz' 48;">Selected work</h2>
+        <span class="rule" aria-hidden="true"></span>
+      </div>
+
+      <div class="split" style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); column-gap: 32px; row-gap: 112px;">
+
+        <!-- 1. Fieldnote -->
+        <a class="proj cell" href="#work" data-reveal style="grid-column: 1 / span 12;">
+          <div class="panel grow" style="background: var(--p-lav); height: 480px;">
+            <p class="lbl" style="position: absolute; left: 34px; top: 30px; margin: 0; z-index: 2;">Fieldnote / Research, sorted</p>
+            <p class="serif pnote" style="position: absolute; right: 36px; top: 24px; margin: 0; z-index: 2; font-size: 22px; font-style: italic; color: var(--ink-2);">Less digging. More listening.</p>
+
+            <div class="rise" style="position: absolute; left: 9%; top: 92px; width: 76%; height: 440px;">
+              <div class="mock m1" aria-hidden="true" style="width: 100%; height: 100%; box-sizing: border-box; background: var(--m-bg); border: 1px solid var(--m-line); border-radius: 16px; box-shadow: var(--shadow-lift); display: grid; grid-template-columns: 172px minmax(0,1fr); overflow: hidden;">
+                <div style="border-right: 1px solid var(--m-line); padding: 22px 14px;">
+                  <p style="margin: 0 0 26px 10px; font-family: 'Bricolage Grotesque', sans-serif; font-size: 19px; color: var(--ink); letter-spacing: -0.02em; font-variation-settings: 'wght' 700, 'wdth' 100, 'opsz' 19;">fieldnote<span style="color: var(--rose);">.</span></p>
+                  <div class="mk-nav on"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"></rect><path d="M9 4v16"></path></svg>Library</div>
+                  <div class="mk-nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg>Themes</div>
+                  <div class="mk-nav"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l4-1 11-11-3-3L5 16z"></path></svg>Highlights</div>
+                </div>
+                <div style="padding: 20px 26px; min-width: 0;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                    <p style="margin: 0; font-size: 11px; color: var(--ink-3);">Library / Onboarding study</p>
+                    <span style="width: 28px; height: 28px; border-radius: 999px; background: var(--p-lav); color: var(--primary); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center;">M</span>
+                  </div>
+                  <p class="lbl" style="margin: 0 0 6px 0; font-size: 9.5px; color: var(--ink-3);">Tuesday, synthesis day</p>
+                  <p class="serif" style="margin: 0 0 16px 0; font-size: 31px; line-height: 1.1; color: var(--ink); letter-spacing: -0.01em;">What did people actually say?</p>
+                  <div style="display: flex; align-items: center; gap: 8px; height: 38px; padding: 0 12px; border: 1px solid var(--m-line); border-radius: 10px; background: var(--m-soft); font-size: 12.5px; color: var(--ink-3); margin-bottom: 16px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>Search every interview</div>
+                  <div style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr) minmax(0,.9fr); gap: 12px;">
+                    <div style="border: 1px solid var(--m-line); border-radius: 12px; padding: 12px;">
+                      <div class="wave" style="margin-bottom: 10px;"><i style="height: 40%;"></i><i style="height: 70%;"></i><i style="height: 55%;"></i><i style="height: 90%;"></i><i style="height: 65%;"></i><i style="height: 35%;"></i><i style="height: 80%;"></i><i style="height: 100%;"></i><i style="height: 60%;"></i><i style="height: 45%;"></i><i style="height: 75%;"></i><i style="height: 50%;"></i><i style="height: 30%;"></i><i style="height: 65%;"></i><i style="height: 40%;"></i><i style="height: 25%;"></i></div>
+                      <p style="margin: 0 0 10px 0; font-size: 12px; line-height: 1.45; color: var(--ink);">“I just want to find the thing I heard last week.”</p>
+                      <span class="mk-tag">onboarding</span>
+                    </div>
+                    <div style="border: 1px solid var(--m-line); border-radius: 12px; padding: 12px;">
+                      <div class="wave" style="margin-bottom: 10px;"><i style="height: 55%;"></i><i style="height: 35%;"></i><i style="height: 80%;"></i><i style="height: 60%;"></i><i style="height: 100%;"></i><i style="height: 70%;"></i><i style="height: 40%;"></i><i style="height: 55%;"></i><i style="height: 85%;"></i><i style="height: 45%;"></i><i style="height: 30%;"></i><i style="height: 60%;"></i><i style="height: 75%;"></i><i style="height: 40%;"></i><i style="height: 55%;"></i><i style="height: 30%;"></i></div>
+                      <p style="margin: 0 0 10px 0; font-size: 12px; line-height: 1.45; color: var(--ink);">“Every tool asks me to tag things before I understand them.”</p>
+                      <span class="mk-tag">friction</span>
+                    </div>
+                    <div style="border-radius: 12px; padding: 12px; background: var(--p-lav);">
+                      <p class="lbl" style="margin: 0 0 8px 0; font-size: 9px; color: var(--ink-2);">Emerging theme</p>
+                      <p class="serif" style="margin: 0; font-size: 19px; line-height: 1.15; font-style: italic; color: var(--primary);">Search beats sorting</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <span class="parrow" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; margin: 22px 4px 8px 4px;">
+            <h3 style="margin: 0; font-size: 21px; line-height: 1.35; font-weight: 450; color: var(--ink-2);"><span class="ttl" style="font-weight: 650; color: var(--ink);">Fieldnote.</span> Every interview, in one place.</h3>
+            <p class="lbl" style="margin: 0; color: var(--petrol);">Product design / 2026</p>
+          </div>
+          <p style="margin: 0 4px; font-size: 16px; line-height: 1.65; color: var(--ink-2); max-width: 62ch;">Turning a year of scattered interview recordings into something a whole team can actually search.</p>
+        </a>
+
+        <!-- 2. Sundial -->
+        <a class="proj cell" href="#work" data-reveal style="grid-column: 3 / span 10;">
+          <div class="panel grow" style="background: var(--p-peach); height: 480px;">
+            <p class="lbl" style="position: absolute; left: 36px; top: 30px; margin: 0; z-index: 2;">Sundial</p>
+            <div class="sdtext" style="position: absolute; left: 36px; top: 108px; max-width: 46%; z-index: 2;">
+              <p class="serif" style="margin: 0; font-size: 56px; line-height: 1.02; color: var(--ink); letter-spacing: -0.02em;">Slow mornings.</p>
+              <p class="serif" style="margin: 0 0 18px 0; font-size: 56px; line-height: 1.08; font-style: italic; color: var(--ink); letter-spacing: -0.02em;">Nothing to chase.</p>
+              <p style="margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-2);">A morning app without streaks, badges or guilt.</p>
+            </div>
+            <svg class="hide-sm" width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true" style="position: absolute; left: 36px; bottom: 34px; color: var(--rose);"><circle cx="32" cy="32" r="29" stroke="currentColor" stroke-width="5"></circle><circle cx="32" cy="32" r="15" stroke="currentColor" stroke-width="5"></circle></svg>
+
+            <div class="rise" style="position: absolute; right: 13%; top: 46px; width: 262px; height: 540px;">
+              <div class="mock m2" aria-hidden="true" style="width: 100%; height: 100%; box-sizing: border-box; border-radius: 42px; border: 9px solid var(--bezel); background: var(--m-bg); box-shadow: var(--shadow-lift); overflow: hidden; padding: 14px 18px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 600; color: var(--ink);"><span>7:12</span><span style="display: flex; gap: 3px; align-items: flex-end;"><i style="display: block; width: 3px; height: 5px; background: var(--ink); border-radius: 1px;"></i><i style="display: block; width: 3px; height: 7px; background: var(--ink); border-radius: 1px;"></i><i style="display: block; width: 3px; height: 9px; background: var(--ink); border-radius: 1px;"></i></span></div>
+                <p class="serif" style="margin: 26px 0 0 0; font-size: 28px; line-height: 1.05; color: var(--ink);">Good morning,</p>
+                <p class="serif" style="margin: 0 0 18px 0; font-size: 28px; line-height: 1.1; font-style: italic; color: var(--ink);">take your time.</p>
+                <div style="border-radius: 18px; padding: 14px 14px 12px 14px; background: var(--p-peach); margin-bottom: 18px;">
+                  <svg width="100%" height="46" viewBox="0 0 200 46" preserveAspectRatio="none" fill="none" style="display: block; color: var(--rose);"><path d="M4 44 A 96 96 0 0 1 196 44" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 5"></path><circle cx="58" cy="17" r="8" style="fill: currentColor;"></circle><path d="M0 44h200" stroke="currentColor" stroke-width="1.5"></path></svg>
+                  <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 11.5px;"><span style="color: var(--ink); font-weight: 600;">Sunrise 6:48</span><span style="color: var(--ink-2);">Clear, cool</span></div>
+                </div>
+                <p class="lbl" style="margin: 0 0 4px 0; font-size: 9.5px; color: var(--ink-3);">This morning</p>
+                <div class="rit"><b style="background: var(--olive); border-color: var(--olive);"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--m-bg);"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></b>Open the window</div>
+                <div class="rit"><b></b>Tea, no phone</div>
+                <div class="rit"><b></b>Five slow breaths</div>
+              </div>
+            </div>
+
+            <span class="parrow" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; margin: 22px 4px 8px 4px;">
+            <h3 style="margin: 0; font-size: 21px; line-height: 1.35; font-weight: 450; color: var(--ink-2);"><span class="ttl" style="font-weight: 650; color: var(--ink);">Sundial.</span> A gentler start to the day.</h3>
+            <p class="lbl" style="margin: 0; color: var(--petrol);">iOS app / 2025</p>
+          </div>
+          <p style="margin: 0 4px; font-size: 16px; line-height: 1.65; color: var(--ink-2); max-width: 62ch;">A slow morning app for people who are tired of apps that grade them.</p>
+        </a>
+
+        <!-- 3. Switchboard -->
+        <a class="proj cell" href="#work" data-reveal style="grid-column: 1 / span 9;">
+          <div class="panel grow" style="background: var(--p-sage); height: 440px;">
+            <p class="lbl" style="position: absolute; left: 34px; top: 30px; margin: 0; z-index: 2;">Switchboard / For support teams</p>
+            <p class="serif pnote" style="position: absolute; right: 36px; top: 24px; margin: 0; z-index: 2; font-size: 22px; font-style: italic; color: var(--ink-2);">The answer, before the question.</p>
+
+            <div class="rise" style="position: absolute; left: 7%; top: 96px; width: 380px;">
+              <div class="mock m3a" aria-hidden="true" style="box-sizing: border-box; background: var(--m-bg); border: 1px solid var(--m-line); border-radius: 18px; box-shadow: var(--shadow-lift); padding: 20px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+                  <span style="width: 34px; height: 34px; border-radius: 999px; background: var(--p-sage); color: var(--petrol); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;">PN</span>
+                  <div style="flex-grow: 1;"><p style="margin: 0; font-size: 13.5px; font-weight: 600; color: var(--ink);">Priya N.</p><p style="margin: 0; font-size: 11px; color: var(--ink-3);">2 minutes ago</p></div>
+                  <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: var(--m-soft); font-size: 11px; color: var(--ink-2);"><i style="display: block; width: 6px; height: 6px; border-radius: 999px; background: var(--rose);"></i>Waiting on you</span>
+                </div>
+                <p style="margin: 0 0 6px 0; font-size: 16px; font-weight: 600; color: var(--ink);">My refund hasn't arrived</p>
+                <p style="margin: 0 0 16px 0; font-size: 12.5px; line-height: 1.5; color: var(--ink-2);">It's been a week and I can't see it anywhere in my account.</p>
+                <div style="display: flex; align-items: center; justify-content: space-between; height: 40px; padding: 0 6px 0 12px; border: 1px solid var(--m-line); border-radius: 12px; font-size: 12px; color: var(--ink-3);">Reply to Priya<span style="width: 28px; height: 28px; border-radius: 9px; background: var(--primary); color: var(--on-primary); display: flex; align-items: center; justify-content: center;"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10"></path><path d="M9 4l4 4-4 4"></path></svg></span></div>
+              </div>
+            </div>
+
+            <div class="rise" style="position: absolute; left: 50%; top: 140px; width: 280px;">
+              <div class="mock m3b" aria-hidden="true" style="box-sizing: border-box; background: var(--m-bg); border: 1px solid var(--m-line); border-radius: 18px; box-shadow: var(--shadow-lift); padding: 18px 20px;">
+                <p class="lbl" style="margin: 0 0 8px 0; font-size: 9.5px; color: var(--ink-3);">Customer context</p>
+                <div class="kv"><span>Plan</span><span>Studio</span></div>
+                <div class="kv"><span>Earlier tickets</span><span>3</span></div>
+                <div class="kv" style="border-bottom: none;"><span>Last order</span><span>12 Sep</span></div>
+                <div style="display: flex; gap: 6px; margin-top: 10px;"><span class="mk-tag">Likely billing</span><span class="mk-tag">Priority</span></div>
+              </div>
+            </div>
+
+            <span class="parrow" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; margin: 22px 4px 8px 4px;">
+            <h3 style="margin: 0; font-size: 21px; line-height: 1.35; font-weight: 450; color: var(--ink-2);"><span class="ttl" style="font-weight: 650; color: var(--ink);">Switchboard.</span> Context where the reply happens.</h3>
+            <p class="lbl" style="margin: 0; color: var(--petrol);">Internal tool / 2025</p>
+          </div>
+          <p style="margin: 0 4px; font-size: 16px; line-height: 1.65; color: var(--ink-2); max-width: 62ch;">A support console that stopped hiding the one thing agents actually needed.</p>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HOW I THINK (ruled notebook paper) ================= -->
+  <section class="pad secpad" style="position: relative; box-sizing: border-box; width: 100%; padding: 124px 80px 128px 80px; background: var(--sunken); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="ruled hide-sm" aria-hidden="true"></div>
+    <div class="wrap" style="position: relative;">
+      <p data-reveal class="stmt" style="margin: 0 0 92px 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 46px; line-height: 1.18; letter-spacing: -0.028em; color: var(--ink); font-variation-settings: 'wght' 480, 'wdth' 100, 'opsz' 46; max-width: 21ch;"><span class="ln"><span>I don't fully trust a design</span></span><span class="ln"><span>until I've used it in a browser.</span></span></p>
+      <div class="split" style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 32px; align-items: start;">
+        <div class="cell" data-reveal style="grid-column: span 4;">
+          <p class="mg" style="margin: 0 0 10px 0;">prototype early</p>
+          <p style="margin: 0; font-size: 16.5px; line-height: 1.68; color: var(--ink-2);">A clickable version answers the questions a static mockup only argues about.</p>
+        </div>
+        <div class="cell nudge" data-reveal data-d="1" style="grid-column: 6 / span 3; margin-top: 56px;">
+          <p class="mg" style="margin: 0 0 10px 0;">design the edges</p>
+          <p style="margin: 0; font-size: 16.5px; line-height: 1.68; color: var(--ink-2);">Empty, loading and error states are most of what people actually meet.</p>
+        </div>
+        <div class="cell nudge" data-reveal data-d="2" style="grid-column: 10 / span 3; margin-top: 20px;">
+          <p class="mg" style="margin: 0 0 10px 0;">ship, then look again</p>
+          <p style="margin: 0; font-size: 16.5px; line-height: 1.68; color: var(--ink-2);">The second pass is usually where the real design happens.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PLAYGROUND ================= -->
+  <section id="playground" class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 128px 80px 124px 80px;">
+    <div class="wrap">
+      <div data-reveal style="margin-bottom: 56px;">
+        <h2 class="d2" style="margin: 0 0 14px 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 48px; line-height: 1.06; letter-spacing: -0.03em; color: var(--ink); font-variation-settings: 'wght' 650, 'wdth' 100, 'opsz' 48;">Playground</h2>
+        <p style="margin: 0 0 22px 0; font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 44ch;">Small things I build to find out how something feels. Poke at them.</p>
+        <span class="rule" aria-hidden="true"></span>
+      </div>
+
+      <div class="split" style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 24px; margin-bottom: 24px;">
+
+        <!-- A. type tester: pills, a weight slider, and your own word -->
+        <div class="tile cell" data-reveal style="grid-column: span 7; box-sizing: border-box; background: var(--raised); border: 1px solid var(--border); border-radius: 22px; padding: 30px 34px 30px 34px; box-shadow: var(--shadow); display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
+            <p class="cap" style="margin: 0;">Type tester</p>
+            <p class="cap mono" style="margin: 0; font-size: 12px;">wght {{wght}}</p>
+          </div>
+          <p class="sample sampleword" aria-live="polite" style="flex-grow: 1; display: flex; align-items: center; margin: 12px 0 20px 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 96px; line-height: 1.05; letter-spacing: -0.04em; color: var(--ink); font-variation-settings: 'wght' {{wght}}, 'wdth' 100, 'opsz' 96; padding-bottom: 6px; min-height: 1.1em;">{{sampleShown}}</p>
+          <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
+            <button type="button" class="pill" aria-pressed="{{isL}}" onClick="{{pickL}}">Light</button>
+            <button type="button" class="pill" aria-pressed="{{isM}}" onClick="{{pickM}}">Medium</button>
+            <button type="button" class="pill" aria-pressed="{{isB}}" onClick="{{pickB}}">Bold</button>
+            <p class="mg rot" style="margin: 0 0 0 12px; rotate: -3deg; font-size: 24px;">or type your own</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+            <input class="range" type="range" min="200" max="800" step="10" value="{{wght}}" onChange="{{onWeight}}" aria-label="Font weight" style="flex: 1 1 160px; min-width: 140px;">
+            <label class="sr" for="tt-word">Try your own word</label>
+            <input id="tt-word" class="ttin" type="text" maxlength="12" autocomplete="off" spellcheck="false" value="{{sample}}" onChange="{{onSample}}" placeholder="Type a word" style="flex: 0 1 200px; min-width: 150px;">
+          </div>
+        </div>
+
+        <!-- B. plotter: a line plots itself over the drawing -->
+        <div class="tile cell plot" data-reveal data-d="1" data-hover style="grid-column: 8 / span 5; box-sizing: border-box; background: var(--raised); border: 1px solid var(--border); border-radius: 22px; padding: 14px 14px 20px 14px; box-shadow: var(--shadow);">
+          <div style="position: relative; border-radius: 14px; overflow: hidden; margin-bottom: 16px;">
+            <img class="photo" src="/_blob/ee097b8d9a830616ef6d129e8de21243" alt="An ink drawing made on a pen plotter" style="width: 100%; height: auto; aspect-ratio: 9 / 7; object-fit: cover;">
+            <svg class="plotline" viewBox="0 0 300 230" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%;"><path pathLength="100" d="M18 196 C 48 60, 78 214, 112 120 S 150 30, 176 118 S 214 208, 240 104 S 270 40, 284 70" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" style="stroke: var(--raised);"></path></svg>
+          </div>
+          <p style="margin: 0 8px; font-size: 16px; line-height: 1.6; color: var(--ink-2);">A pen plotter drawing made from a year of my step counts.</p>
+          <p class="mg" style="margin: 4px 8px 0 8px; font-size: 24px;">hover to plot</p>
+        </div>
+      </div>
+
+      <div class="split" style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 24px;">
+
+        <!-- C. extension: the sentence gives way to a type scale -->
+        <div class="tile cell ext" data-reveal data-hover style="grid-column: span 5; box-sizing: border-box; background: var(--primary); border-radius: 22px; padding: 30px 32px; display: flex; flex-direction: column; justify-content: space-between; min-height: 236px; box-shadow: var(--shadow); overflow: hidden;">
+          <p class="cap" style="margin: 0; color: var(--on-primary); opacity: .85;">Chrome extension</p>
+          <div class="ext-copy">
+            <p style="margin: 26px 0 0 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 25px; line-height: 1.26; letter-spacing: -0.02em; color: var(--on-primary); font-variation-settings: 'wght' 560, 'wdth' 100, 'opsz' 25;">Strips any page down to its type scale, so I can read the hierarchy.</p>
+          </div>
+          <div class="ext-scale" aria-hidden="true">
+            <div><span>H1 48</span><i style="width: 100%; height: 14px;"></i></div>
+            <div><span>H2 32</span><i style="width: 76%; height: 11px;"></i></div>
+            <div><span>H3 24</span><i style="width: 58%; height: 9px;"></i></div>
+            <div><span>Body 16</span><i style="width: 42%; height: 7px;"></i></div>
+            <div><span>Small 13</span><i style="width: 30%; height: 5px;"></i></div>
+          </div>
+        </div>
+
+        <!-- D. icons: the set does a little wave -->
+        <div class="tile cell icons" data-reveal data-d="1" data-hover style="grid-column: 6 / span 3; box-sizing: border-box; background: var(--sunken); border: 1.5px dashed var(--border); border-radius: 22px; padding: 30px 28px 26px 28px; display: flex; flex-direction: column; justify-content: space-between; min-height: 236px;">
+          <p class="cap" style="margin: 0;">Icons</p>
+          <div>
+            <p style="margin: 22px 0 18px 0; font-size: 17px; line-height: 1.6; color: var(--ink);">240 glyphs, drawn on trains. Still unfinished, probably always.</p>
+            <div class="glyphs" aria-hidden="true" style="display: flex; gap: 12px; color: var(--ink-2);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"></path><path d="M10 20v-5h4v5"></path></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"></path></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 14h6l-1 7 8-11h-6z"></path></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16v-5a6 6 0 1 1 12 0v5l2 2H4z"></path><path d="M10 21h4"></path></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z"></path><path d="M5 19l8-8"></path></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- E. film: shutter flash, colour returns, frame counter ticks per hover -->
+        <div class="tile cell film" data-reveal data-d="2" data-hover onMouseEnter="{{shoot}}" style="grid-column: 9 / span 4; box-sizing: border-box; border-radius: 22px; overflow: hidden; min-height: 236px; background: var(--sunken); box-shadow: var(--shadow);">
+          <img class="photo filmimg" src="/_blob/72554026643b164270d9a93319184411" alt="A 35mm film contact sheet" style="width: 100%; height: 100%; min-height: 236px; object-fit: cover;">
+          <span class="flash" aria-hidden="true"></span>
+          <span class="frame mono" aria-hidden="true">frame {{frameLabel}} / 36</span>
+        </div>
+      </div>
+      <p data-reveal class="mg" style="margin: 18px 6px 0 0; text-align: right; font-size: 24px;">scanning 35mm badly, on purpose</p>
+    </div>
+  </section>
+
+  <!-- ================= AWAY FROM THE SCREEN ================= -->
+  <section class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 8px 80px 128px 80px;">
+    <div data-reveal class="wrap panelbox" style="box-sizing: border-box; background: var(--raised); border: 1px solid var(--border-v); border-radius: 32px; padding: 64px; box-shadow: var(--shadow);">
+      <div class="split" style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 32px; align-items: center;">
+        <div class="cell" style="grid-column: span 5;">
+          <h2 class="d2" style="margin: 0 0 20px 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 44px; line-height: 1.08; letter-spacing: -0.03em; color: var(--ink); font-variation-settings: 'wght' 650, 'wdth' 100, 'opsz' 44;">Away from the screen</h2>
+          <p style="margin: 0 0 32px 0; font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 38ch;">I love cinema and comics, Marvel especially. Most of my best ideas start in a dark theatre or halfway through an issue.</p>
+          <p style="margin: 0 0 14px 0; display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; letter-spacing: .02em; color: var(--olive);"><span class="live" aria-hidden="true" style="position: relative; width: 7px; height: 7px; border-radius: 999px; background: var(--olive);"></span>Currently</p>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; gap: 14px; align-items: baseline;"><p style="margin: 0; width: 76px; flex-shrink: 0; font-size: 14px; font-weight: 600; color: var(--olive);">Watching</p><p style="margin: 0; font-size: 16.5px; color: var(--ink);">[A FILM YOU LOVED LATELY]</p></div>
+            <div style="display: flex; gap: 14px; align-items: baseline;"><p style="margin: 0; width: 76px; flex-shrink: 0; font-size: 14px; font-weight: 600; color: var(--olive);">Reading</p><p style="margin: 0; font-size: 16.5px; color: var(--ink);">[THE MARVEL RUN YOU ARE ON]</p></div>
+            <div style="display: flex; gap: 14px; align-items: baseline;"><p style="margin: 0; width: 76px; flex-shrink: 0; font-size: 14px; font-weight: 600; color: var(--olive);">Building</p><p style="margin: 0; font-size: 16.5px; color: var(--ink);">[WHAT YOU ARE TINKERING WITH]</p></div>
+          </div>
+        </div>
+        <div class="cell" style="grid-column: 7 / span 6;">
+          <div class="collage" style="display: flex; align-items: flex-start; gap: 16px; padding-top: 30px;">
+            <div class="rot par-a pic" style="position: relative; width: 33%; rotate: -3deg; margin-top: 24px;">
+              <span class="tip t-rose" aria-hidden="true">cinema nights, middle row</span>
+              <img class="photo" src="/_blob/5be2cfbafeb25b968976c214d6b78d74" alt="Placeholder photo for a night at the cinema" style="width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 14px; border: 6px solid var(--canvas); box-sizing: border-box; box-shadow: var(--shadow);">
+              <span aria-hidden="true" style="position: absolute; top: -9px; left: 30%; width: 54px; height: 18px; background: var(--tape); rotate: 5deg; border-radius: 2px;"></span>
+            </div>
+            <div class="rot par-b pic" style="position: relative; width: 38%; rotate: 2deg; margin-top: 90px; margin-left: -14px;">
+              <span class="tip t-petrol" aria-hidden="true">Marvel, since I was a kid</span>
+              <img class="photo" src="/_blob/810c46854dab01ac9f8e80aba32fb969" alt="Placeholder photo for a stack of Marvel comics" style="width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px; border: 6px solid var(--canvas); box-sizing: border-box; box-shadow: var(--shadow);">
+              <span aria-hidden="true" style="position: absolute; top: -9px; left: 38%; width: 54px; height: 18px; background: var(--tape); rotate: -6deg; border-radius: 2px;"></span>
+            </div>
+            <div class="rot par-c pic" style="position: relative; width: 31%; rotate: 1.5deg; margin-left: -8px;">
+              <span class="tip t-olive" aria-hidden="true">sketches after the credits</span>
+              <img class="photo" src="/_blob/6277ef89a97948bb6420e33354d881f8" alt="Placeholder photo for a sketchbook" style="width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 14px; border: 6px solid var(--canvas); box-sizing: border-box; box-shadow: var(--shadow);">
+              <svg class="spark s3" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="right: -8px; bottom: -10px;"><path style="fill: currentColor;" d="M12 0c.6 7 5 11.4 12 12-7 .6-11.4 5-12 12-.6-7-5-11.4-12-12 7-.6 11.4-5 12-12z"></path></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= THOUGHTS ================= -->
+  <section id="thoughts" class="secpad" style="box-sizing: border-box; width: 100%; padding: 16px 0 124px 0;">
+    <div class="pad" style="box-sizing: border-box; padding: 0 80px; margin-bottom: 44px;">
+      <div class="wrap" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+        <div data-reveal>
+          <h2 class="d2" style="margin: 0 0 22px 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 48px; line-height: 1.06; letter-spacing: -0.03em; color: var(--ink); font-variation-settings: 'wght' 650, 'wdth' 100, 'opsz' 48;">Thoughts</h2>
+          <span class="rule" aria-hidden="true"></span>
+        </div>
+        <a class="ulink" href="#thoughts" data-reveal data-d="1" style="font-size: 15.5px; font-weight: 600;">All thoughts</a>
+      </div>
+    </div>
+    <div class="rail" data-rail role="region" aria-label="Recent thoughts, scrollable" tabindex="0">
+      <article class="note" style="box-sizing: border-box; width: 356px; background: var(--raised); border: 1px solid var(--border); border-radius: 22px; padding: 28px; box-shadow: var(--shadow);">
+        <p class="cap" style="margin: 0 0 16px 0;">August 2026</p>
+        <h3 style="margin: 0 0 12px 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 23px; line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); font-variation-settings: 'wght' 600, 'wdth' 100, 'opsz' 23;"><a href="#thoughts">What I got wrong about design systems</a></h3>
+        <p style="margin: 0; font-size: 15.5px; line-height: 1.62; color: var(--ink-2);">Three years of components nobody used, and the one question that fixed it.</p>
+      </article>
+      <article class="note" style="box-sizing: border-box; width: 312px; background: var(--raised); border: 1px solid var(--border); border-radius: 22px; padding: 28px; box-shadow: var(--shadow);">
+        <p class="cap" style="margin: 0 0 16px 0;">July 2026</p>
+        <h3 style="margin: 0 0 12px 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 23px; line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); font-variation-settings: 'wght' 600, 'wdth' 100, 'opsz' 23;"><a href="#thoughts">Prototyping with a model in the loop</a></h3>
+        <p style="margin: 0; font-size: 15.5px; line-height: 1.62; color: var(--ink-2);">Where it genuinely helped, and where it quietly made things worse.</p>
+      </article>
+      <article class="note" style="box-sizing: border-box; width: 340px; background: var(--raised); border: 1px solid var(--border); border-radius: 22px; padding: 28px; box-shadow: var(--shadow);">
+        <p class="cap" style="margin: 0 0 16px 0;">May 2026</p>
+        <h3 style="margin: 0 0 12px 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 23px; line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); font-variation-settings: 'wght' 600, 'wdth' 100, 'opsz' 23;"><a href="#thoughts">Notes on empty states</a></h3>
+        <p style="margin: 0; font-size: 15.5px; line-height: 1.62; color: var(--ink-2);">The screen you design last is the one most people see first.</p>
+      </article>
+      <article class="note" style="box-sizing: border-box; width: 312px; background: var(--raised); border: 1px solid var(--border); border-radius: 22px; padding: 28px; box-shadow: var(--shadow);">
+        <p class="cap" style="margin: 0 0 16px 0;">March 2026</p>
+        <h3 style="margin: 0 0 12px 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 23px; line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); font-variation-settings: 'wght' 600, 'wdth' 100, 'opsz' 23;"><a href="#thoughts">Why I stopped redlining</a></h3>
+        <p style="margin: 0; font-size: 15.5px; line-height: 1.62; color: var(--ink-2);">Handoff got better the month I started writing the CSS myself.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 112px 80px 104px 80px; background: var(--sunken); border-top: 1px solid var(--border);">
+    <div class="wrap split" style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 32px; align-items: start;">
+      <div class="cell" style="grid-column: span 7;">
+        <p data-reveal style="display: inline-flex; align-items: center; gap: 10px; margin: 0 0 26px 0; padding: 8px 16px 8px 13px; border-radius: 999px; background: var(--raised); border: 1px solid var(--olive-line); font-size: 14px; font-weight: 600; color: var(--olive);"><span class="live" aria-hidden="true" style="position: relative; width: 8px; height: 8px; border-radius: 999px; background: var(--olive);"></span>Open to new roles</p>
+        <h2 data-reveal class="d1" style="margin: 0 0 22px 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 74px; line-height: 1.04; letter-spacing: -0.035em; color: var(--ink); font-variation-settings: 'wght' 650, 'wdth' 100, 'opsz' 74;"><span class="ln"><span style="position: relative; display: inline-block;">Come say hello.<svg class="spark s3" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="right: -26px; top: 2px;"><path style="fill: currentColor;" d="M12 0c.6 7 5 11.4 12 12-7 .6-11.4 5-12 12-.6-7-5-11.4-12-12 7-.6 11.4-5 12-12z"></path></svg></span></span></h2>
+        <p data-reveal data-d="1" style="margin: 0 0 30px 0; font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 42ch;">A role, a side project or a film I should watch next. I'd love to hear it.</p>
+        <div data-reveal data-d="2" class="ctarow" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <a class="btn btn-terra" data-magnetic href="mailto:hello@yourdomain.com" style="display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 30px; border-radius: 999px; font-size: 16.5px; font-weight: 600;">Say hello<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9 6 9-6"></path><rect x="3" y="5" width="18" height="14" rx="3"></rect></svg></a>
+          <button type="button" class="btn btn-ghost" onClick="{{copyEmail}}" style="cursor: pointer; display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 24px; border-radius: 999px; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 15.5px; font-weight: 600;">
+            <sc-if value="{{copied}}" hint-placeholder-val="{{false}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--olive);"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+            <sc-if value="{{notCopied}}" hint-placeholder-val="{{true}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="3"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg></sc-if>
+            <span aria-live="polite">{{copyLabel}}</span>
+          </button>
+        </div>
+        <p data-reveal data-d="3" class="cap" style="margin: 18px 0 0 4px;">hello@yourdomain.com</p>
+      </div>
+      <div class="cell" style="grid-column: 10 / span 3; padding-top: 14px;">
+        <div data-reveal data-d="1">
+          <p class="cap" style="margin: 0 0 14px 0;">Elsewhere</p>
+          <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start; margin-bottom: 32px; font-weight: 500;">
+            <a class="ulink" href="#contact">Bluesky</a>
+            <a class="ulink" href="#contact">GitHub</a>
+            <a class="ulink" href="#contact">LinkedIn</a>
+            <a class="ulink" href="#contact">Read.cv</a>
+          </div>
+          <p class="cap" style="margin: 0 0 6px 0;">Based in</p>
+          <p style="margin: 0; font-size: 16px; color: var(--ink);">[YOUR CITY]</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="pad" style="box-sizing: border-box; width: 100%; padding: 34px 80px 42px 80px; background: var(--sunken); border-top: 1px solid var(--border);">
+    <div class="wrap" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+      <div>
+        <p style="margin: 0 0 6px 0; font-size: 14px; color: var(--ink-2);">© 2026 Mahesh</p>
+        <p class="cap" style="margin: 0; font-size: 12.5px;">Set in Bricolage Grotesque, Instrument Sans, Newsreader and Caveat</p>
+      </div>
+      <div style="display: flex; gap: 26px; font-size: 14px; font-weight: 500;">
+        <a class="nv" href="#work">Work</a>
+        <a class="nv" href="#thoughts">Thoughts</a>
+          <a class="nv" href="About.dc.html">About</a>
+        <a class="nv" href="mailto:hello@yourdomain.com">Say hello</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="curring" data-cursor-ring aria-hidden="true"></div>
+  <div class="curdot" data-cursor-dot aria-hidden="true"></div>
+
+</div>
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light"},"$preview":{"width":1440,"height":6700}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { wght: 500, theme: 'light', copy: 'idle', sample: '', shots: 0 };
+    this.cleanups = [];
+    this.lenis = null;
+    this.setRoot = (el) => { this.rootEl = el; };
+    this.pickL = () => this.setState({ wght: 300 });
+    this.pickM = () => this.setState({ wght: 500 });
+    this.pickB = () => this.setState({ wght: 800 });
+    this.onWeight = (e) => this.setState({ wght: Number(e.target.value) || 500 });
+    this.onSample = (e) => this.setState({ sample: String(e.target.value || '').slice(0, 12) });
+    this.shoot = () => this.setState((s) => ({ shots: (s.shots % 36) + 1 }));
+    this.toggleTheme = (e) => this.switchTheme(e);
+    this.copyEmail = () => this.doCopy();
+    this.tidyDesk = () => this.tidy();
+  }
+
+  mq(q) { return window.matchMedia ? window.matchMedia(q).matches : false; }
+
+  componentDidMount() {
+    const initial = this.props.theme === 'dark' ? 'dark' : 'light';
+    if (initial !== this.state.theme) this.setState({ theme: initial });
+    this.syncBody(initial);
+    try { window.localStorage.removeItem('mahesh-theme'); } catch (err) {}
+
+    const root = this.rootEl || document.getElementById('home-root');
+    if (!root) return;
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    this.initSmooth(root, reduced);
+    this.initStickyNav(root);
+    this.initRail(root);
+    this.initDesk(root);
+    if (!reduced) this.initReveal(root);
+    if (!reduced && this.mq('(pointer: fine)')) this.initPointer(root);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.theme !== this.props.theme && (this.props.theme === 'light' || this.props.theme === 'dark')) {
+      this.setState({ theme: this.props.theme });
+    }
+    if (prevState.theme !== this.state.theme) this.syncBody(this.state.theme);
+  }
+
+  componentWillUnmount() {
+    for (let i = 0; i < this.cleanups.length; i++) this.cleanups[i]();
+    this.cleanups = [];
+    clearTimeout(this.copyTimer);
+    clearTimeout(this.switchTimer);
+    clearTimeout(this.tidyTimer);
+  }
+
+  syncBody(theme) {
+    try {
+      document.body.style.backgroundColor = theme === 'dark' ? '#1D141F' : '#F8F0E7';
+      document.documentElement.style.colorScheme = theme;
+    } catch (err) {}
+  }
+
+  /* Inertial scrolling via Lenis, plus eased in-page anchor jumps.
+     Without Lenis (or with reduced motion) the CSS scroll-behavior takes over. */
+  initSmooth(root, reduced) {
+    const L = window.Lenis;
+    if (typeof L === 'function' && !reduced) {
+      try {
+        const lenis = new L({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 1 });
+        this.lenis = lenis;
+        const loop = (t) => { lenis.raf(t); this.lenisRaf = window.requestAnimationFrame(loop); };
+        this.lenisRaf = window.requestAnimationFrame(loop);
+        this.cleanups.push(() => { window.cancelAnimationFrame(this.lenisRaf); lenis.destroy(); this.lenis = null; });
+      } catch (err) { this.lenis = null; }
+    }
+    const onClick = (e) => {
+      const a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!a || !root.contains(a)) return;
+      const id = a.getAttribute('href').slice(1);
+      const target = id ? document.getElementById(id) : null;
+      if (!target) return;
+      e.preventDefault();
+      const top = id === 'home-root';
+      if (this.lenis) {
+        this.lenis.scrollTo(top ? 0 : target, { offset: top ? 0 : -84, duration: 1.5, easing: (t) => 1 - Math.pow(1 - t, 4) });
+      } else if (top) {
+        window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+      } else {
+        target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+      }
+    };
+    root.addEventListener('click', onClick);
+    this.cleanups.push(() => root.removeEventListener('click', onClick));
+  }
+
+  switchTheme(e) {
+    const next = this.state.theme === 'dark' ? 'light' : 'dark';
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    let x = window.innerWidth - 80, y = 38;
+    const btn = e && e.currentTarget;
+    if (btn && btn.getBoundingClientRect) { const r = btn.getBoundingClientRect(); x = r.left + r.width / 2; y = r.top + r.height / 2; }
+
+    if (!reduced && typeof document.startViewTransition === 'function') {
+      try {
+        const vt = document.startViewTransition(() => new Promise((resolve) => this.setState({ theme: next }, resolve)));
+        const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+        vt.ready.then(() => {
+          document.documentElement.animate(
+            { clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + radius + 'px at ' + x + 'px ' + y + 'px)'] },
+            { duration: 820, easing: 'cubic-bezier(.22,1,.36,1)', pseudoElement: '::view-transition-new(root)' }
+          );
+        }).catch(() => {});
+        return;
+      } catch (err) {}
+    }
+    const root = this.rootEl || document.getElementById('home-root');
+    if (root && !reduced) {
+      root.classList.add('switching');
+      clearTimeout(this.switchTimer);
+      this.switchTimer = setTimeout(() => root.classList.remove('switching'), 650);
+    }
+    this.setState({ theme: next });
+  }
+
+  doCopy() {
+    const settle = (result) => {
+      this.setState({ copy: result });
+      clearTimeout(this.copyTimer);
+      this.copyTimer = setTimeout(() => this.setState({ copy: 'idle' }), 2000);
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText('hello@yourdomain.com').then(() => settle('done'), () => settle('fail'));
+        return;
+      }
+    } catch (err) {}
+    settle('fail');
+  }
+
+  /* Hero desk: every object can be picked up and moved. Positions live in
+     plain variables and go straight to style.translate, never through state. */
+  initDesk(root) {
+    const desk = root.querySelector('[data-desk]');
+    if (!desk) return;
+    const items = Array.prototype.slice.call(desk.querySelectorAll('[data-drag]'));
+    const pos = new Map();
+    items.forEach((el) => pos.set(el, { x: 0, y: 0 }));
+    this.desk = desk; this.deskItems = items; this.deskPos = pos;
+    let z = 10, active = null, sx = 0, sy = 0, bx = 0, by = 0, scale = 1;
+
+    const onDown = (e) => {
+      if (e.button !== undefined && e.button !== 0) return;
+      if (e.target && e.target.closest && e.target.closest('button, a')) return;
+      const el = e.currentTarget;
+      active = el;
+      const p = pos.get(el);
+      sx = e.clientX; sy = e.clientY; bx = p.x; by = p.y;
+      const r = desk.getBoundingClientRect();
+      scale = desk.offsetWidth ? r.width / desk.offsetWidth : 1;
+      el.classList.remove('settling');
+      el.classList.add('lifted');
+      el.style.zIndex = String(++z);
+      try { el.setPointerCapture(e.pointerId); } catch (err) {}
+    };
+    const onMove = (e) => {
+      if (!active || active !== e.currentTarget) return;
+      let nx = bx + (e.clientX - sx) / scale;
+      let ny = by + (e.clientY - sy) / scale;
+      const minX = -active.offsetLeft - 40, maxX = desk.offsetWidth - active.offsetLeft - active.offsetWidth + 40;
+      const minY = -active.offsetTop - 40, maxY = desk.offsetHeight - active.offsetTop - active.offsetHeight + 40;
+      nx = Math.max(minX, Math.min(maxX, nx));
+      ny = Math.max(minY, Math.min(maxY, ny));
+      if (Math.abs(nx - bx) + Math.abs(ny - by) > 3) desk.classList.add('messy');
+      pos.set(active, { x: nx, y: ny });
+      active.style.translate = nx.toFixed(1) + 'px ' + ny.toFixed(1) + 'px';
+    };
+    const onUp = (e) => {
+      if (!active || active !== e.currentTarget) return;
+      active.classList.remove('lifted');
+      active = null;
+    };
+    items.forEach((el) => {
+      el.addEventListener('pointerdown', onDown);
+      el.addEventListener('pointermove', onMove);
+      el.addEventListener('pointerup', onUp);
+      el.addEventListener('pointercancel', onUp);
+    });
+    this.cleanups.push(() => items.forEach((el) => {
+      el.removeEventListener('pointerdown', onDown);
+      el.removeEventListener('pointermove', onMove);
+      el.removeEventListener('pointerup', onUp);
+      el.removeEventListener('pointercancel', onUp);
+    }));
+  }
+
+  tidy() {
+    if (!this.desk || !this.deskItems) return;
+    this.deskItems.forEach((el, i) => {
+      el.classList.add('settling');
+      el.style.transitionDelay = (i * 0.05) + 's';
+      el.style.translate = '0px 0px';
+      this.deskPos.set(el, { x: 0, y: 0 });
+    });
+    this.desk.classList.remove('messy');
+    clearTimeout(this.tidyTimer);
+    this.tidyTimer = setTimeout(() => {
+      if (!this.deskItems) return;
+      this.deskItems.forEach((el) => { el.classList.remove('settling'); el.style.transitionDelay = ''; });
+    }, 1300);
+  }
+
+  initReveal(root) {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const nodes = root.querySelectorAll('[data-reveal]');
+    root.classList.add('anim');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+    for (let i = 0; i < nodes.length; i++) io.observe(nodes[i]);
+    this.cleanups.push(() => io.disconnect());
+  }
+
+  initStickyNav(root) {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const sentinel = root.querySelector('[data-top-sentinel]');
+    const header = root.querySelector('[data-header]');
+    if (!sentinel || !header) return;
+    const io = new IntersectionObserver((entries) => { header.classList.toggle('stuck', !entries[0].isIntersecting); });
+    io.observe(sentinel);
+    this.cleanups.push(() => io.disconnect());
+  }
+
+  initRail(root) {
+    const rail = root.querySelector('[data-rail]');
+    if (!rail) return;
+    let down = false, startX = 0, startLeft = 0, moved = false;
+    const onDown = (e) => { if (e.button !== 0) return; down = true; moved = false; startX = e.clientX; startLeft = rail.scrollLeft; };
+    const onMove = (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 4) { moved = true; rail.classList.add('dragging'); }
+      if (moved) rail.scrollLeft = startLeft - dx;
+    };
+    const onUp = () => { down = false; rail.classList.remove('dragging'); };
+    const onClick = (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } };
+    rail.addEventListener('mousedown', onDown);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    rail.addEventListener('click', onClick, true);
+    this.cleanups.push(() => {
+      rail.removeEventListener('mousedown', onDown);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+      rail.removeEventListener('click', onClick, true);
+    });
+  }
+
+  initPointer(root) {
+    const dot = root.querySelector('[data-cursor-dot]');
+    const ring = root.querySelector('[data-cursor-ring]');
+    if (!dot || !ring) return;
+    const magnets = Array.prototype.slice.call(root.querySelectorAll('[data-magnetic]'));
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my, moved = true;
+    root.classList.add('has-cursor');
+
+    const onMove = (e) => { mx = e.clientX; my = e.clientY; moved = true; };
+    const onOver = (e) => {
+      const t = e.target && e.target.closest ? e.target.closest('a, button, input, [data-drag], [data-hover]') : null;
+      ring.classList.toggle('grow', !!t);
+    };
+    const onLeave = () => { ring.style.opacity = '0'; dot.style.opacity = '0'; };
+    const onEnter = () => { ring.style.opacity = ''; dot.style.opacity = ''; };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('mouseover', onOver, { passive: true });
+    document.addEventListener('mouseleave', onLeave);
+    document.addEventListener('mouseenter', onEnter);
+
+    const tick = () => {
+      rx += (mx - rx) * 0.13;
+      ry += (my - ry) * 0.13;
+      dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+      ring.style.transform = 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0)';
+      if (moved) {
+        for (let i = 0; i < magnets.length; i++) {
+          const el = magnets[i];
+          const r = el.getBoundingClientRect();
+          if (r.width === 0) continue;
+          const dx = mx - (r.left + r.width / 2), dy = my - (r.top + r.height / 2);
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const range = Math.max(r.width, r.height) * 0.8 + 44;
+          if (dist < range) {
+            const k = (1 - dist / range) * 0.22;
+            el.style.transform = 'translate(' + (dx * k).toFixed(2) + 'px,' + (dy * k).toFixed(2) + 'px)';
+          } else if (el.style.transform) {
+            el.style.transform = '';
+          }
+        }
+        moved = false;
+      }
+      this.raf = window.requestAnimationFrame(tick);
+    };
+    this.raf = window.requestAnimationFrame(tick);
+
+    this.cleanups.push(() => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseover', onOver);
+      document.removeEventListener('mouseleave', onLeave);
+      document.removeEventListener('mouseenter', onEnter);
+      if (this.raf) window.cancelAnimationFrame(this.raf);
+    });
+  }
+
+  renderVals() {
+    const w = this.state.wght;
+    const dark = this.state.theme === 'dark';
+    const copy = this.state.copy;
+    const word = this.state.sample.trim();
+    const shots = this.state.shots;
+    return {
+      setRoot: this.setRoot,
+      themeClass: dark ? 'theme-dark' : 'theme-light',
+      isDark: dark,
+      isLight: !dark,
+      themeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      toggleTheme: this.toggleTheme,
+      swatchName: dark ? 'Violet, after dark' : 'Brand violet',
+      swatchHex: dark ? '#CE7AF5' : '#5603AD',
+      tidyDesk: this.tidyDesk,
+      wght: w,
+      isL: w === 300, isM: w === 500, isB: w === 800,
+      pickL: this.pickL, pickM: this.pickM, pickB: this.pickB,
+      onWeight: this.onWeight,
+      sample: this.state.sample,
+      sampleShown: word || 'Mahesh',
+      onSample: this.onSample,
+      shoot: this.shoot,
+      frameLabel: (shots < 10 ? '0' : '') + Math.max(shots, 1),
+      copyEmail: this.copyEmail,
+      copied: copy === 'done',
+      notCopied: copy !== 'done',
+      copyLabel: copy === 'done' ? 'Copied' : (copy === 'fail' ? 'Copy blocked here' : 'Copy email')
+    };
+  }
+}
+</script>
+</body>
+</html>

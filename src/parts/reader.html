@@ -1,0 +1,36 @@
+  <!-- ================= NOTE READER (shared popup; filled by initReader) ================= -->
+  <div class="rdr" data-reader role="dialog" aria-modal="true" aria-labelledby="rdr-title">
+    <div class="rdr-scrim" data-r-scrim></div>
+    <div class="rdr-panel" data-r-panel data-lenis-prevent>
+      <div class="rbar">
+        <p style="margin: 0; display: flex; align-items: center; gap: 12px; min-width: 0;"><span class="tag" data-r-tag></span><span class="cap hide-sm" data-r-meta></span></p>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="cap mono hide-sm" data-r-pos aria-hidden="true"></span>
+          <button type="button" class="iconbtn" data-r-close aria-label="Close note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+        </div>
+      </div>
+      <article data-r-art>
+        <div class="rpad" style="padding: 22px 24px 0 24px;">
+          <div class="thumb rhead pat-grid" data-r-thumb><svg class="thumb-art" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M0 0" vector-effect="non-scaling-stroke"></path><path d="M0 0" vector-effect="non-scaling-stroke"></path><path d="M0 0" vector-effect="non-scaling-stroke"></path></svg></div>
+        </div>
+        <div class="rpad" style="padding: 30px 48px 16px 48px;">
+          <h2 id="rdr-title" class="rtitle" data-r-title style="margin: 0 0 24px 0; font-family: 'Space Grotesk', sans-serif; font-size: 40px; line-height: 1.08; letter-spacing: -0.029em; color: var(--ink); font-weight: 700; text-wrap: balance;"></h2>
+          <div data-r-body></div>
+          <blockquote style="margin: 8px 0 28px 0; padding: 4px 0 4px 22px; border-left: 3px solid var(--rose);">
+            <p class="serif" data-r-quote style="margin: 0; font-size: 26px; line-height: 1.3; font-style: italic; color: var(--ink);"></p>
+          </blockquote>
+          <p class="cap" style="margin: 0 0 28px 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;"><span class="hide-sm">Use</span><kbd class="hide-sm">←</kbd><kbd class="hide-sm">→</kbd><span class="hide-sm">to move between notes,</span><kbd>Esc</kbd><span>to close</span></p>
+        </div>
+      </article>
+      <nav class="pnav" aria-label="More notes">
+        <button type="button" class="pcard prev" data-r-prev>
+          <span class="thumb pat-grid" data-r-prev-thumb><svg class="thumb-art" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M0 0" vector-effect="non-scaling-stroke"></path><path d="M0 0" vector-effect="non-scaling-stroke"></path><path d="M0 0" vector-effect="non-scaling-stroke"></path></svg></span>
+          <span class="meta"><span class="dir">← Previous</span><span class="t" data-r-prev-title></span></span>
+        </button>
+        <button type="button" class="pcard next" data-r-next>
+          <span class="thumb pat-grid" data-r-next-thumb><svg class="thumb-art" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M0 0" vector-effect="non-scaling-stroke"></path><path d="M0 0" vector-effect="non-scaling-stroke"></path><path d="M0 0" vector-effect="non-scaling-stroke"></path></svg></span>
+          <span class="meta"><span class="dir">Next →</span><span class="t" data-r-next-title></span></span>
+        </button>
+      </nav>
+    </div>
+  </div>

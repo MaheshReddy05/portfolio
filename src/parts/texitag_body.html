@@ -1,0 +1,748 @@
+
+/* ================= CASE STUDY ================= */
+.nv[aria-current="page"] { color: var(--ink); }
+.nv[aria-current="page"]::after { right: 0; }
+.cs-head { margin-top: 38px; }
+.cs-title { margin: 0 0 18px 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(56px, 8vw, 100px); line-height: .94; letter-spacing: -0.05em; color: var(--ink); font-weight: 700; }
+.cs-lede { margin: 0; font-size: 20px; line-height: 1.5; letter-spacing: -0.01em; color: var(--ink-2); max-width: 34ch; }
+.cs-meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: stretch; gap: 20px 32px; margin: 64px 0 0 0; padding: 26px 0 0 0; border-top: 1px solid var(--border); }
+.cs-meta > div { box-sizing: border-box; flex: 0 1 auto; max-width: 300px; }
+.cs-meta dt { margin-bottom: 8px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.cs-meta dd { margin: 0; font-size: 16px; line-height: 1.5; color: var(--ink); font-weight: 500; }
+/* results sit beside the title, two cards stacked */
+.cs-headrow { display: grid; grid-template-columns: minmax(0,1fr) minmax(260px,340px); gap: 32px 56px; align-items: center; margin-top: 38px; }
+.cs-headrow .cs-head { margin-top: 0; min-width: 0; }
+.cs-hstats { display: flex; flex-direction: column; gap: 14px; }
+.cs-hstat { display: flex; flex-direction: column; gap: 6px; padding: 20px 22px; border-radius: 22px; background: var(--p-lav); }
+.cs-hstat .n { font-family: 'Space Grotesk', sans-serif; font-size: 44px; line-height: .95; letter-spacing: -0.045em; color: var(--primary); font-weight: 700; }
+.cs-hstat .t { font-size: 15.5px; line-height: 1.45; color: var(--ink); }
+.cs-hstat.alt { background: var(--raised); border: 1px solid var(--border); }
+.cs-hstat.alt .n { color: var(--ink); }
+@media (max-width: 1020px) { .cs-headrow { grid-template-columns: minmax(0,1fr); } .cs-hstats { flex-direction: row; } .cs-hstat { flex: 1; } }
+@media (max-width: 700px) { .cs-hstat { padding: 18px 18px; } .cs-hstat .n { font-size: 38px; } .cs-hstat .t { font-size: 14px; } }
+.cs-cover { margin: 0; border-radius: 24px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); }
+.cs-cover img { display: block; width: 100%; height: auto; }
+.cs-intro { margin: 56px 0 0 auto; max-width: 62ch; font-size: 21px; line-height: 1.65; color: var(--ink); }
+.cs-grid { display: grid; grid-template-columns: 220px minmax(0,1fr); gap: 72px; align-items: start; border-top: 1px solid var(--border); padding-top: 72px; }
+.cs-toc { position: sticky; top: 104px; display: flex; flex-direction: column; gap: 2px; }
+.cs-toc a { position: relative; padding: 7px 0 7px 16px; font-size: 14.5px; color: var(--ink-3); transition: color .3s ease; }
+.cs-toc a::before { content: ""; position: absolute; left: 0; top: 50%; width: 6px; height: 6px; margin-top: -3px; border-radius: 999px; background: var(--border-strong); transition: background-color .3s ease, transform .4s cubic-bezier(.34,1.56,.64,1); }
+.cs-toc a:hover { color: var(--ink); }
+.cs-toc a.on { color: var(--primary); font-weight: 600; }
+.cs-toc a.on::before { background: var(--primary); transform: scale(1.4); }
+.cs-main { min-width: 0; max-width: 780px; }
+.cs-sec { scroll-margin-top: 112px; padding-bottom: 96px; }
+.cs-idx { margin: 0 0 12px 0; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 12.5px; letter-spacing: .04em; color: var(--primary); }
+.cs-h2 { margin: 0 0 24px 0; font-family: 'Space Grotesk', sans-serif; font-size: 42px; line-height: 1.08; letter-spacing: -0.028em; color: var(--ink); font-weight: 700; }
+.cs-p { margin: 0 0 18px 0; font-size: 18px; line-height: 1.72; color: var(--ink-2); }
+.cs-p strong { color: var(--ink); }
+.cs-sub { margin: 44px 0 18px 0; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.cs-ol, .cs-ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; counter-reset: cs; }
+.cs-ol li, .cs-ul li { position: relative; padding-left: 40px; font-size: 17.5px; line-height: 1.62; color: var(--ink-2); }
+.cs-ol li { counter-increment: cs; }
+.cs-ol li::before { content: "0" counter(cs); position: absolute; left: 0; top: 3px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 13px; color: var(--primary); }
+.cs-ul li::before { content: ""; position: absolute; left: 6px; top: .72em; width: 14px; height: 1.5px; background: var(--primary); }
+.cs-big { display: flex; align-items: center; gap: 26px; margin: 10px 0 34px 0; padding: 28px 30px; border-radius: 20px; background: var(--p-lav); }
+.cs-big .n { font-family: 'Space Grotesk', sans-serif; font-size: 84px; line-height: .9; letter-spacing: -0.05em; color: var(--primary); font-weight: 700; }
+.cs-big .t { font-size: 19px; line-height: 1.5; color: var(--ink); font-weight: 500; max-width: 30ch; }
+.cs-hmw { padding: 40px 0 8px 0; }
+.cs-hmw .mg { margin: 0 0 6px 0; font-size: 28px; color: var(--terra); }
+.cs-hmw .q { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 36px; line-height: 1.22; letter-spacing: -0.024em; color: var(--ink); font-weight: 600; text-wrap: balance; }
+.cs-fig { margin: 34px 0 0 0; }
+.cs-fig img { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--border); background: #fff; }
+.cs-fig.narrow img { max-width: 520px; margin: 0 auto; }
+.cs-fig figcaption { margin-top: 12px; font-size: 14.5px; line-height: 1.55; color: var(--ink-3); }
+.cs-stats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+.cs-stat { display: flex; flex-direction: column; gap: 10px; padding: 24px 24px 22px 24px; border-radius: 18px; background: var(--raised); border: 1px solid var(--border); }
+.cs-stat .n { font-family: 'Space Grotesk', sans-serif; font-size: 52px; line-height: 1; letter-spacing: -0.04em; color: var(--primary); font-weight: 700; height: 52px; display: flex; align-items: center; }
+.cs-stat .t { font-size: 15.5px; line-height: 1.5; color: var(--ink-2); }
+.cs-feats { display: flex; flex-direction: column; border-top: 1px solid var(--border); }
+.cs-feat { display: grid; grid-template-columns: 56px minmax(0,1fr); column-gap: 18px; padding: 26px 0; border-bottom: 1px solid var(--border); }
+.cs-feat .k { grid-row: span 2; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 13px; color: var(--primary); padding-top: 6px; }
+.cs-feat h3 { margin: 0 0 8px 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.02em; color: var(--ink); font-weight: 700; }
+.cs-feat p { margin: 0; font-size: 16.5px; line-height: 1.66; color: var(--ink-2); }
+.cs-quotes { display: grid; grid-template-columns: minmax(0,1fr); gap: 16px; margin-top: 28px; }
+.cs-quote { margin: 0; display: grid; grid-template-columns: 120px minmax(0,1fr); gap: 4px 24px; padding: 26px 28px; border-radius: 20px; background: var(--raised); border: 1px solid var(--border); }
+.cs-quote .f { grid-row: span 2; margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 58px; line-height: .95; letter-spacing: -0.05em; color: var(--terra); font-weight: 700; }
+.cs-quote .f span { font-size: 22px; letter-spacing: 0; color: var(--ink-3); }
+.cs-quote .l { margin: 0 0 10px 0; font-size: 16.5px; color: var(--ink); font-weight: 600; }
+.cs-quote blockquote { margin: 0; font-size: 16px; line-height: 1.62; color: var(--ink-2); font-style: italic; }
+.cs-exps { display: flex; flex-direction: column; gap: 16px; }
+.cs-exp { padding: 26px 28px; border-radius: 20px; background: var(--raised); border: 1px solid var(--border); }
+.cs-exp header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.cs-exp .k { font-family: 'Space Grotesk', sans-serif; font-size: 20px; letter-spacing: -0.015em; color: var(--ink); font-weight: 700; }
+.cs-exp .dur { padding: 5px 11px; border-radius: 999px; border: 1px solid var(--border-strong); font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11.5px; color: var(--ink-3); white-space: nowrap; }
+.cs-exp .m { margin: 0 0 12px 0; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; font-family: 'Space Grotesk', sans-serif; font-size: 46px; line-height: 1; letter-spacing: -0.04em; color: var(--primary); font-weight: 700; }
+.cs-exp .m span { font-size: 15px; letter-spacing: 0; color: var(--ink-2); font-weight: 500; }
+.cs-exp p:last-child { margin: 0; font-size: 16px; line-height: 1.66; color: var(--ink-2); }
+.cs-finds { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; margin-top: 24px; }
+.cs-find { padding: 22px 24px; border-radius: 18px; background: var(--p-peach); }
+.cs-find .k { display: block; margin-bottom: 10px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 12px; letter-spacing: .04em; color: var(--terra); }
+.cs-find p { margin: 0; font-size: 17px; line-height: 1.55; color: var(--ink); }
+.cs-rev { margin: 0; padding: 0; list-style: none; counter-reset: rv; border-top: 1px solid var(--border); }
+.cs-rev li { counter-increment: rv; display: grid; grid-template-columns: 44px 220px minmax(0,1fr); gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.cs-rev li::before { content: "0" counter(rv); font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 13px; color: var(--primary); }
+.cs-rev strong { font-size: 17px; color: var(--ink); }
+.cs-rev span { font-size: 16px; line-height: 1.55; color: var(--ink-2); }
+.cs-next { margin-top: 40px; padding: 28px 30px; border-radius: 20px; background: var(--sunken); border: 1.5px dashed var(--border-strong); }
+.cs-nexthead { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+.cs-nexthead .k { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.02em; color: var(--ink); font-weight: 700; }
+.cs-load { position: relative; width: 140px; height: 6px; border-radius: 999px; background: var(--border); overflow: hidden; }
+.cs-load i { position: absolute; inset: 0 auto 0 0; width: 40%; border-radius: 999px; background: var(--primary); animation: csload 2.4s cubic-bezier(.65,0,.35,1) infinite; }
+@keyframes csload { 0% { transform: translateX(-100%); } 100% { transform: translateX(260%); } }
+.cs-next ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
+.cs-next li { padding: 9px 16px; border-radius: 999px; background: var(--raised); border: 1px solid var(--border); font-size: 15px; color: var(--ink); }
+.cs-learn { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+.cs-learn div { padding: 24px 24px 22px 24px; border-radius: 18px; background: var(--raised); border: 1px solid var(--border); }
+.cs-learn div:nth-child(1) { background: var(--p-lav); border-color: transparent; }
+.cs-learn div:nth-child(4) { background: var(--p-sage); border-color: transparent; }
+.cs-learn h3 { margin: 0 0 8px 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px; letter-spacing: -0.015em; color: var(--ink); font-weight: 700; }
+.cs-learn p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+.cs-thanks { margin: 48px 0 0 0; rotate: -2deg; font-size: 30px; color: var(--terra); }
+/* previous and next, one at each end */
+.cs-jumps { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; border-top: 1px solid var(--border); padding-top: 34px; }
+.cs-jump { display: flex; gap: 18px; align-items: center; padding: 16px; border-radius: 22px; border: 1px solid var(--border); background: var(--raised); color: var(--ink); transition: transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s ease, border-color .4s ease; }
+.cs-jump.next { flex-direction: row-reverse; text-align: right; }
+.cs-jump:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); border-color: var(--primary); color: var(--ink); }
+.cs-jumpimg { flex: none; width: 116px; height: 92px; border-radius: 14px; overflow: hidden; background: var(--sunken); }
+.cs-jumpimg img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.22,1,.36,1); }
+.cs-jump:hover .cs-jumpimg img { transform: scale(1.06); }
+.cs-jumptext { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.cs-jumplbl { display: flex; align-items: center; gap: 7px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--primary); }
+.cs-jump.prev .cs-jumplbl svg:last-child, .cs-jump.next .cs-jumplbl svg:first-child { display: none; }
+.cs-jump.next .cs-jumplbl { justify-content: flex-end; }
+.cs-jumpttl { font-family: 'Space Grotesk', sans-serif; font-size: 24px; line-height: 1.15; letter-spacing: -0.022em; color: var(--ink); font-weight: 700; transition: color .35s ease; }
+.cs-jump:hover .cs-jumpttl { color: var(--primary); }
+.cs-jumpline { font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
+@media (hover: none) { .cs-jump { border-color: var(--primary); } .cs-jumpttl { color: var(--primary); } }
+@media (max-width: 860px) { .cs-jumps { grid-template-columns: minmax(0,1fr); } .cs-jump.next { flex-direction: row; text-align: left; } .cs-jump.next .cs-jumplbl { justify-content: flex-start; } }
+@media (max-width: 700px) { .cs-jumpimg { width: 92px; height: 76px; } .cs-jumpttl { font-size: 20px; } .cs-jumpline { font-size: 13.5px; } }
+@media (max-width: 1020px) { .cs-grid { grid-template-columns: minmax(0,1fr); gap: 0; padding-top: 56px; } .cs-meta > div { flex: 0 0 50%; max-width: none; padding: 0 16px 0 0; } .cs-intro { margin-left: 0; } }
+@media (max-width: 700px) { .cs-lede { font-size: 17.5px; } .cs-intro { font-size: 18px; margin-top: 36px; } .cs-h2 { font-size: 31px; } .cs-sec { padding-bottom: 72px; } .cs-big { flex-direction: column; align-items: flex-start; gap: 12px; } .cs-big .n { font-size: 64px; } .cs-hmw .q { font-size: 26px; } .cs-stats, .cs-finds, .cs-learn { grid-template-columns: minmax(0,1fr); } .cs-quote { grid-template-columns: minmax(0,1fr); } .cs-rev li { grid-template-columns: 36px minmax(0,1fr); } .cs-rev span { grid-column: 2; } .cs-more { padding: 28px 26px; } .cs-more .t { font-size: 28px; } .cs-cover { border-radius: 16px; } }
+@media (prefers-reduced-motion: reduce) { .cs-load i { animation: none; width: 55%; } }
+
+/* ================= TEXITAG ================= */
+.tx-cover { padding: 36px; background: var(--p-sage); }
+.tx-cover img { border-radius: 14px; box-shadow: var(--shadow); }
+.tx-pull { margin-top: 30px; padding: 34px 36px; border-radius: 22px; background: var(--p-sage); }
+.tx-pull p { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 32px; line-height: 1.25; letter-spacing: -0.022em; color: var(--ink); font-weight: 600; text-wrap: balance; }
+.tx-pull span { color: var(--petrol); }
+.tx-flip { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: stretch; gap: 16px; margin: 30px 0 30px 0; }
+.tx-flip > div { padding: 22px 24px; border-radius: 18px; border: 1px solid var(--border-strong); }
+.tx-flip .from { background: transparent; }
+.tx-flip .from p { text-decoration: line-through; text-decoration-color: var(--terra); text-decoration-thickness: 2px; color: var(--ink-3); }
+.tx-flip .to { background: var(--primary); border-color: var(--primary); }
+.tx-flip .to p, .tx-flip .to .k, .tx-flip .to .why { color: var(--on-primary); }
+.tx-flip .k { display: block; margin-bottom: 8px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 12px; letter-spacing: .05em; color: var(--ink-3); }
+.tx-flip p { margin: 0 0 6px 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px; letter-spacing: -0.02em; color: var(--ink); font-weight: 700; }
+.tx-flip .why { font-size: 14.5px; color: var(--ink-2); }
+.tx-arrow { align-self: center; color: var(--primary); }
+.tx-outreach { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+.tx-outreach div { display: flex; flex-direction: column; gap: 14px; padding: 22px; border-radius: 18px; background: var(--raised); border: 1px solid var(--border); color: var(--petrol); }
+.tx-outreach p { margin: 0; font-size: 16px; line-height: 1.5; color: var(--ink); font-weight: 500; }
+.tx-impact { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+.tx-impact .col { padding: 26px 26px 20px 26px; border-radius: 20px; }
+.tx-impact .users { background: var(--p-sage); }
+.tx-impact .biz { background: var(--p-lav); }
+.tx-impact .k { margin: 0 0 16px 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px; letter-spacing: -0.015em; color: var(--ink); font-weight: 700; }
+.tx-impact ul { margin: 0; padding: 0; list-style: none; }
+.tx-impact li { padding: 12px 0; border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); font-size: 15.5px; line-height: 1.55; color: var(--ink-2); }
+.tx-impact li strong { color: var(--ink); }
+@media (max-width: 700px) { .tx-cover { padding: 14px; } .tx-pull p { font-size: 24px; } .tx-flip { grid-template-columns: minmax(0,1fr); } .tx-arrow { justify-self: center; transform: rotate(90deg); } .tx-outreach, .tx-impact { grid-template-columns: minmax(0,1fr); } }
+</style>
+</helmet>
+<div class="{{themeClass}}" style="background: var(--canvas); min-height: 100vh;">
+<div id="home-root" ref="{{setRoot}}" class="sheet" style="position: relative; box-sizing: border-box; background: var(--canvas); color: var(--ink); font-family: 'Space Grotesk', sans-serif; overflow-x: clip;">
+
+  <div data-top-sentinel aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 1px; height: 1px;"></div>
+
+  <!-- ================= NAV ================= -->
+  <header data-header class="hdr pad" style="box-sizing: border-box; width: 100%; padding: 0 80px;">
+    <nav class="wrap" style="height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a class="brand" href="Main.dc.html" aria-label="Mahesh Reddy, back to the homepage"><span class="mark" aria-hidden="true"><img class="only-light" src="/_blob/ca5d19d0709653cac4b90f0a2090e512" alt=""><img class="only-dark" src="/_blob/1eedbc90d84e2f8eaeeedef4982330cd" alt=""></span></a>
+      <div style="display: flex; align-items: center; gap: 28px;">
+        <div class="navlinks" style="display: flex; align-items: center; gap: 30px; font-size: 15px; font-weight: 500;">
+          <a class="nv" href="Work.dc.html" aria-current="page">Work</a>
+          <a class="nv" href="About.dc.html">About</a>
+          <a class="nv" href="Skills.dc.html">Playground</a>
+          <a class="nv" href="Thoughts.dc.html">Thoughts</a>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="toggle" aria-label="{{themeLabel}}" title="{{themeLabel}}" onClick="{{toggleTheme}}">
+            <sc-if value="{{isDark}}" hint-placeholder-val="{{false}}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"></path></svg>
+            </sc-if>
+            <sc-if value="{{isLight}}" hint-placeholder-val="{{true}}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8z"></path></svg>
+            </sc-if>
+          </button>
+          <a class="btn btn-primary navcta" data-magnetic href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Say hello</a>
+          <button type="button" class="burger" data-burger aria-label="Open the menu" aria-expanded="false"><i aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </nav>
+    <div class="mnav" data-mnav>
+      <button type="button" class="mclose" data-burger aria-label="Close the menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+      <div class="mlinks">
+        <a class="nv" href="Main.dc.html">Home</a>
+        <a class="nv" href="Work.dc.html" aria-current="page">Work</a>
+        <a class="nv" href="About.dc.html">About</a>
+        <a class="nv" href="Skills.dc.html">Playground</a>
+        <a class="nv" href="Thoughts.dc.html">Thoughts</a>
+      </div>
+      <div class="mfoot">
+        <p class="mg">(quickest way to reach me)</p>
+        <a class="btn btn-primary" href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Say hello</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= CASE STUDY HEADER ================= -->
+  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 64px 80px 80px 80px;">
+    <div class="wrap">
+      <a class="fill-link back" href="Work.dc.html" style="font-size: 14.5px; font-weight: 600; padding-bottom: 4px;"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3"></path><path d="M7 4L3 8l4 4"></path></svg>All work</a>
+      <div class="cs-headrow">
+      <div class="cs-head" data-reveal>
+        <p class="lbl" style="margin: 0 0 18px 0;">Case study / Waste Management</p>
+        <h1 class="cs-title">Texitag</h1>
+        <p class="cs-lede">Making garment recycling personal, visual, and worth doing.</p>
+      </div>
+        <div class="cs-hstats" data-reveal data-d="1" aria-label="Results">
+          <div class="cs-hstat"><span class="n">3</span><span class="t">industry partners: WM, EON and Under Armour</span></div>
+          <div class="cs-hstat alt"><span class="n">5 mo</span><span class="t">from first research to a working prototype</span></div>
+        </div>
+      </div>
+      <dl class="cs-meta" data-reveal data-d="1">
+        <div><dt>Duration</dt><dd>August-December 2023</dd></div>
+        <div><dt>My role</dt><dd>UX research, strategy, UI design, prototyping</dd></div>
+        <div><dt>For</dt><dd>Waste Management (WM)</dd></div>
+        <div><dt>Platform</dt><dd>Mobile-first, scan-based</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 0 80px 96px 80px;">
+    <div class="wrap">
+      <figure class="cs-cover tx-cover" data-reveal><img src="/_blob/6c27cb3c4a54cd6bcaf33ce91a7c6d21" alt="Five Texitag screens: adding a first garment by scanning its QR code, a reward of 100 points, the Virtual Closet list of jackets with points, a jacket's lifespan, washes and current state, and the full garment details."></figure>
+      <p class="cs-intro" data-reveal>This project aimed to design an intuitive dashboard for Waste Management (WM) that bridges the gap between consumers, manufacturers, and recyclers, promoting sustainability in the fashion industry. The primary focus was creating a mobile-friendly garment tracing dashboard for consumers to understand their clothing usage, recycle efficiently, and contribute to a circular lifecycle.</p>
+    </div>
+  </section>
+
+  <!-- ================= BODY: contents rail + chapters ================= -->
+  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 0 80px 120px 80px;">
+    <div class="wrap cs-grid">
+      <nav class="cs-toc hide-sm" data-toc aria-label="On this page">
+        <p class="cap" style="margin: 0 0 14px 0;">On this page</p>
+        <a href="#problem">The problem</a>
+        <a href="#goal">The goal</a>
+        <a href="#insight">The insight</a>
+        <a href="#pivot">The pivot</a>
+        <a href="#solution">The solution</a>
+        <a href="#ecosystem">Ecosystem</a>
+        <a href="#impact">Impact</a>
+        <a href="#takeaways">Takeaways</a>
+      </nav>
+
+      <div class="cs-main">
+
+        <section id="problem" class="cs-sec" data-reveal>
+          <p class="cs-idx">01 / The problem</p>
+          <h2 class="cs-h2">Clothes go in the bin because nobody shows them another way.</h2>
+          <ol class="cs-ol">
+            <li>Lack of consumer awareness about garment lifecycles and responsible disposal options.</li>
+            <li>Inefficient textile recycling processes due to limited garment tracking and traceability.</li>
+            <li>Need for a user-friendly platform to engage consumers in sustainable fashion practices.</li>
+          </ol>
+        </section>
+
+        <section id="goal" class="cs-sec" data-reveal>
+          <p class="cs-idx">02 / The goal</p>
+          <h2 class="cs-h2">One interface for the whole life of a garment.</h2>
+          <div class="cs-hmw"><p class="mg">the goal</p><p class="q">An intuitive dashboard enabling garment tracking, educating consumers on recycling, promoting a circular lifecycle, encouraging sustainability, reducing waste, and enhancing user engagement in a seamless interface.</p></div>
+        </section>
+
+        <section id="insight" class="cs-sec" data-reveal>
+          <p class="cs-idx">03 / The insight</p>
+          <h2 class="cs-h2">Most people want to recycle, but don't know how.</h2>
+          <p class="cs-p">Most people say they care about sustainability, but their behavior doesn't reflect it. In fashion, that gap is massive. The average consumer doesn't know when or how to recycle clothes, and Waste Management was seeing growing textile waste despite rising awareness.</p>
+          <div class="tx-pull"><p>The problem wasn't just behavior. It was a lack of <span>clarity</span>, <span>visibility</span>, and <span>motivation</span>.</p></div>
+        </section>
+
+        <section id="pivot" class="cs-sec" data-reveal>
+          <p class="cs-idx">04 / The pivot</p>
+          <h2 class="cs-h2">A dashboard wasn't the answer until I reimagined it for real life.</h2>
+          <p class="cs-p">I was tasked with designing a garment lifecycle tracker for Waste Management. Originally scoped as a web-based dashboard, early feedback revealed a major flaw: most users don't engage with sustainability on desktop.</p>
+          <div class="tx-flip" aria-label="From a web dashboard to a mobile, scan-based experience">
+            <div class="from"><span class="k">Scoped as</span><p>Web-based dashboard</p><span class="why">lives in the browser</span></div>
+            <span class="tx-arrow" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10"></path><path d="M9 4l4 4-4 4"></path></svg></span>
+            <div class="to"><span class="k">Became</span><p>Mobile-first, scan-based</p><span class="why">lives next to the closet</span></div>
+          </div>
+          <p class="cs-p">So I flipped the concept into a mobile-first, scan-based experience that lived closer to the closet, not the browser.</p>
+        </section>
+
+        <section id="solution" class="cs-sec" data-reveal>
+          <p class="cs-idx">05 / The solution</p>
+          <h2 class="cs-h2">When users scan a shirt, they see its full story.</h2>
+          <p class="cs-p">I designed Texitag to act as a companion for each piece of clothing, helping users track wear, lifespan, and impact. It was about building awareness through interaction.</p>
+          <p class="cs-sub">Core features</p>
+          <div class="cs-feats">
+            <div class="cs-feat"><span class="k">01</span><h3>Smart Closet</h3><p>Scan garments and log usage, ownership, and material data.</p></div>
+            <div class="cs-feat"><span class="k">02</span><h3>Lifecycle Timeline</h3><p>See how long an item has been worn, reused, or has sat idle.</p></div>
+            <div class="cs-feat"><span class="k">03</span><h3>Eco Credits</h3><p>Earn rewards for reusing, donating, or recycling clothes.</p></div>
+            <div class="cs-feat"><span class="k">04</span><h3>Sustainability Nudges</h3><p>Bite-sized facts and goals to keep users engaged.</p></div>
+          </div>
+        </section>
+
+        <section id="ecosystem" class="cs-sec" data-reveal>
+          <p class="cs-idx">06 / Collaboration and ecosystem integration</p>
+          <h2 class="cs-h2">Designed alone, planned with partners.</h2>
+          <p class="cs-p">While the design was executed independently, close coordination with sustainability consultants helped prioritize the metrics WM needed to track. We also scoped partnerships with in-store vendors and municipal recycling programs for QR integration and tag deployment.</p>
+          <p class="cs-sub">Outreach strategy highlights</p>
+          <div class="tx-outreach">
+            <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14l-1.2 13H6.2z"></path><path d="M9 7V5h6v2"></path><path d="M4 7h16"></path><rect x="9.5" y="11" width="5" height="5" rx="1"></rect></svg><p>QR tags on garbage bins</p></div>
+            <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12l-8 8-8-8V4h8z"></path><circle cx="8" cy="8" r="1.4"></circle></svg><p>In-store discounts for scan participation</p></div>
+            <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h7v14H4z"></path><path d="M13 5h7v14h-7z"></path><path d="M6.5 9h2M15.5 9h2M6.5 12h2M15.5 12h2"></path></svg><p>Education layered across channels (dashboard, print, municipal content)</p></div>
+          </div>
+        </section>
+
+        <section id="impact" class="cs-sec" data-reveal>
+          <p class="cs-idx">07 / Impact</p>
+          <h2 class="cs-h2">Good for people, useful for the business.</h2>
+          <div class="tx-impact">
+            <div class="col users"><p class="k">How does this help users?</p><ul>
+              <li><strong>Visualizes impact:</strong> Users feel more connected to their clothing habits</li>
+              <li><strong>Creates motivation:</strong> Small nudges + eco rewards = better daily decisions</li>
+              <li><strong>Reduces decision fatigue:</strong> Simple scan-to-recycle process</li>
+              <li><strong>Makes sustainability personal:</strong> Not just ethical, but gamified</li>
+            </ul></div>
+            <div class="col biz"><p class="k">How does this help the business?</p><ul>
+              <li><strong>Improves recycling engagement:</strong> More clothing is tagged and processed</li>
+              <li><strong>Drives user retention:</strong> Rewards and streaks keep users active</li>
+              <li><strong>Supports partnerships:</strong> Enables brand and retailer integrations for impact tracking</li>
+              <li><strong>Informs data strategy:</strong> Aggregate wear/use/recycle data supports WM's reporting</li>
+            </ul></div>
+          </div>
+        </section>
+
+        <section id="takeaways" class="cs-sec" data-reveal>
+          <p class="cs-idx">08 / Takeaways</p>
+          <h2 class="cs-h2">Behavior change is a systems problem.</h2>
+          <p class="cs-p">Texitag showed how education, motivation, and design can intersect to create real environmental change. Designing for behavior change, especially around sustainability, requires more than just UI polish. It needs systems thinking, data visibility, and habit-forming design.</p>
+          <p class="mg rot cs-thanks">Thank you for reading! :)</p>
+        </section>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PREVIOUS AND NEXT ================= -->
+  <section class="pad" style="box-sizing: border-box; width: 100%; padding: 0 80px 120px 80px;">
+    <div class="wrap">
+      <div class="cs-jumps">
+        <a class="cs-jump prev" href="EdAbroad.dc.html" data-cursor="previous case study" data-reveal>
+          <span class="cs-jumpimg" aria-hidden="true"><img src="/_blob/3fe48ebd774e2e720a4c4411d439c294" alt="" loading="lazy"></span>
+          <span class="cs-jumptext">
+            <span class="cs-jumplbl"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3"></path><path d="M7 4L3 8l4 4"></path></svg>Previous<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10"></path><path d="M9 4l4 4-4 4"></path></svg></span>
+            <span class="cs-jumpttl">EdAbroad</span>
+            <span class="cs-jumpline">Study abroad advice that is not quietly selling you something.</span>
+          </span>
+        </a>
+        <a class="cs-jump next" href="Optimity.dc.html" data-cursor="next case study" data-reveal>
+          <span class="cs-jumpimg" aria-hidden="true"><img src="/_blob/d06ba297ff82480a74763f9473568902" alt="" loading="lazy"></span>
+          <span class="cs-jumptext">
+            <span class="cs-jumplbl"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3"></path><path d="M7 4L3 8l4 4"></path></svg>Next<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10"></path><path d="M9 4l4 4-4 4"></path></svg></span>
+            <span class="cs-jumpttl">Optimity</span>
+            <span class="cs-jumpline">A B2B health platform site people actually stay on.</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING ================= -->
+  <footer class="pad" style="box-sizing: border-box; width: 100%; padding: 34px 80px 42px 80px;">
+    <div class="wrap"><p style="margin: 0; font-size: 14px; color: var(--ink-2);">© 2026 Mahesh Reddy Remala</p></div>
+  </footer>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="curring" data-cursor-ring aria-hidden="true"><span class="cl" data-cursor-label></span></div>
+  <div class="curdot" data-cursor-dot aria-hidden="true"></div>
+
+</div>
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light"},"$preview":{"width":1440,"height":7400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { theme: this.readTheme() || (props && props.theme === 'dark' ? 'dark' : 'light') };
+    this.cleanups = [];
+    this.lenis = null;
+    this.setRoot = (el) => { this.rootEl = el; };
+    this.toggleTheme = (e) => this.switchTheme(e);
+  }
+
+  mq(q) { return window.matchMedia ? window.matchMedia(q).matches : false; }
+
+  componentDidMount() {
+    const saved = this.readTheme();
+    const initial = saved || (this.props.theme === 'dark' ? 'dark' : 'light');
+    if (initial !== this.state.theme) this.setState({ theme: initial });
+    this.syncBody(initial);
+    this.initThemeSync();
+    const root = this.rootEl || document.getElementById('home-root');
+    if (!root) return;
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    this.initSmooth(root, reduced);
+    this.initStickyNav(root);
+    this.initToc(root, reduced);
+    this.initBurger(root);
+    if (!reduced) this.initReveal(root);
+    if (!reduced && this.mq('(pointer: fine)')) this.initPointer(root);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    /* The canvas hands props over just after mount, so the first 'light' is
+       the default arriving, not a choice. Only a switch from one set value to
+       another (the Tweaks panel) counts, and the visitor's pick stays put. */
+    const was = prevProps.theme, now = this.props.theme;
+    const set = (v) => v === 'light' || v === 'dark';
+    if (was !== now && set(was) && set(now)) {
+      this.setState({ theme: now });
+    }
+    if (this.syncedTheme !== this.state.theme) { this.syncedTheme = this.state.theme; this.syncBody(this.state.theme); }
+  }
+
+  componentWillUnmount() {
+    for (let i = 0; i < this.cleanups.length; i++) this.cleanups[i]();
+    this.cleanups = [];
+    clearTimeout(this.switchTimer);
+    clearTimeout(this.closeTimer);
+  }
+
+  /* Each screen is its own artboard with its own component, so the pick is
+     parked outside it, in every place that might outlive the swap, and read
+     back from the first that kept it. The canvas frame's window.name is the
+     one that survives that frame reloading even with storage blocked. */
+  themeCarriers(theme) {
+    const w = typeof window === 'undefined' ? null : window;
+    if (!w) return [];
+    let up = null;
+    try { up = w.parent && w.parent !== w ? w.parent : null; } catch (err) { up = null; }
+    const tag = 'mr-theme:';
+    const fromName = (n) => (n && n.indexOf(tag) === 0 ? n.slice(tag.length) : null);
+    return [
+      { k: 'global', get: () => w.__mrTheme, set: () => { w.__mrTheme = theme; } },
+      { k: 'parent', get: () => (up ? up.__mrTheme : null), set: () => { if (up) up.__mrTheme = theme; } },
+      { k: 'parent.name', get: () => (up ? fromName(up.name || '') : null),
+        set: () => { if (!up) return; const n = up.name || ''; if (!n || n.indexOf(tag) === 0) up.name = tag + theme; } },
+      { k: 'session', get: () => w.sessionStorage.getItem('mr-theme'), set: () => w.sessionStorage.setItem('mr-theme', theme) },
+      { k: 'local', get: () => w.localStorage.getItem('mr-theme'), set: () => w.localStorage.setItem('mr-theme', theme) },
+      { k: 'cookie', get: () => { const m = /(?:^|;\s*)mr-theme=(light|dark)/.exec(document.cookie || ''); return m ? m[1] : null; },
+        set: () => { document.cookie = 'mr-theme=' + theme + ';path=/;max-age=31536000;samesite=lax'; } },
+      { k: 'name', get: () => fromName(w.name || ''),
+        set: () => { const n = w.name || ''; if (!n || n.indexOf(tag) === 0) w.name = tag + theme; } }
+    ];
+  }
+
+  readTheme() {
+    const list = this.themeCarriers(null);
+    for (let i = 0; i < list.length; i += 1) {
+      try {
+        const v = list[i].get();
+        if (v === 'dark' || v === 'light') { this.themeSrc = list[i].k; return v; }
+      } catch (err) {}
+    }
+    this.themeSrc = 'none';
+    return null;
+  }
+
+  writeTheme(theme) {
+    if (theme !== 'dark' && theme !== 'light') return;
+    const list = this.themeCarriers(theme);
+    for (let i = 0; i < list.length; i += 1) { try { list[i].set(); } catch (err) {} }
+  }
+
+  /* Every page is mounted at once in the canvas; moving between them only
+     changes which one is in front. So a toggle is sent to the other pages
+     the moment it happens, and each one listening switches to match. */
+  initThemeSync() {
+    const apply = (t) => { if ((t === 'dark' || t === 'light') && t !== this.state.theme) this.setState({ theme: t }); };
+    const onMsg = (e) => { const d = e && e.data; if (d && d.type === 'mr-theme') apply(d.theme); };
+    const onStorage = (e) => { if (e && e.key === 'mr-theme') apply(e.newValue); };
+    window.addEventListener('message', onMsg);
+    window.addEventListener('storage', onStorage);
+    let bc = null;
+    try { bc = new BroadcastChannel('mr-theme'); bc.onmessage = (e) => apply(e.data); } catch (err) { bc = null; }
+    this.themeBc = bc;
+    this.cleanups.push(() => {
+      window.removeEventListener('message', onMsg);
+      window.removeEventListener('storage', onStorage);
+      if (bc) { try { bc.close(); } catch (err) {} }
+    });
+  }
+
+  broadcastTheme(theme) {
+    try { if (this.themeBc) this.themeBc.postMessage(theme); } catch (err) {}
+    /* and straight to every sibling frame, which needs no shared storage */
+    try {
+      const up = window.parent;
+      if (up && up !== window) {
+        for (let i = 0; i < up.frames.length; i += 1) {
+          const f = up.frames[i];
+          if (f !== window) { try { f.postMessage({ type: 'mr-theme', theme }, '*'); } catch (err) {} }
+        }
+      }
+    } catch (err) {}
+  }
+  syncBody(theme) {
+    try {
+      document.body.style.backgroundColor = theme === 'dark' ? '#1D141F' : '#F8F0E7';
+      document.documentElement.style.colorScheme = theme;
+    } catch (err) {}
+  }
+
+  initSmooth(root, reduced) {
+    const L = window.Lenis;
+    if (typeof L === 'function' && !reduced) {
+      try {
+        const lenis = new L({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 1 });
+        this.lenis = lenis;
+        const loop = (t) => { lenis.raf(t); this.lenisRaf = window.requestAnimationFrame(loop); };
+        this.lenisRaf = window.requestAnimationFrame(loop);
+        this.cleanups.push(() => { window.cancelAnimationFrame(this.lenisRaf); lenis.destroy(); this.lenis = null; });
+      } catch (err) { this.lenis = null; }
+    }
+  }
+
+  switchTheme(e) {
+    const next = this.state.theme === 'dark' ? 'light' : 'dark';
+    this.writeTheme(next);
+    this.broadcastTheme(next);
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    let x = window.innerWidth - 80, y = 38;
+    const btn = e && e.currentTarget;
+    if (btn && btn.getBoundingClientRect) { const r = btn.getBoundingClientRect(); x = r.left + r.width / 2; y = r.top + r.height / 2; }
+    if (!reduced && typeof document.startViewTransition === 'function') {
+      try {
+        const vt = document.startViewTransition(() => new Promise((resolve) => this.setState({ theme: next }, resolve)));
+        const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+        vt.ready.then(() => {
+          document.documentElement.animate(
+            { clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + radius + 'px at ' + x + 'px ' + y + 'px)'] },
+            { duration: 820, easing: 'cubic-bezier(.22,1,.36,1)', pseudoElement: '::view-transition-new(root)' }
+          );
+        }).catch(() => {});
+        return;
+      } catch (err) {}
+    }
+    const root = this.rootEl || document.getElementById('home-root');
+    if (root && !reduced) {
+      root.classList.add('switching');
+      clearTimeout(this.switchTimer);
+      this.switchTimer = setTimeout(() => root.classList.remove('switching'), 650);
+    }
+    this.setState({ theme: next });
+  }
+
+  initReveal(root) {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const nodes = root.querySelectorAll('[data-reveal]');
+    root.classList.add('anim');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+    for (let i = 0; i < nodes.length; i++) io.observe(nodes[i]);
+    this.cleanups.push(() => io.disconnect());
+  }
+
+  initBurger(root) {
+    const btns = Array.prototype.slice.call(root.querySelectorAll('[data-burger]'));
+    const btn = btns[0];
+    const hdr = root.querySelector('[data-header]');
+    if (!btns.length || !hdr) return;
+    const set = (open) => {
+      hdr.classList.toggle('mopen', open);
+      root.classList.toggle('gated', open);
+      if (btn) { btn.setAttribute('aria-expanded', open ? 'true' : 'false'); btn.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu'); }
+    };
+    const toggle = () => set(!hdr.classList.contains('mopen'));
+    btns.forEach((b) => b.addEventListener('click', toggle));
+    /* a link was picked, or the window grew back to desktop: close it */
+    const panel = root.querySelector('[data-mnav]');
+    const close = () => set(false);
+    if (panel) panel.addEventListener('click', (e) => { if (e.target.closest('a')) close(); });
+    const mq = window.matchMedia ? window.matchMedia('(min-width: 701px)') : null;
+    if (mq && mq.addEventListener) mq.addEventListener('change', close);
+    this.cleanups.push(() => {
+      btns.forEach((b) => b.removeEventListener('click', toggle));
+      if (mq && mq.removeEventListener) mq.removeEventListener('change', close);
+      hdr.classList.remove('mopen');
+      root.classList.remove('gated');
+    });
+  }
+  initStickyNav(root) {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const sentinel = root.querySelector('[data-top-sentinel]');
+    const header = root.querySelector('[data-header]');
+    if (!sentinel || !header) return;
+    const io = new IntersectionObserver((entries) => { header.classList.toggle('stuck', !entries[0].isIntersecting); });
+    io.observe(sentinel);
+    this.cleanups.push(() => io.disconnect());
+  }
+
+  initToc(root, reduced) {
+    const nav = root.querySelector('[data-toc]');
+    if (!nav) return;
+    const links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+    const header = root.querySelector('[data-header]');
+    const navH = () => (header ? header.offsetHeight : 76);
+    /* layout position, unaffected by the reveal transforms */
+    const docTop = (el) => { let y = 0; while (el) { y += el.offsetTop; el = el.offsetParent; } return y; };
+    const mark = (id) => links.forEach((a) => a.classList.toggle('on', a.getAttribute('href') === '#' + id));
+    let lockUntil = 0;
+
+    /* a click lands with the chapter label and heading in view, just under the nav */
+    links.forEach((a) => {
+      const go = (e) => {
+        const el = root.querySelector(a.getAttribute('href'));
+        if (!el) return;
+        e.preventDefault();
+        const y = Math.max(0, docTop(el) - navH() - 32);
+        mark(el.id);
+        lockUntil = Date.now() + 1500;
+        if (this.lenis) this.lenis.scrollTo(y, { duration: 1.1 });
+        else window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
+      };
+      a.addEventListener('click', go);
+      this.cleanups.push(() => a.removeEventListener('click', go));
+    });
+
+    /* the chapter taking up the most of the screen (below the nav) is the one you are reading */
+    if (!('IntersectionObserver' in window)) return;
+    const shown = {};
+    const pick = () => {
+      if (Date.now() < lockUntil) return;
+      let best = null, most = 0;
+      Object.keys(shown).forEach((id) => { if (shown[id] > most) { most = shown[id]; best = id; } });
+      if (best) mark(best);
+    };
+    const steps = [];
+    for (let i = 0; i <= 40; i++) steps.push(i / 40);
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { shown[e.target.id] = e.isIntersecting ? e.intersectionRect.height : 0; });
+      pick();
+    }, { rootMargin: '-' + navH() + 'px 0px 0px 0px', threshold: steps });
+    links.forEach((a) => { const el = root.querySelector(a.getAttribute('href')); if (el) io.observe(el); });
+    /* once a clicked scroll settles, hand the highlight back to what is on screen */
+    const settle = setInterval(() => { if (lockUntil && Date.now() >= lockUntil) { lockUntil = 0; pick(); } }, 300);
+    this.cleanups.push(() => { io.disconnect(); clearInterval(settle); });
+  }
+
+  initPointer(root) {
+    const dot = root.querySelector('[data-cursor-dot]');
+    const ring = root.querySelector('[data-cursor-ring]');
+    if (!dot || !ring) return;
+    const label = ring.querySelector('[data-cursor-label]');
+    /* the pull is a mouse trick; small screens never get it */
+    const pullMagnets = this.mq('(min-width: 701px)');
+    const magnets = pullMagnets ? Array.prototype.slice.call(root.querySelectorAll('[data-magnetic]')) : [];
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my, px = mx, py = my, moved = true;
+    root.classList.add('has-cursor');
+
+    /* what the blob says over a given thing */
+    const wordFor = (el) => {
+      const said = el.getAttribute('data-cursor');
+      if (said) return said;
+      if (el.hasAttribute('data-drag')) return 'drag me';
+      if (el.hasAttribute('data-note')) return 'read';
+      if (el.hasAttribute('data-bug')) return 'catch it';
+      if (el.classList.contains('proj')) return 'case study';
+      if (el.classList.contains('skrow')) return 'skill file';
+      if (el.classList.contains('vcard')) return 'have a look';
+      return '';
+    };
+    const onMove = (e) => { mx = e.clientX; my = e.clientY; moved = true; };
+    const onOver = (e) => {
+      const t = e.target && e.target.closest ? e.target.closest('a, button, input, [data-drag], [data-hover], [data-note], [data-cursor]') : null;
+      const word = t ? wordFor(t) : '';
+      if (label) label.textContent = word;
+      ring.classList.toggle('lab', !!word);
+      ring.classList.toggle('grow', !!t && !word);
+    };
+    const onDown = () => root.classList.add('grabbing');
+    const onUp = () => root.classList.remove('grabbing');
+    const onLeave = () => { ring.style.opacity = '0'; dot.style.opacity = '0'; };
+    const onEnter = () => { ring.style.opacity = ''; dot.style.opacity = ''; };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('mouseover', onOver, { passive: true });
+    window.addEventListener('mousedown', onDown, { passive: true });
+    window.addEventListener('mouseup', onUp, { passive: true });
+    document.addEventListener('mouseleave', onLeave);
+    document.addEventListener('mouseenter', onEnter);
+
+    const tick = () => {
+      rx += (mx - rx) * 0.16;
+      ry += (my - ry) * 0.16;
+      /* the blob leans and stretches into the direction it is travelling */
+      const vx = rx - px, vy = ry - py;
+      px = rx; py = ry;
+      const speed = Math.min(Math.sqrt(vx * vx + vy * vy), 34);
+      const ang = speed > 0.6 ? Math.atan2(vy, vx) * 180 / Math.PI : 0;
+      const st = 1 + speed * 0.014, sq = 1 - speed * 0.009;
+      dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+      /* only the bare dot leans; a pill with words in it stays level so they read and fit */
+      ring.style.transform = ring.classList.contains('lab')
+        ? 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0)'
+        : 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0) rotate(' + ang.toFixed(2) + 'deg) scale(' + st.toFixed(3) + ',' + sq.toFixed(3) + ')';
+      if (moved) {
+        for (let i = 0; i < magnets.length; i++) {
+          const el = magnets[i];
+          const r = el.getBoundingClientRect();
+          if (r.width === 0) continue;
+          const dx = mx - (r.left + r.width / 2), dy = my - (r.top + r.height / 2);
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const range = Math.max(r.width, r.height) * 0.8 + 44;
+          if (dist < range) {
+            const k = (1 - dist / range) * 0.22;
+            el.style.transform = 'translate(' + (dx * k).toFixed(2) + 'px,' + (dy * k).toFixed(2) + 'px)';
+          } else if (el.style.transform) {
+            el.style.transform = '';
+          }
+        }
+        moved = false;
+      }
+      this.raf = window.requestAnimationFrame(tick);
+    };
+    this.raf = window.requestAnimationFrame(tick);
+
+    this.cleanups.push(() => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseover', onOver);
+      window.removeEventListener('mousedown', onDown);
+      window.removeEventListener('mouseup', onUp);
+      document.removeEventListener('mouseleave', onLeave);
+      document.removeEventListener('mouseenter', onEnter);
+      if (this.raf) window.cancelAnimationFrame(this.raf);
+    });
+  }
+  renderVals() {
+    const dark = this.state.theme === 'dark';
+    return {
+      setRoot: this.setRoot,
+      themeClass: dark ? 'theme-dark' : 'theme-light',
+      isDark: dark,
+      isLight: !dark,
+      themeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      toggleTheme: this.toggleTheme
+    };
+  }
+}
+</script>
+</body>
+</html>

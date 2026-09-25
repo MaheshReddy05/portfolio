@@ -1,0 +1,2535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mahesh, product designer</title>
+<script src="./support.js"></script>
+<script src="assets/lenis.js"></script>
+  <script src="vendor/react.production.min.js"></script>
+  <script src="vendor/react-dom.production.min.js"></script>
+  <script src="vendor/dc-runtime.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Caveat:wght@500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&amp;display=swap">
+<style>
+/* =====================================================================
+   Tokens. Light is "paper: warm linen and clay", dark is its night twin.
+   ===================================================================== */
+.theme-light {
+  --canvas: #F8F0E7; --sunken: #F0E6DB; --raised: #FFFBF5;
+  --border: #E5DBD1; --border-strong: #D5C4B4; --border-v: #EAE1E8;
+  --ink: #3F144D; --ink-2: #62396F; --ink-3: #855794; --muted: #A98DB0;
+  --primary: #5603AD; --primary-hover: #600689; --primary-active: #4C0B65; --on-primary: #F8F0E7;
+  --terra: #AB3821; --terra-hover: #942E19; --on-terra: #F8F0E7;
+  --olive: #6D762D; --olive-line: #D3D6B4; --petrol: #32767B; --petrol-line: #B9D0CF; --rose: #BD6B76;
+  --on-accent: #FFFBF5;
+  --shadow: 0 1px 2px rgba(63,20,77,.05), 0 22px 44px -30px rgba(63,20,77,.30);
+  --shadow-lift: 0 2px 4px rgba(63,20,77,.06), 0 34px 60px -30px rgba(63,20,77,.42);
+  --shadow-soft: 0 1px 3px rgba(63,20,77,.04), 0 16px 34px -12px rgba(63,20,77,.16);
+  --tape: rgba(234,225,232,.88);
+  --photo: saturate(.92) sepia(.06);
+  --ring-fill: rgba(86,3,173,.08);
+  --note: #F6DCC8;
+  --rule-line: rgba(63,20,77,.075); --margin-line: rgba(189,107,118,.4);
+  --p-lav: #E6D9F4; --p-peach: #EECBB0; --p-sage: #D2E1DA;
+  --m-bg: #FFFBF5; --m-line: #EDE3D9; --m-soft: #F6EEE5; --bezel: #2A0F33;
+  --grain-o: .045; --grain-f: none;
+}
+.theme-dark {
+  --canvas: #1D141F; --sunken: #281D2A; --raised: #362938;
+  --border: #4B3C4E; --border-strong: #63526B; --border-v: #4A3A4F;
+  --ink: #F6F0EA; --ink-2: #C6B2C7; --ink-3: #AE98AF; --muted: #99829B;
+  --primary: #CE7AF5; --primary-hover: #DA97F8; --primary-active: #B862E0; --on-primary: #1D141F;
+  --terra: #E9795D; --terra-hover: #F08F76; --on-terra: #1D141F;
+  --olive: #B6CA68; --olive-line: #4A5230; --petrol: #60C0C7; --petrol-line: #2F5A5D; --rose: #DF8692;
+  --on-accent: #1D141F;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 22px 44px -28px rgba(0,0,0,.72);
+  --shadow-lift: 0 2px 4px rgba(0,0,0,.3), 0 34px 60px -28px rgba(0,0,0,.82);
+  --shadow-soft: 0 1px 3px rgba(0,0,0,.22), 0 16px 34px -12px rgba(0,0,0,.5);
+  --tape: rgba(98,78,102,.72);
+  --photo: saturate(.86) brightness(.9);
+  --ring-fill: rgba(206,122,245,.12);
+  --note: #4A3530;
+  --rule-line: rgba(246,240,234,.05); --margin-line: rgba(223,134,146,.3);
+  --p-lav: #2E2242; --p-peach: #3B2A25; --p-sage: #1E3131;
+  --m-bg: #241A27; --m-line: #3E3042; --m-soft: #2E2231; --bezel: #0D080E;
+  --grain-o: .03; --grain-f: invert(1);
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body { margin: 0; background: #F8F0E7; -webkit-font-smoothing: antialiased; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--primary-hover); }
+img { display: block; }
+::selection { background: var(--primary); color: var(--on-primary); }
+a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 6px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Lenis smooth scrolling */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* theme switch: circular wipe where supported, soft cross-fade elsewhere */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+.switching, .switching * { transition: background-color .55s ease, color .55s ease, border-color .55s ease, box-shadow .55s ease !important; }
+
+.wrap { max-width: 1280px; margin-left: auto; margin-right: auto; }
+
+.cap { font-size: 13px; font-weight: 500; color: var(--ink-3); }
+.mg { font-family: 'Caveat', cursive; font-weight: 600; font-size: 25px; line-height: 1.1; color: var(--rose); }
+.hand { font-family: 'Caveat', cursive; font-weight: 600; }
+.mono { font-family: 'Space Grotesk', sans-serif; }
+.lbl { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
+.serif { font-family: 'Newsreader', Georgia, serif; font-optical-sizing: auto; font-weight: 400; }
+.photo { filter: var(--photo); transition: filter .6s ease, transform 1.1s cubic-bezier(.22,1,.36,1); }
+
+/* ================= TEXTURE =================
+   z-index scale: header 40, grain 80, cursor 90. Nothing else layers. */
+.grain {
+  position: fixed; inset: 0; z-index: 80; pointer-events: none;
+  background-image: url(assets/grain.png); background-size: 220px 220px;
+  opacity: var(--grain-o); filter: var(--grain-f);
+}
+.ruled {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(to right, transparent 0 56px, var(--margin-line) 56px 57px, transparent 57px),
+    repeating-linear-gradient(to bottom, transparent 0 35px, var(--rule-line) 35px 36px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+}
+
+/* ================= SCROLL REVEALS ================= */
+.anim [data-reveal] { opacity: 0; transform: translateY(16px); }
+.anim [data-reveal].in { opacity: 1; transform: none; transition: opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.1s cubic-bezier(.22,1,.36,1); }
+.anim [data-reveal][data-d="1"].in { transition-delay: .12s; }
+.anim [data-reveal][data-d="2"].in { transition-delay: .24s; }
+.anim [data-reveal][data-d="3"].in { transition-delay: .36s; }
+
+.ln { display: block; overflow: hidden; padding-bottom: .16em; margin-bottom: -.16em; }
+.ln > span { display: block; }
+.anim [data-reveal] .ln > span { transform: translateY(105%); }
+.anim [data-reveal].in .ln > span { transform: none; transition: transform 1.15s cubic-bezier(.22,1,.36,1); }
+.anim [data-reveal].in .ln:nth-child(2) > span { transition-delay: .12s; }
+
+.squig path { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.anim [data-reveal] .squig path { stroke-dashoffset: 100; }
+.anim [data-reveal].in .squig path { stroke-dashoffset: 0; transition: stroke-dashoffset 1.2s cubic-bezier(.65,0,.35,1) .75s; }
+
+.anim [data-reveal] .wipe { clip-path: inset(0 0 100% 0 round 22px); }
+.anim [data-reveal].in .wipe { clip-path: inset(0 0 0 0 round 22px); transition: clip-path 1.3s cubic-bezier(.22,1,.36,1), filter .6s ease; }
+
+.rule { display: block; width: 56px; height: 2px; border-radius: 2px; background: var(--primary); transform-origin: 0 50%; }
+.anim [data-reveal] .rule { transform: scaleX(0); }
+.anim [data-reveal].in .rule { transform: scaleX(1); transition: transform 1s cubic-bezier(.22,1,.36,1) .2s; }
+
+.anim [data-reveal] .pop { opacity: 0; }
+.anim [data-reveal].in .pop { animation: popin 1s cubic-bezier(.22,1,.36,1) both; }
+.anim [data-reveal].in .pop[data-p="2"] { animation-delay: .12s; }
+.anim [data-reveal].in .pop[data-p="3"] { animation-delay: .24s; }
+.anim [data-reveal].in .pop[data-p="4"] { animation-delay: .36s; }
+.anim [data-reveal].in .pop[data-p="5"] { animation-delay: .48s; }
+@keyframes popin { from { opacity: 0; transform: translateY(26px) scale(.92); } to { opacity: 1; transform: none; } }
+
+/* ================= AMBIENT MOTION ================= */
+.spark { position: absolute; color: var(--rose); pointer-events: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .spark { animation: twinkle 3.6s ease-in-out infinite alternate; }
+  .spark.s3 { animation-delay: -2.2s; animation-duration: 3.9s; }
+  @keyframes twinkle { 0% { transform: scale(.7) rotate(0deg); opacity: .55; } 100% { transform: scale(1.05) rotate(18deg); opacity: 1; } }
+  .spin { animation: spin 24s linear infinite; }
+  @keyframes spin { to { rotate: 360deg; } }
+  .live::after { content: ""; position: absolute; inset: -5px; border-radius: 999px; border: 2px solid var(--olive); animation: pulse 2.6s ease-out infinite; }
+  @keyframes pulse { from { opacity: .75; transform: scale(.55); } to { opacity: 0; transform: scale(1.7); } }
+  .wander { animation: wander 17s ease-in-out infinite; }
+  @keyframes wander {
+    0% { translate: 300px 436px; } 18% { translate: 150px 232px; } 36% { translate: 270px 180px; }
+    54% { translate: 400px 320px; } 72% { translate: 110px 414px; } 100% { translate: 300px 436px; }
+  }
+  .mouse-dot { animation: wheel 1.9s cubic-bezier(.65,0,.35,1) infinite; }
+  @keyframes wheel {
+    0% { transform: translateY(0); opacity: 0; }
+    20% { opacity: 1; }
+    75% { transform: translateY(-16px); opacity: 1; }
+    100% { transform: translateY(-18px); opacity: 0; }
+  }
+}
+@media (prefers-reduced-motion: reduce) { .wander { translate: 300px 436px; } }
+
+/* ================= CURSOR ================= */
+.curdot { display: none; }
+.curring { position: fixed; left: 0; top: 0; z-index: 90; pointer-events: none; opacity: 0; will-change: transform; }
+.has-cursor .curring { opacity: 1; }
+.curring {
+  display: flex; align-items: center; justify-content: center;
+  min-width: 12px; height: 12px; margin: -6px 0 0 -6px; padding: 0; border-radius: 999px; box-sizing: border-box;
+  background: var(--primary); color: var(--on-primary);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; letter-spacing: .04em;
+  transition: min-width .42s cubic-bezier(.22,1,.36,1), height .42s cubic-bezier(.22,1,.36,1), margin .42s cubic-bezier(.22,1,.36,1), padding .42s cubic-bezier(.22,1,.36,1), background-color .42s ease, opacity .3s ease;
+}
+.curring .cl { max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0; transition: max-width .42s cubic-bezier(.22,1,.36,1), opacity .3s ease; }
+.curring.grow { min-width: 26px; height: 26px; margin: -13px 0 0 -13px; background: color-mix(in srgb, var(--primary) 30%, transparent); }
+.curring.lab { min-width: 0; height: 30px; margin: -15px 0 0 -15px; padding: 0 15px; background: var(--primary); }
+.curring.lab .cl { max-width: 160px; opacity: 1; }
+.has-cursor.grabbing .curring { background: var(--terra); }
+
+/* ================= HEADER ================= */
+.hdr { position: sticky; top: 0; z-index: 40; background: var(--canvas); border-bottom: 1px solid transparent; transition: border-color .4s ease, box-shadow .4s ease, background-color .4s ease; }
+.hdr.stuck { border-bottom-color: var(--border); box-shadow: 0 12px 28px -26px rgba(63,20,77,.6); }
+.nv { position: relative; color: var(--ink-2); }
+.nv:hover { color: var(--ink); }
+.nv::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -6px; height: 1.5px; border-radius: 2px; background: var(--primary); transition: right .45s cubic-bezier(.22,1,.36,1); }
+.nv:hover::after { right: 0; }
+.toggle { cursor: pointer; width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--raised); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: border-color .3s ease, transform .5s cubic-bezier(.22,1,.36,1); }
+.toggle:hover { border-color: var(--primary); color: var(--primary); }
+.toggle svg { transition: transform .6s cubic-bezier(.22,1,.36,1); }
+.toggle:hover svg { transform: rotate(-24deg); }
+.toggle:active { transform: scale(.94); }
+
+/* ================= SCROLL-LINKED (CSS only, no listeners) ================= */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .par-a, .par-b, .par-c, .rise, .grow { animation-timeline: view(); animation-fill-mode: both; animation-timing-function: linear; }
+    .par-a { animation-name: pa; animation-range: entry 0% exit 100%; }
+    .par-b { animation-name: pb; animation-range: entry 0% exit 100%; }
+    .par-c { animation-name: pc; animation-range: entry 0% exit 100%; }
+    .rise { animation-name: rise; animation-range: entry 0% cover 55%; }
+    .grow { animation-name: growin; animation-range: entry 0% cover 30%; }
+    @keyframes pa { from { translate: 0 22px; } to { translate: 0 -22px; } }
+    @keyframes pb { from { translate: 0 40px; } to { translate: 0 -30px; } }
+    @keyframes pc { from { translate: 0 12px; } to { translate: 0 -18px; } }
+    @keyframes rise { from { translate: 0 56px; } to { translate: 0 0; } }
+    @keyframes growin { from { scale: .95; } to { scale: 1; } }
+  }
+}
+
+/* ================= BUTTONS ================= */
+.btn { transition: transform .45s cubic-bezier(.22,1,.36,1), background-color .3s ease, border-color .3s ease, color .3s ease; }
+.btn:active { transform: translateY(1px) scale(.98) !important; }
+.btn-primary { background: var(--primary); color: var(--on-primary); }
+.btn-primary:hover { background: var(--primary-hover); color: var(--on-primary); }
+.btn-primary:active { background: var(--primary-active); }
+.btn-ghost { border: 1px solid var(--border-strong); color: var(--ink); background: transparent; }
+.btn-ghost:hover { border-color: var(--primary); color: var(--primary); background: var(--ring-fill); }
+.btn-terra { background: var(--terra); color: var(--on-terra); }
+.btn-terra:hover { background: var(--terra-hover); color: var(--on-terra); }
+[data-magnetic] { transition: transform .7s cubic-bezier(.22,1,.36,1), background-color .3s ease, color .3s ease; }
+.dl svg { transition: transform .45s cubic-bezier(.22,1,.36,1); }
+.dl:hover svg { transform: translateY(2px); }
+
+/* ---------- logo (cropped from the supplied 2000x2000 files) ---------- */
+.brand { display: inline-flex; align-items: center; gap: 11px; color: var(--ink); }
+.mark { --h: 23px; position: relative; flex: none; height: var(--h); width: calc(var(--h) * 1052 / 698); overflow: hidden; }
+.mark img { position: absolute; width: calc(var(--h) * 2000 / 698); height: auto; left: calc(var(--h) * -474 / 698); top: calc(var(--h) * -508 / 698); }
+.theme-light .only-dark, .theme-dark .only-light { display: none; }
+@media (max-width: 700px) { .mark { --h: 20px; } }
+/* ================= ENTRY GATE ================= */
+.sheet.gated { max-height: 100vh; overflow: hidden; }
+.gate { position: absolute; z-index: 95; left: 0; right: 0; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px; overflow-y: auto; overscroll-behavior: contain; box-sizing: border-box; background: var(--canvas); transform: translateY(0); transition: transform .95s cubic-bezier(.76,0,.24,1); }
+.gate::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 90% at 50% 0%, transparent 40%, color-mix(in srgb, var(--primary) 7%, transparent) 100%); }
+.gate.off { transform: translateY(-101%); }
+.gatein { position: relative; z-index: 1; width: 100%; max-width: 1000px; }
+.gload, .gpick { transition: opacity .5s ease, transform .6s cubic-bezier(.22,1,.36,1); }
+.gload { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.gnum { margin: 6px 0 0 0; display: flex; align-items: baseline; font-family: 'Space Grotesk', sans-serif; font-size: 76px; line-height: 1; letter-spacing: -0.04em; color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+.gnum .pc { font-size: 24px; color: var(--ink-3); margin-left: 4px; }
+.gbar { width: min(420px, 70vw); height: 3px; border-radius: 999px; background: var(--border); overflow: hidden; }
+.gbar i { display: block; width: 0%; height: 100%; border-radius: 999px; background: var(--primary); }
+.gsay { margin: 0; font-size: 21px; color: var(--ink-2); }
+.gpick { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; transform: translateY(16px); pointer-events: none; }
+.gate.pick .gload { opacity: 0; transform: translateY(-16px); pointer-events: none; }
+.gate.pick .gpick { opacity: 1; transform: none; pointer-events: auto; position: static; }
+.gpick { overflow: visible; }
+.gh { position: relative; margin: 0 0 44px 0; font-family: 'Space Grotesk', sans-serif; font-size: 62px; line-height: 1.02; letter-spacing: -0.035em; color: var(--ink); font-weight: 700; }
+/* the stage: a floor that drifts toward you, a slow beam, and dust in the light */
+.gstage { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.gpick > :not(.gstage) { position: relative; z-index: 1; }
+.gfloor { position: absolute; left: -50%; right: -50%; bottom: -8%; height: 46%; transform: perspective(520px) rotateX(64deg); transform-origin: 50% 100%; background-image: linear-gradient(var(--border-strong) 1px, transparent 1px), linear-gradient(90deg, var(--border-strong) 1px, transparent 1px); background-size: 64px 64px; -webkit-mask-image: linear-gradient(to top, #000 30%, transparent 95%); mask-image: linear-gradient(to top, #000 30%, transparent 95%); animation: floor 5s linear infinite; }
+@keyframes floor { to { background-position: 0 64px, 0 0; } }
+.gbeam { position: absolute; left: 50%; top: -30%; width: 70vmax; height: 120vmax; margin-left: -35vmax; background: conic-gradient(from 180deg at 50% 0%, transparent 42%, color-mix(in srgb, var(--primary) 16%, transparent) 50%, transparent 58%); transform-origin: 50% 0%; animation: beam 9s ease-in-out infinite alternate; }
+@keyframes beam { from { transform: rotate(-9deg); } to { transform: rotate(9deg); } }
+.gdust i { position: absolute; left: var(--x); bottom: -10px; width: 4px; height: 4px; border-radius: 999px; background: var(--primary); opacity: 0; animation: dust var(--d) linear var(--w) infinite; }
+.gdust i:nth-child(3n) { background: var(--terra); width: 3px; height: 3px; }
+.gdust i:nth-child(4n) { background: var(--olive); }
+@keyframes dust { 0% { transform: translate(0, 0); opacity: 0; } 15% { opacity: .5; } 80% { opacity: .35; } 100% { transform: translate(24px, -92vh); opacity: 0; } }
+/* the doors */
+.doors { display: flex; align-items: flex-start; justify-content: center; gap: 72px; }
+.door { all: unset; box-sizing: border-box; position: relative; display: flex; flex-direction: column; align-items: center; width: 220px; cursor: pointer; text-align: center; -webkit-tap-highlight-color: transparent; }
+.door:focus-visible .dframe { outline: 2px solid var(--primary); outline-offset: 6px; }
+.dframe { position: relative; width: 176px; height: 268px; border-radius: 88px 88px 6px 6px; background: var(--raised); box-shadow: 0 0 0 1px var(--border-strong), 0 24px 44px -26px rgba(40,20,60,.35); perspective: 900px; }
+.dbehind { position: absolute; inset: 9px 9px 0 9px; border-radius: 80px 80px 2px 2px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.door.site .dbehind { background: radial-gradient(90% 70% at 50% 60%, color-mix(in srgb, var(--primary) 55%, var(--canvas)) 0%, var(--primary) 100%); }
+.door.soon .dbehind { background: radial-gradient(90% 70% at 50% 60%, color-mix(in srgb, var(--terra) 45%, var(--canvas)) 0%, var(--terra) 100%); color: var(--on-primary); }
+.dsite { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 96px; }
+.dsite i { display: block; height: 10px; border-radius: 3px; background: rgba(255,255,255,.85); animation: bars 2.4s ease-in-out infinite alternate; }
+.dsite .b1 { grid-column: span 2; height: 26px; }
+.dsite .b2 { animation-delay: -.6s; } .dsite .b3 { animation-delay: -1.1s; } .dsite .b4 { grid-column: span 2; animation-delay: -1.6s; } .dsite .b5 { width: 60%; animation-delay: -.3s; }
+@keyframes bars { from { opacity: .45; transform: scaleX(.8); transform-origin: 0 50%; } to { opacity: 1; transform: none; } }
+.dcube { width: 74px; height: 74px; animation: cube 6s ease-in-out infinite alternate; }
+@keyframes cube { from { transform: rotate(-8deg) translateY(4px); } to { transform: rotate(8deg) translateY(-4px); } }
+.dpanel { position: absolute; inset: 9px 9px 0 9px; border-radius: 80px 80px 2px 2px; background: var(--sunken); box-shadow: inset 0 0 0 1px var(--border-strong); transform-origin: 0 50%; transition: transform .9s cubic-bezier(.22,1,.36,1), box-shadow .6s ease; backface-visibility: hidden; }
+.dpanel::before, .dpanel::after { content: ""; position: absolute; left: 18px; right: 18px; border: 1px solid var(--border-strong); }
+.dpanel::before { top: 34px; height: 92px; border-radius: 60px 60px 4px 4px; }
+.dpanel::after { bottom: 20px; height: 84px; border-radius: 4px; }
+.dknob { position: absolute; right: 16px; top: 54%; width: 10px; height: 10px; border-radius: 999px; background: var(--ink-3); box-shadow: 0 1px 0 rgba(255,255,255,.4); }
+.dplaque { position: absolute; left: 50%; top: 14px; translate: -50% 0; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10px; letter-spacing: .1em; color: var(--ink-3); }
+.door:hover .dpanel, .door:focus-visible .dpanel { transform: rotateY(-58deg); box-shadow: inset 0 0 0 1px var(--border-strong), 14px 0 30px -12px rgba(40,20,60,.35); }
+.door.opening .dpanel { transform: rotateY(-115deg); transition-duration: .66s; transition-timing-function: cubic-bezier(.3,.8,.35,1); }
+/* light spilling out onto the floor */
+.dspill { width: 190px; height: 34px; margin-top: -2px; border-radius: 50%; opacity: 0; filter: blur(10px); transition: opacity .6s ease, transform .8s cubic-bezier(.22,1,.36,1); }
+.door.site .dspill { background: color-mix(in srgb, var(--primary) 40%, transparent); }
+.door.soon .dspill { background: color-mix(in srgb, var(--terra) 40%, transparent); }
+.door:hover .dspill, .door.opening .dspill { opacity: 1; }
+.door.opening .dspill { transform: scale(1.35, 1.2); }
+/* once a door is picked, everything else steps back so you watch it swing */
+.gate.going .gh, .gate.going .glink, .gate.going .door:not(.opening) { opacity: .2; transition: opacity .5s ease; }
+.gate.going .door.opening .dname, .gate.going .door.opening .dsub { opacity: .35; transition: opacity .5s ease .1s; }
+.dname { display: flex; align-items: center; gap: 10px; margin-top: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.022em; color: var(--ink); font-weight: 700; }
+.dsub { margin-top: 6px; font-size: 15px; line-height: 1.55; color: var(--ink-2); max-width: 24ch; }
+.gtag { padding: 4px 9px; border-radius: 999px; border: 1px solid var(--olive-line); font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; letter-spacing: .06em; color: var(--olive); font-weight: 600; }
+.gnote { position: absolute; top: 118px; left: calc(100% - 10px); margin: 0; font-size: 20px; color: var(--terra); white-space: nowrap; opacity: 0; transform: translateY(6px) rotate(-4deg); transition: opacity .4s ease, transform .5s cubic-bezier(.34,1.56,.64,1); }
+.door.knocked .gnote { opacity: 1; transform: rotate(-4deg); }
+.door.knocked .dpanel { animation: knock .5s ease; }
+@keyframes knock { 20% { transform: rotateY(-6deg); } 45% { transform: rotateY(3deg); } 70% { transform: rotateY(-2deg); } 100% { transform: none; } }
+.glink { margin-top: 34px; padding: 8px 4px; background: none; border: none; cursor: pointer; font-family: inherit; font-size: 15px; color: var(--ink-3); border-bottom: 1px solid var(--border-strong); transition: color .35s ease, border-color .35s ease; }
+.glink:hover { color: var(--primary); border-color: var(--primary); }
+@media (max-width: 860px) { .gate { align-items: flex-start; padding: 36px 16px 48px 16px; } .gh { font-size: 40px; margin-bottom: 30px; } .gnum { font-size: 54px; } .doors { gap: 18px; } .door { width: 160px; } .dframe { width: 132px; height: 200px; } .dpanel::before { top: 26px; height: 64px; } .dpanel::after { height: 60px; } .dsite { width: 72px; } .dcube { width: 56px; height: 56px; } .dname { font-size: 19px; flex-wrap: wrap; justify-content: center; } .dsub { font-size: 13.5px; } .gnote { position: static; margin-top: 8px; font-size: 17px; opacity: 1; transform: none; white-space: normal; } }
+@media (prefers-reduced-motion: reduce) { .gate { display: none; } }
+/* ---------- shared links and cards ---------- */
+.fill-link { position: relative; display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); transition: color .35s ease; }
+.fill-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; background: var(--primary); transform: scaleX(0); transform-origin: 0 50%; transition: transform .5s cubic-bezier(.22,1,.36,1); }
+.fill-link:hover { color: var(--primary); }
+.fill-link:hover::after { transform: scaleX(1); }
+.fill-link svg { transition: transform .4s cubic-bezier(.22,1,.36,1); }
+.fill-link:hover svg { transform: translate(2px, -2px); }
+/* back links: the arrow sits level with the words and nudges the other way */
+.fill-link.back { gap: 7px; line-height: 1; }
+.fill-link.back svg { flex: none; display: block; }
+.fill-link.back:hover svg { transform: translateX(-3px); }
+/* vibe coded things */
+.vcard { position: relative; overflow: hidden; box-sizing: border-box; border-radius: 22px; padding: 30px 32px; min-height: 236px; display: flex; flex-direction: column; justify-content: space-between; transition: transform .55s cubic-bezier(.22,1,.36,1), box-shadow .55s ease; }
+.vcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+/* only the ones you can actually click lift and cast anything */
+.vcard:not(a):hover { transform: none; box-shadow: none; }
+.vcard h3 { margin: 22px 0 10px 0; font-family: 'Space Grotesk', sans-serif; font-size: 25px; line-height: 1.22; letter-spacing: -0.022em; font-weight: 700; }
+.vcard p.d { margin: 0; font-size: 15.5px; line-height: 1.62; }
+.vcard .go { transition: transform .4s cubic-bezier(.22,1,.36,1); }
+.vcard:hover .go { transform: translateX(4px); }
+/* ---------- phone nav ---------- */
+.burger { display: none; width: 44px; height: 44px; padding: 0; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--raised); color: var(--ink); cursor: pointer; align-items: center; justify-content: center; transition: border-color .3s ease, color .3s ease; }
+.burger:hover { border-color: var(--primary); color: var(--primary); }
+.burger i { position: relative; display: block; width: 18px; height: 1.8px; border-radius: 2px; background: currentColor; transition: background-color .25s ease; }
+.burger i::before, .burger i::after { content: ""; position: absolute; left: 0; width: 18px; height: 1.8px; border-radius: 2px; background: currentColor; transition: transform .4s cubic-bezier(.22,1,.36,1); }
+.burger i::before { top: -6px; }
+.burger i::after { top: 6px; }
+.hdr.mopen .burger i { background: transparent; }
+.hdr.mopen .burger i::before { transform: translateY(6px) rotate(45deg); }
+.hdr.mopen .burger i::after { transform: translateY(-6px) rotate(-45deg); }
+.hdr nav { position: relative; z-index: 2; }
+.hdr.mopen .burger { display: none; }
+.mclose { position: absolute; top: 16px; right: 20px; width: 44px; height: 44px; padding: 0; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--raised); color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color .3s ease, color .3s ease, transform .4s cubic-bezier(.22,1,.36,1); }
+.mclose:hover { border-color: var(--primary); color: var(--primary); transform: rotate(90deg); }
+.mnav { position: fixed; inset: 0; z-index: 39; display: none; flex-direction: column; box-sizing: border-box; padding: 96px 24px calc(30px + env(safe-area-inset-bottom, 0px)) 24px; background: var(--canvas); }
+.hdr.mopen .mnav { display: flex; animation: mnavin .4s cubic-bezier(.22,1,.36,1); }
+@keyframes mnavin { from { opacity: 0; transform: translateY(-12px); } }
+.mlinks { flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+.mnav .nv { position: relative; display: inline-block; padding: 12px 2px; font-family: 'Space Grotesk', sans-serif; font-size: 30px; line-height: 1.2; letter-spacing: -0.022em; font-weight: 600; color: var(--ink); border: 0; transition: color .35s ease; }
+.mnav .nv::after { content: ""; position: absolute; left: 2px; right: 2px; bottom: 8px; height: 2px; border-radius: 2px; background: var(--primary); transform: scaleX(0); transform-origin: 0 50%; transition: transform .45s cubic-bezier(.22,1,.36,1); }
+.mnav .nv:hover, .mnav .nv:focus-visible, .mnav .nv[aria-current="page"] { color: var(--primary); }
+.mnav .nv:hover::after, .mnav .nv:focus-visible::after, .mnav .nv[aria-current="page"]::after { transform: scaleX(1); }
+.mnav .btn { width: 100%; justify-content: center; min-height: 58px; font-size: 17px; }
+.mnav .mfoot { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.mnav .mfoot .mg { margin: 0; font-size: 20px; color: var(--ink-3); }
+@media (max-width: 700px) { .burger { display: inline-flex; } }
+@media (prefers-reduced-motion: reduce) { .hdr.mopen .mnav { animation: none; } }
+/* ---------- tablet ---------- */
+@media (max-width: 1020px) {
+  .ruled { background-image: repeating-linear-gradient(to bottom, transparent 0 35px, var(--rule-line) 35px 36px) !important; }
+  .pad { padding-left: 40px !important; padding-right: 40px !important; }
+  .rail { --rail-pad: 40px !important; }
+  .split { grid-template-columns: repeat(6, minmax(0,1fr)) !important; }
+  .cell { grid-column: 1 / -1 !important; }
+  .nudge { margin-top: 0 !important; }
+  .herorow { flex-direction: column !important; align-items: stretch !important; gap: 56px !important; }
+  .herotext { flex: none !important; width: auto !important; }
+  .deskwrap { flex: none !important; align-self: center !important; }
+  .d1 { font-size: 56px !important; }
+  .d2 { font-size: 40px !important; }
+  .stmt { font-size: 36px !important; }
+  .panelbox { padding: 40px !important; }
+  .sdtext { max-width: 52% !important; }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 700px) {
+  .pad { padding-left: 20px !important; padding-right: 20px !important; }
+  .rail { --rail-pad: 20px !important; }
+  .navlinks, .navcta, .mouse { display: none !important; }
+  .seeall { display: block !important; }
+  .seeall .btn { width: 100% !important; box-sizing: border-box !important; }
+  .secpad { padding-top: 76px !important; padding-bottom: 76px !important; }
+  .d1 { font-size: 42px !important; }
+  .d2 { font-size: 31px !important; }
+  .stmt { font-size: 27px !important; }
+  .rot { rotate: 0deg !important; }
+  .ctarow { flex-direction: column !important; align-items: stretch !important; }
+  .ctarow > a, .ctarow > button { justify-content: center !important; }
+  .sampleword { font-size: 48px !important; }
+  .collage > * { margin: 0 !important; }
+  .collage { flex-wrap: wrap !important; gap: 14px !important; }
+  .panelbox { padding: 26px !important; border-radius: 22px !important; }
+  .note { width: 268px !important; }
+  .hide-sm { display: none !important; }
+  .only-sm { display: inline-flex !important; }
+  .deskwrap { width: 386px !important; height: 400px !important; }
+  .desk { transform: scale(.86) !important; transform-origin: 0 0 !important; }
+  .desk [data-drag] { cursor: default !important; }
+  /* nothing is draggable here, so let a finger scroll the page */
+  .desk [data-drag] { touch-action: auto !important; }
+  .tidy, .deskhint { display: none !important; }
+  .panel { height: 380px !important; }
+  .sdtext { max-width: 100% !important; top: 70px !important; }
+  .sdtext .serif { font-size: 34px !important; }
+  .m2 { right: -60px !important; top: 190px !important; }
+  .m3b { left: 30% !important; top: 190px !important; }
+  .m3a { width: 300px !important; }
+  .pnote { display: none !important; }
+}
+/* ---------- touch screens: no hover, so the hover look is the resting look ---------- */
+@media (hover: none) {
+  [data-drag] { touch-action: auto !important; }
+  [data-magnetic] { transform: none !important; transition: background-color .3s ease, color .3s ease, border-color .3s ease !important; }
+  .btn-primary { background: var(--primary-hover) !important; }
+  .btn-ghost { border-color: var(--primary) !important; color: var(--primary) !important; background: var(--ring-fill) !important; }
+  .btn-terra { background: var(--terra-hover) !important; }
+  .fill-link { color: var(--primary) !important; }
+  .fill-link::after { transform: scaleX(1) !important; }
+  .femail::after { transform: scaleX(1) !important; }
+  .social { color: var(--primary) !important; }
+  .railbtn:not(:disabled) { border-color: var(--primary) !important; color: var(--primary) !important; background: var(--ring-fill) !important; }
+  .totop { border-color: var(--primary) !important; color: var(--primary) !important; }
+  .burger { border-color: var(--primary) !important; color: var(--primary) !important; }
+  .ulink { color: var(--primary) !important; }
+  .ulink::after { background: var(--primary) !important; }
+  .widrow h3, .skrow .skttl { color: var(--primary) !important; }
+}
+/* the desk takes the full width each phone offers */
+@media (max-width: 430px) { .deskwrap { width: 350px !important; height: 362px !important; } .desk { transform: scale(.78) !important; } }
+@media (max-width: 360px) { .deskwrap { width: 296px !important; height: 306px !important; } .desk { transform: scale(.66) !important; } }
+/* phones: buttons stay where they are put */
+@media (max-width: 700px) { [data-magnetic] { transform: none !important; } }
+/* shown on phones only, the pair to hide-sm */
+.only-sm { display: none; }
+
+/* ================= HERO ================= */
+.herokick { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 24px 0; padding: 8px 17px 8px 14px; border-radius: 999px; background: var(--raised); border: 1px solid var(--olive-line); font-size: 13.5px; font-weight: 600; color: var(--olive); }
+.heroh1 { margin: 0 0 26px 0; font-family: 'Space Grotesk', sans-serif; font-size: 50px; line-height: 1.12; letter-spacing: -0.028em; color: var(--ink); font-weight: 700; }
+@media (max-width: 1020px) { .heroh1 { font-size: 42px; } }
+@media (max-width: 700px) { .heroh1 { font-size: 33px; } .herokick { font-size: 12.5px; } }
+/* what I do */
+/* a small picture follows the pointer along the hovered line */
+.widrow { position: relative; }
+.widpic { --py: 50%; position: absolute; right: calc(100% + 20px); top: var(--py); z-index: 3; width: 184px; height: 125px; border-radius: 14px; overflow: hidden; pointer-events: none; box-shadow: var(--shadow-lift); opacity: 0; transform: translate(24px, -50%) rotate(calc(var(--r) * 1.8)) scale(.75); transition: opacity .35s ease, transform .6s cubic-bezier(.22,1,.36,1), top .25s ease-out; }
+.widpic svg { display: block; width: 100%; height: 100%; }
+.widrow:hover .widpic { opacity: 1; transform: translate(0, -50%) rotate(var(--r)) scale(1); }
+@media (hover: none), (max-width: 1020px) { .widpic { display: none; } }
+.wid { border-top: 1px solid var(--border); }
+.widrow { display: grid; grid-template-columns: 56px minmax(0,1fr) auto; gap: 24px; align-items: baseline; padding: 26px 8px; border-bottom: 1px solid var(--border); color: inherit; transition: background-color .4s ease, padding .5s cubic-bezier(.22,1,.36,1); }
+.widrow:hover { background: var(--raised); padding-left: 18px; padding-right: 18px; }
+.widrow .n { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 13px; color: var(--ink-3); }
+.widrow h3 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 34px; line-height: 1.15; letter-spacing: -0.025em; color: var(--ink); font-weight: 700; transition: color .35s ease; }
+.widrow:hover h3 { color: var(--primary); }
+.widrow .k { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 12.5px; color: var(--ink-3); text-align: right; transition: color .35s ease; }
+.widrow:hover .k { color: var(--ink-2); }
+@media (max-width: 700px) { .widrow { grid-template-columns: 40px minmax(0,1fr); } .widrow .k { grid-column: 2; text-align: left; } .widrow h3 { font-size: 26px; } }
+.hero { min-height: calc(100vh - 76px); min-height: calc(100svh - 76px); }
+.mouse { position: absolute; left: 50%; bottom: 26px; translate: -50% 0; display: flex; padding: 8px; color: var(--ink-3); border-radius: 999px; transition: color .3s ease; }
+.mouse:hover { color: var(--primary); }
+.mouse-body { position: relative; display: block; width: 24px; height: 38px; box-sizing: border-box; border: 1.8px solid currentColor; border-radius: 14px; }
+.mouse-dot { position: absolute; left: 50%; bottom: 7px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 999px; background: var(--primary); }
+
+/* desk */
+[data-drag] { cursor: grab; touch-action: none; user-select: none; transition: scale .4s cubic-bezier(.22,1,.36,1); }
+[data-drag].lifted { cursor: grabbing; scale: 1.05; }
+.lifted.surf, .lifted .surf { box-shadow: var(--shadow-lift) !important; }
+[data-drag].settling { transition: translate .95s cubic-bezier(.22,1,.36,1), scale .4s ease; }
+.selbox { position: absolute; inset: -7px; border: 1.5px solid var(--primary); border-radius: 3px; pointer-events: none; }
+.selbox i { position: absolute; width: 8px; height: 8px; box-sizing: border-box; background: var(--raised); border: 1.5px solid var(--primary); border-radius: 2px; }
+.selbox i:nth-child(1) { left: -5px; top: -5px; } .selbox i:nth-child(2) { right: -5px; top: -5px; }
+.selbox i:nth-child(3) { left: -5px; bottom: -5px; } .selbox i:nth-child(4) { right: -5px; bottom: -5px; }
+.dim { position: absolute; left: 50%; bottom: -33px; translate: -50% 0; background: var(--primary); color: var(--on-primary); font-size: 11px; padding: 3px 7px; border-radius: 5px; white-space: nowrap; }
+.chip { position: relative; display: block; width: 18px; height: 18px; border-radius: 999px; cursor: help; transition: transform .35s cubic-bezier(.34,1.56,.64,1); }
+.chip:hover { transform: scale(1.18); }
+.chip::after {
+  position: absolute; left: 50%; bottom: calc(100% + 9px); translate: -50% 0;
+  padding: 4px 7px; border-radius: 6px; background: var(--ink); color: var(--canvas);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; line-height: 1; white-space: nowrap;
+  opacity: 0; transform: translateY(4px) scale(.9); transform-origin: 50% 100%; pointer-events: none;
+  transition: opacity .2s ease, transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.chip:hover::after { opacity: 1; transform: none; }
+.theme-light .c-ink::after { content: "#3F144D"; } .theme-dark .c-ink::after { content: "#F6F0EA"; }
+.theme-light .c-pri::after { content: "#5603AD"; } .theme-dark .c-pri::after { content: "#CE7AF5"; }
+.theme-light .c-rose::after { content: "#BD6B76"; } .theme-dark .c-rose::after { content: "#DF8692"; }
+.theme-light .c-olive::after { content: "#6D762D"; } .theme-dark .c-olive::after { content: "#B6CA68"; }
+.theme-light .c-pet::after { content: "#32767B"; } .theme-dark .c-pet::after { content: "#60C0C7"; }
+.sw { position: relative; width: 54px; height: 32px; flex-shrink: 0; border-radius: 999px; border: none; padding: 0; cursor: pointer; background: var(--border); transition: background-color .35s ease; }
+.sw::before { content: ""; position: absolute; inset: -7px -5px; }
+.sw::after { content: ""; position: absolute; top: 4px; left: 4px; width: 24px; height: 24px; border-radius: 999px; background: var(--raised); box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: transform .5s cubic-bezier(.22,1,.36,1), background-color .35s ease; }
+.sw[aria-checked="true"] { background: var(--primary); }
+.sw[aria-checked="true"]::after { transform: translateX(22px); background: var(--on-primary); }
+.tidy {
+  position: absolute; right: 0; bottom: -58px; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px;
+  border-radius: 999px; border: 1px solid var(--border); background: var(--raised); color: var(--ink-2); cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif; font-size: 13.5px; font-weight: 600;
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .45s ease, transform .55s cubic-bezier(.22,1,.36,1), visibility .45s, border-color .3s ease, color .3s ease;
+}
+.desk.messy ~ .tidy { opacity: 1; visibility: visible; transform: none; }
+.tidy:hover { border-color: var(--primary); color: var(--primary); }
+
+/* ================= SELECTED WORK ================= */
+.soonchip { position: absolute; right: 24px; bottom: 24px; z-index: 2; padding: 8px 14px; border-radius: 999px; background: var(--raised); border: 1px solid var(--border-strong); font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 12px; color: var(--ink-2); }
+.proj.soon { cursor: default; }
+.cswm { position: absolute; left: 30px; bottom: 10px; margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 112px; line-height: 1; letter-spacing: -0.05em; font-weight: 700; color: var(--ink); opacity: .07; white-space: nowrap; pointer-events: none; transition: opacity .6s ease; }
+.proj:hover .cswm { opacity: .11; }
+.csbody { position: absolute; left: 36px; right: 36px; top: 50%; translate: 0 -50%; z-index: 1; }
+.csline { margin: 0 0 22px 0; font-family: 'Space Grotesk', sans-serif; font-size: 38px; line-height: 1.16; letter-spacing: -0.028em; color: var(--ink); font-weight: 700; max-width: 17ch; text-wrap: balance; }
+@media (max-width: 1020px) { .cswm { font-size: 88px; } .csline { font-size: 31px; } }
+@media (max-width: 700px) { .split { row-gap: 44px !important; } .cswm { font-size: 58px; left: 22px; } .csline { font-size: 25px; } .csbody { left: 22px; right: 22px; } }
+.proj { display: block; color: inherit; }
+.proj:hover { color: inherit; }
+.panel { position: relative; overflow: hidden; border-radius: 26px; }
+.parrow {
+  position: absolute; right: 22px; bottom: 22px; z-index: 3; width: 52px; height: 52px; border-radius: 999px;
+  background: var(--raised); color: var(--ink); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow);
+  transition: transform .6s cubic-bezier(.22,1,.36,1), background-color .35s ease, color .35s ease;
+}
+.proj:hover .parrow { transform: rotate(45deg) scale(1.06); background: var(--primary); color: var(--on-primary); }
+.proj .ttl { transition: color .35s ease; }
+.proj:hover .ttl { color: var(--primary); }
+.mock { transition: transform 1.1s cubic-bezier(.22,1,.36,1); }
+.m1 { transform: perspective(1600px) rotateX(8deg) rotateY(-11deg) rotateZ(-1.6deg); transform-origin: 20% 40%; }
+.proj:hover .m1 { transform: perspective(1600px) rotateX(3deg) rotateY(-4deg) rotateZ(-.6deg) translateY(-10px); }
+.m2 { transform: rotate(7deg); }
+.proj:hover .m2 { transform: rotate(3deg) translateY(-14px); }
+.m3a { transform: rotate(-3.5deg); }
+.proj:hover .m3a { transform: rotate(-1.5deg) translate(-10px, -10px); }
+.m3b { transform: rotate(4deg); }
+.proj:hover .m3b { transform: rotate(6.5deg) translate(14px, -4px); }
+.mk-nav { display: flex; align-items: center; gap: 9px; padding: 8px 10px; margin-bottom: 4px; border-radius: 9px; font-size: 12.5px; color: var(--ink-2); }
+.mk-nav.on { background: var(--p-lav); color: var(--primary); font-weight: 600; }
+.mk-tag { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--petrol-line); color: var(--petrol); font-size: 10.5px; font-weight: 500; }
+.wave { display: flex; align-items: center; gap: 2px; height: 26px; }
+.wave i { display: block; width: 3px; border-radius: 2px; background: var(--primary); opacity: .78; transform-origin: 50% 50%; }
+@media (prefers-reduced-motion: no-preference) {
+  .proj:hover .wave i { animation: eq .9s ease-in-out infinite alternate; }
+  .proj:hover .wave i:nth-child(3n) { animation-delay: -.3s; }
+  .proj:hover .wave i:nth-child(3n+1) { animation-delay: -.6s; }
+  @keyframes eq { from { transform: scaleY(.35); } to { transform: scaleY(1); } }
+}
+.rit { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--m-line); font-size: 12.5px; color: var(--ink); }
+.rit b { width: 16px; height: 16px; border-radius: 999px; border: 1.5px solid var(--border); box-sizing: border-box; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.kv { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--m-line); font-size: 12.5px; }
+.kv span:first-child { color: var(--ink-3); }
+.kv span:last-child { color: var(--ink); font-weight: 600; }
+
+/* ================= DESIGN PROCESS ================= */
+.phead { display: flex; align-items: flex-end; justify-content: space-between; gap: 28px 40px; flex-wrap: wrap; margin-bottom: 76px; }
+.pswitch { position: relative; display: inline-grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 0; padding: 5px; border-radius: 999px; background: var(--raised); border: 1px solid var(--border-strong); cursor: pointer; }
+.plab { position: relative; z-index: 1; text-align: center; padding: 9px 16px; border-radius: 999px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 13px; color: var(--ink-2); transition: color .45s ease; white-space: nowrap; }
+.pswitch .plab.a { color: var(--on-primary); }
+.pswitch.on .plab.a { color: var(--ink-2); }
+.pswitch.on .plab.b { color: var(--on-primary); }
+.pknob { position: absolute; z-index: 0; top: 5px; bottom: 5px; left: 5px; width: calc(50% - 5px); border-radius: 999px; background: var(--primary); transition: left .55s cubic-bezier(.22,1,.36,1), background-color .55s ease; }
+.pswitch.on .pknob { left: 50%; background: var(--terra); }
+.pwrap { position: relative; }
+.psteps { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 52px 64px; transition: opacity .45s ease, transform .55s cubic-bezier(.22,1,.36,1); }
+.psteps.off { position: absolute; inset: 0; opacity: 0; transform: translateY(14px); pointer-events: none; }
+.pstep { display: grid; grid-template-columns: 54px minmax(0,1fr); gap: 18px; align-items: start; }
+.pnum { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 13px; color: var(--ink-3); padding-top: 4px; }
+@media (max-width: 1020px) { .psteps { grid-template-columns: minmax(0,1fr); gap: 40px; } }
+@media (max-width: 700px) { .phead { margin-bottom: 48px; } .ptoggle { width: 100%; } .ptoggle .mg { text-align: left !important; } .pswitch { width: 100%; } .plab { padding: 13px 10px; font-size: 13px; } }
+/* ================= PLAYGROUND ================= */
+.tile { position: relative; transition: transform .55s cubic-bezier(.22,1,.36,1), box-shadow .55s ease; }
+.tile:hover { transform: translateY(-4px) rotate(-.3deg); box-shadow: var(--shadow-lift); }
+.pill { cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-size: 13.5px; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; padding: 0 20px; border-radius: 999px; border: 1px solid var(--border-strong); background: transparent; color: var(--ink-2); transition: background-color .3s ease, color .3s ease, border-color .3s ease, transform .35s cubic-bezier(.22,1,.36,1); }
+.pill:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
+.pill:active { transform: scale(.97); }
+.pill[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: var(--on-primary); }
+.sample { transition: font-weight .3s cubic-bezier(.22,1,.36,1); overflow-wrap: anywhere; }
+.range { accent-color: var(--primary); height: 44px; margin: 0; cursor: pointer; }
+.ttin { box-sizing: border-box; height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--canvas); color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-size: 14.5px; font-weight: 500; transition: border-color .25s ease, box-shadow .25s ease; }
+.ttin::placeholder { color: var(--ink-3); }
+.ttin:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--ring-fill); }
+
+/* plotter: a line draws itself over the photo */
+.plotline path { stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .6s ease; }
+.plot:hover .plotline path { stroke-dashoffset: 0; transition: stroke-dashoffset 2.6s cubic-bezier(.45,0,.2,1); }
+
+/* extension: the sentence gives way to its own type scale */
+.ext-copy { transition: opacity .4s ease, transform .6s cubic-bezier(.22,1,.36,1); }
+.ext:hover .ext-copy { opacity: 0; transform: translateY(-14px); }
+.ext-scale { position: absolute; left: 32px; right: 32px; bottom: 30px; display: flex; flex-direction: column; gap: 9px; pointer-events: none; }
+.ext-scale > div { display: flex; align-items: center; gap: 12px; }
+.ext-scale span { width: 64px; flex-shrink: 0; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; color: var(--on-primary); opacity: 0; transition: opacity .3s ease; }
+.ext-scale i { display: block; border-radius: 3px; background: var(--on-primary); transform: scaleX(0); transform-origin: 0 50%; transition: transform .5s cubic-bezier(.22,1,.36,1); }
+.ext:hover .ext-scale span { opacity: .9; }
+.ext:hover .ext-scale i { transform: scaleX(1); }
+.ext-scale > div:nth-child(2) i, .ext-scale > div:nth-child(2) span { transition-delay: .06s; }
+.ext-scale > div:nth-child(3) i, .ext-scale > div:nth-child(3) span { transition-delay: .12s; }
+.ext-scale > div:nth-child(4) i, .ext-scale > div:nth-child(4) span { transition-delay: .18s; }
+.ext-scale > div:nth-child(5) i, .ext-scale > div:nth-child(5) span { transition-delay: .24s; }
+
+/* icons: the set does a little wave */
+.glyphs svg { transition: color .3s ease; }
+.icons:hover .glyphs svg { color: var(--primary); }
+@media (prefers-reduced-motion: no-preference) {
+  .icons:hover .glyphs svg { animation: hop .7s cubic-bezier(.34,1.56,.64,1) both; }
+  .icons:hover .glyphs svg:nth-child(2) { animation-delay: .06s; }
+  .icons:hover .glyphs svg:nth-child(3) { animation-delay: .12s; }
+  .icons:hover .glyphs svg:nth-child(4) { animation-delay: .18s; }
+  .icons:hover .glyphs svg:nth-child(5) { animation-delay: .24s; }
+  .icons:hover .glyphs svg:nth-child(6) { animation-delay: .3s; }
+  @keyframes hop { 0% { transform: none; } 40% { transform: translateY(-9px) rotate(-10deg); } 100% { transform: none; } }
+}
+
+/* film: shutter flash, colour comes back, frame counter ticks */
+.filmimg { filter: var(--photo) grayscale(.7); }
+.film:hover .filmimg { filter: var(--photo); transform: scale(1.05); }
+.flash { position: absolute; inset: 0; background: #FFFBF5; opacity: 0; pointer-events: none; }
+.film:hover .flash { animation: flash .6s ease-out; }
+@keyframes flash { 0% { opacity: 0; } 12% { opacity: .6; } 100% { opacity: 0; } }
+.frame { position: absolute; left: 14px; bottom: 14px; padding: 5px 10px; border-radius: 999px; background: var(--raised); color: var(--ink); font-size: 11px; opacity: 0; transform: translateY(6px); transition: opacity .3s ease, transform .45s cubic-bezier(.22,1,.36,1); }
+.film:hover .frame { opacity: 1; transform: none; }
+
+/* ================= TESTIMONIALS ================= */
+.tsthead { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px 48px; flex-wrap: wrap; margin-bottom: 52px; }
+/* the row runs past the page margins and fades out at both ends */
+.mq { margin: 0 -80px; padding: 6px 0 10px 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 90px, #000 calc(100% - 90px), transparent); mask-image: linear-gradient(90deg, transparent, #000 90px, #000 calc(100% - 90px), transparent); }
+.mqtrack { display: flex; width: max-content; will-change: transform; }
+.mqset { display: flex; align-items: stretch; gap: 22px; padding-right: 22px; }
+.mqcard { display: flex; flex-direction: column; flex: none; width: 620px; box-sizing: border-box; margin: 0; padding: 34px 32px 30px 32px; border-radius: 24px; background: var(--raised); border: 1px solid var(--border); transition: border-color .4s ease, box-shadow .5s ease, transform .5s cubic-bezier(.22,1,.36,1); }
+.mq:hover .mqcard { border-color: var(--border-strong); }
+.mqcard:hover { border-color: var(--primary) !important; transform: translateY(-3px); }
+.mqmark { font-family: 'Space Grotesk', sans-serif; font-size: 52px; line-height: .6; color: var(--primary); opacity: .32; }
+.mqcard blockquote { margin: 18px 0 26px 0; font-size: 16.5px; line-height: 1.72; color: var(--ink-2); text-wrap: pretty; }
+.mqcard .tby { margin-top: auto; }
+.tby { display: flex; align-items: center; gap: 13px; }
+.tav { flex: none; width: 42px; height: 42px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 13.5px; font-weight: 700; letter-spacing: .01em; }
+.tinfo { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.tn { font-size: 15.5px; font-weight: 600; color: var(--ink); }
+.tr { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 12px; color: var(--ink-3); }
+.tlink { color: var(--ink-3); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border-strong); }
+.tlink:hover { color: var(--primary); text-decoration-color: var(--primary); }
+/* no script, or no appetite for motion: an ordinary swipeable row */
+.mq.still { overflow-x: auto; scrollbar-width: none; }
+.mq.still::-webkit-scrollbar { display: none; }
+.mq.still .mqtrack { transform: none !important; }
+.mq.still .mqset[aria-hidden="true"] { display: none; }
+@media (max-width: 700px) { .mq { margin: 0 -22px; -webkit-mask-image: none; mask-image: none; } .mqset { gap: 16px; padding-right: 16px; } .mqcard { width: min(620px, 86vw); padding: 26px 22px 22px 22px; } .mqcard blockquote { margin: 14px 0 22px 0; font-size: 15px; line-height: 1.62; } .mqmark { font-size: 44px; } .tsthead { margin-bottom: 40px; } }
+
+/* ================= AWAY FROM THE SCREEN ================= */
+.pic { transition: rotate .7s cubic-bezier(.22,1,.36,1), scale .7s cubic-bezier(.22,1,.36,1); }
+.pic:hover { rotate: 0deg !important; scale: 1.04; z-index: 3; }
+.tip {
+  position: absolute; left: 50%; top: -12px; translate: -50% -100%; z-index: 5;
+  padding: 6px 14px 8px 14px; border-radius: 12px; white-space: nowrap; pointer-events: none;
+  font-family: 'Caveat', cursive; font-weight: 700; font-size: 24px; line-height: 1; color: var(--on-accent);
+  box-shadow: var(--shadow); opacity: 0; transform: translateY(8px) rotate(0deg) scale(.85); transform-origin: 50% 100%;
+  transition: opacity .25s ease, transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.tip::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 12px; height: 12px; margin-left: -6px; background: inherit; border-radius: 2px; transform: rotate(45deg); }
+.pic:hover .tip { opacity: 1; transform: rotate(-4deg); }
+.pic:nth-child(2):hover .tip { transform: rotate(3deg); }
+.t-rose { background: var(--rose); } .t-petrol { background: var(--petrol); } .t-olive { background: var(--olive); }
+
+/* ================= THOUGHTS RAIL =================
+   The rail's inline padding tracks the 1280px content column, and snapping
+   honours it through scroll-padding, so card one lines up with the title. */
+.rail {
+  --rail-pad: max(80px, calc((100% - 1280px) / 2));
+  display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 6px var(--rail-pad) 22px var(--rail-pad); scroll-padding-inline: var(--rail-pad);
+  cursor: grab; scrollbar-width: none;
+}
+.rail.dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.rail > * { scroll-snap-align: start; flex: 0 0 auto; }
+/* few enough cards to fit: let them share the row edge to edge */
+.rail.fits > * { flex: 1 1 0; min-width: 0; }
+.rail.fits .thumb { height: 200px !important; }
+.rail::-webkit-scrollbar { display: none; }
+.rail::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+.rail::-webkit-scrollbar-track { background: transparent; }
+.note { transition: transform .55s cubic-bezier(.22,1,.36,1), box-shadow .55s ease; }
+.note:hover { transform: translateY(-6px); box-shadow: var(--shadow-soft); }
+.note h3 a { color: inherit; transition: color .3s ease; }
+.note:hover h3 a { color: var(--primary); }
+.note[data-note] { cursor: pointer; }
+.linkish { all: unset; cursor: pointer; transition: color .3s ease; }
+.linkish:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
+.note:hover .linkish { color: var(--primary); }
+.railnav { display: flex; gap: 8px; }
+.railbtn { cursor: pointer; width: 44px; height: 44px; padding: 0; border-radius: 999px; border: 1px solid var(--border-strong); background: transparent; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; transition: border-color .3s ease, color .3s ease, background-color .3s ease, opacity .3s ease, transform .35s cubic-bezier(.22,1,.36,1); }
+.railbtn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); background: var(--ring-fill); }
+.railbtn:active:not(:disabled) { transform: scale(.94); }
+.railbtn:disabled { opacity: .35; cursor: default; }
+.theme-light { --p-olive: #E3E6CB; --p-rose: #F2DCE0; --pat: rgba(63,20,77,.09); }
+.theme-dark { --p-olive: #2A2D1B; --p-rose: #3A2429; --pat: rgba(246,240,234,.07); }
+.thumb { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 14px; }
+.thumb-art { height: 56%; width: auto; overflow: visible; transition: transform .8s cubic-bezier(.22,1,.36,1); }
+.note:hover .thumb-art { transform: rotate(-4deg) scale(1.07); }
+.pat-dots { background-image: radial-gradient(var(--pat) 1.2px, transparent 1.6px); background-size: 14px 14px; }
+.pat-grid { background-image: linear-gradient(var(--pat) 1px, transparent 1px), linear-gradient(90deg, var(--pat) 1px, transparent 1px); background-size: 22px 22px; }
+.pat-lines { background-image: repeating-linear-gradient(-45deg, var(--pat) 0 1px, transparent 1px 12px); }
+.ulink { position: relative; color: var(--ink-2); }
+.ulink::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px; background: var(--border); transition: background-color .3s ease; }
+.ulink:hover { color: var(--primary); }
+.ulink:hover::after { background: var(--primary); }
+
+/* ================= REDUCED MOTION ================= */
+@media (prefers-reduced-motion: reduce) {
+  .anim [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .anim [data-reveal] .ln > span, .anim [data-reveal] .rule { transform: none !important; }
+  .anim [data-reveal] .wipe { clip-path: none !important; }
+  .anim [data-reveal] .pop { opacity: 1 !important; animation: none !important; }
+  .anim [data-reveal] .squig path { stroke-dashoffset: 0 !important; }
+  .tile:hover, .note:hover, .pill:hover, .pic:hover { transform: none !important; scale: 1 !important; }
+  .curdot, .curring { display: none !important; }
+  * { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+
+/* ================= SITE FOOTER (identical on every page) =================
+   The bug crawls at z 2; anything marked data-hide sits at z 3 with an opaque
+   background, which is what lets the bug duck behind it.
+   z-index scale for the page: header 40, back-to-top 50, reader 70, grain 80, cursor 90. */
+.sitefoot { position: relative; overflow: hidden; background: var(--sunken); border-top: 1px solid var(--border); }
+.sitefoot [data-hide] { position: relative; z-index: 3; }
+.sitefoot .wrap { position: relative; }
+.fchip { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 24px 0; padding: 8px 16px 8px 13px; border-radius: 999px; background: var(--raised); border: 1px solid var(--olive-line); font-size: 14px; font-weight: 600; color: var(--olive); }
+.femail { position: relative; display: inline-block; padding-bottom: 4px; font-family: 'Space Grotesk', sans-serif; font-size: 24px; line-height: 1.2; letter-spacing: -0.019em; color: var(--primary); font-weight: 700; }
+.femail::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: currentColor; transform: scaleX(0); transform-origin: 0 50%; transition: transform .5s cubic-bezier(.22,1,.36,1); }
+.femail:hover { color: var(--primary-hover); }
+.femail:hover::after { transform: scaleX(1); }
+.fcopy {
+  cursor: pointer; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px;
+  border: 1px solid var(--border-strong); background: transparent; color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600;
+  transition: border-color .3s ease, color .3s ease, background-color .3s ease, transform .35s cubic-bezier(.22,1,.36,1);
+}
+.fcopy:hover { border-color: var(--primary); color: var(--primary); background: var(--ring-fill); }
+.fcopy:active { transform: scale(.97); }
+.fcopy .ok-i { display: none; color: var(--olive); }
+.fcopy.ok .ok-i { display: inline-flex; }
+.fcopy.ok .cp-i { display: none; }
+.fcopy .cp-i { display: inline-flex; }
+.social { display: inline-flex; align-items: center; gap: 7px; padding: 2px 0 4px 0; background: transparent; border: none; color: var(--ink); font-size: 14.5px; font-weight: 600; }
+.social svg { transition: transform .4s cubic-bezier(.22,1,.36,1); }
+.social:hover svg { transform: translate(2px, -2px); }
+.fline { height: 1px; margin: 64px 0 26px 0; background: var(--border); opacity: .7; }
+.fbottom { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 12px 24px; }
+.fhint { margin: 0; font-size: 21px; text-align: center; white-space: nowrap; }
+.fnav { display: flex; justify-content: flex-end; gap: 26px; font-size: 14px; font-weight: 500; }
+
+.bug {
+  position: absolute; left: 0; top: 0; z-index: 2; width: 40px; height: 40px; margin: 0; padding: 0; border: none; border-radius: 999px;
+  background: transparent; color: var(--ink); cursor: crosshair; display: flex; align-items: center; justify-content: center;
+  will-change: transform; transition: opacity .4s ease;
+}
+.bug svg { width: 22px; height: 22px; overflow: visible; transition: transform .25s ease, opacity .5s ease .3s; }
+.bug .legs { transform-origin: 12px 14px; }
+.bug.away { opacity: 0; pointer-events: none; }
+.bug.caught svg { transform: scale(1.35, .3); opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .bug:not(.still) .legs { animation: scuttle .2s linear infinite alternate; }
+  @keyframes scuttle { from { transform: rotate(-8deg); } to { transform: rotate(8deg); } }
+}
+.bugtoast {
+  position: absolute; left: 0; top: 0; z-index: 4; display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px; border-radius: 999px;
+  background: var(--olive); color: var(--on-accent); font-size: 13.5px; font-weight: 700; white-space: nowrap; pointer-events: none;
+  box-shadow: var(--shadow); opacity: 0; translate: -50% 0; transition: opacity .3s ease;
+}
+.bugtoast.show { opacity: 1; }
+@media (max-width: 1020px) {
+  .fbottom { grid-template-columns: 1fr; justify-items: start; }
+  .fhint { text-align: left; white-space: normal; }
+  .fnav { justify-content: flex-start; }
+}
+@media (max-width: 700px) {
+  .femail { font-size: 20px; }
+  .fline { margin-top: 48px; }
+  .fnav { flex-wrap: wrap; gap: 18px; }
+}
+
+@media (max-width: 700px) {
+  .sitefoot .ctarow { width: 100%; gap: 10px; }
+  .sitefoot .ctarow > a { width: 100%; box-sizing: border-box; justify-content: center; }
+}
+
+/* ================= BACK TO TOP =================
+   Appears once the reader reaches the third section; the ring fills with
+   page scroll progress where scroll-driven animation is supported. */
+.totop {
+  position: fixed; right: 28px; bottom: 28px; z-index: 50; width: 52px; height: 52px; padding: 0; border-radius: 999px;
+  border: 1px solid var(--border-strong); background: transparent; color: var(--ink); cursor: pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transform: translateY(14px) scale(.9);
+  transition: opacity .35s ease, transform .5s cubic-bezier(.22,1,.36,1), visibility .35s, border-color .3s ease, color .3s ease;
+}
+.totop.show { opacity: 1; visibility: visible; transform: none; }
+.totop:hover { color: var(--primary); border-color: var(--primary); }
+.totop-arrow { transition: transform .4s cubic-bezier(.22,1,.36,1); }
+.totop:hover .totop-arrow { transform: translateY(-3px); }
+.totop-ring { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px); rotate: -90deg; pointer-events: none; }
+.totop-ring circle { fill: none; stroke: var(--primary); stroke-width: 2; stroke-dasharray: 100; stroke-dashoffset: 100; }
+@supports (animation-timeline: scroll()) {
+  .totop-ring circle { animation: ringfill linear both; animation-timeline: scroll(root block); }
+  @keyframes ringfill { to { stroke-dashoffset: 0; } }
+}
+@media (max-width: 700px) { .totop { right: 16px; bottom: 16px; width: 46px; height: 46px; } }
+
+/* ================= NOTE READER (shared popup) ================= */
+.theme-light { --scrim: rgba(42,15,51,.52); }
+.theme-dark { --scrim: rgba(8,5,9,.72); }
+.rdr { position: fixed; inset: 0; z-index: 70; display: none; align-items: center; justify-content: center; padding: 24px 16px; box-sizing: border-box; }
+.rdr.open { display: flex; }
+.rdr-scrim { position: absolute; inset: 0; background: var(--scrim); }
+.rdr-panel {
+  position: relative; box-sizing: border-box; width: min(780px, 100%); max-height: min(88vh, 980px); overflow-y: auto; overscroll-behavior: contain;
+  border: 1px solid var(--border); border-radius: 26px; background: var(--raised); color: var(--ink);
+  box-shadow: 0 40px 90px -30px rgba(20,8,24,.55); scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rdr.open .rdr-panel { animation: rdOpen .5s cubic-bezier(.22,1,.36,1); }
+  .rdr.open .rdr-scrim { animation: rdFade .4s ease; }
+  .rdr.closing .rdr-panel { animation: rdClose .24s ease forwards; }
+  .rdr.closing .rdr-scrim { animation: rdFadeOut .24s ease forwards; }
+  .rdr-in-na { animation: rdNextA .55s cubic-bezier(.22,1,.36,1); }
+  .rdr-in-nb { animation: rdNextB .55s cubic-bezier(.22,1,.36,1); }
+  .rdr-in-pa { animation: rdPrevA .55s cubic-bezier(.22,1,.36,1); }
+  .rdr-in-pb { animation: rdPrevB .55s cubic-bezier(.22,1,.36,1); }
+}
+@keyframes rdOpen { from { opacity: 0; transform: translateY(24px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes rdClose { to { opacity: 0; transform: translateY(12px) scale(.98); } }
+@keyframes rdFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes rdFadeOut { to { opacity: 0; } }
+/* two identical keyframe names per direction, alternated, so every switch replays */
+@keyframes rdNextA { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+@keyframes rdNextB { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+@keyframes rdPrevA { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+@keyframes rdPrevB { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+.rdr .rbar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px 14px 24px; background: var(--raised); border-bottom: 1px solid var(--border); }
+.rdr .iconbtn { cursor: pointer; width: 44px; height: 44px; flex-shrink: 0; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--canvas); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: border-color .3s ease, color .3s ease, transform .4s cubic-bezier(.22,1,.36,1); }
+.rdr .iconbtn:hover { border-color: var(--primary); color: var(--primary); transform: rotate(90deg); }
+.rdr .rhead { height: 260px; border-radius: 18px; }
+.rdr .rhead .thumb-art { height: 56%; }
+.rdr .para { margin: 0 0 20px 0; font-size: 17.5px; line-height: 1.78; color: var(--ink-2); }
+.rdr .para.lead { color: var(--ink); font-size: 19px; }
+.rdr .pnav { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; padding: 22px 24px 26px 24px; border-top: 1px solid var(--border); background: var(--sunken); }
+.rdr .pcard { cursor: pointer; display: flex; align-items: center; gap: 14px; min-height: 84px; padding: 10px 14px 10px 10px; border-radius: 16px; border: 1px solid var(--border); background: var(--raised); color: var(--ink); text-align: left; font: inherit; transition: border-color .3s ease, transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s ease; }
+.rdr .pcard:hover { border-color: var(--primary); box-shadow: var(--shadow); }
+.rdr .pcard.prev:hover { transform: translateX(-3px); }
+.rdr .pcard.next { flex-direction: row-reverse; text-align: right; }
+.rdr .pcard.next:hover { transform: translateX(3px); }
+.rdr .pcard .thumb { flex-shrink: 0; width: 76px; height: 64px; border-radius: 11px; }
+.rdr .pcard .thumb-art { height: 62%; }
+.rdr .pcard .meta { min-width: 0; }
+.rdr .pcard .dir { display: block; margin-bottom: 4px; font-size: 12px; font-weight: 600; color: var(--ink-3); }
+.rdr .pcard .t { font-size: 15px; font-weight: 600; line-height: 1.35; color: var(--ink); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.rdr kbd { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; padding: 2px 6px; border-radius: 5px; border: 1px solid var(--border); background: var(--canvas); color: var(--ink-2); }
+@media (max-width: 700px) {
+  .rdr { padding: 12px; }
+  .rdr .pnav { grid-template-columns: 1fr; padding: 16px; }
+  .rdr .rhead { height: 180px; }
+  .rdr .rpad { padding-left: 22px !important; padding-right: 22px !important; }
+  .rdr .rtitle { font-size: 30px !important; }
+}
+</style>
+</helmet>
+
+<div class="{{themeClass}}" style="background: var(--canvas); min-height: 100vh;">
+<div id="home-root" ref="{{setRoot}}" class="sheet" style="position: relative; box-sizing: border-box; background: var(--canvas); color: var(--ink); font-family: 'Space Grotesk', sans-serif; overflow-x: clip;">
+
+  <div data-top-sentinel aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 1px; height: 1px;"></div>
+
+  <!-- ================= ENTRY GATE (loading, then the two doors) ================= -->
+  <div class="gate" data-gate>
+    <div class="gatein">
+
+      <div class="gload" data-gate-load>
+        <p class="gnum"><span data-gate-num>00</span><span class="pc">%</span></p>
+        <div class="gbar" aria-hidden="true"><i data-gate-bar></i></div>
+        <p class="mg gsay" data-gate-say>warming up the pixels</p>
+      </div>
+
+      <div class="gpick" data-gate-pick>
+        <div class="gstage" aria-hidden="true">
+          <span class="gfloor"></span>
+          <span class="gbeam"></span>
+          <span class="gdust"><i style="--x: 0%; --d: 7s; --w: 0.0s;"></i><i style="--x: 37%; --d: 10s; --w: -1.7s;"></i><i style="--x: 74%; --d: 13s; --w: -3.4s;"></i><i style="--x: 11%; --d: 9s; --w: -5.1s;"></i><i style="--x: 48%; --d: 12s; --w: -6.8s;"></i><i style="--x: 85%; --d: 8s; --w: -8.5s;"></i><i style="--x: 22%; --d: 11s; --w: -1.2s;"></i><i style="--x: 59%; --d: 7s; --w: -2.9s;"></i><i style="--x: 96%; --d: 10s; --w: -4.6s;"></i><i style="--x: 33%; --d: 13s; --w: -6.3s;"></i><i style="--x: 70%; --d: 9s; --w: -8.0s;"></i><i style="--x: 7%; --d: 12s; --w: -0.7s;"></i><i style="--x: 44%; --d: 8s; --w: -2.4s;"></i><i style="--x: 81%; --d: 11s; --w: -4.1s;"></i></span>
+        </div>
+        <p class="lbl" style="position: relative; margin: 0 0 14px 0;">two ways in</p>
+        <h1 class="gh">Pick a door.</h1>
+        <div class="doors">
+          <button type="button" class="door site" data-gate-go>
+            <span class="dframe">
+              <span class="dbehind"><span class="dsite"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i></span></span>
+              <span class="dpanel"><span class="dplaque">01</span><span class="dknob"></span></span>
+            </span>
+            <span class="dspill" aria-hidden="true"></span>
+            <span class="dname">This site</span>
+            <span class="dsub">Everything shipped, written and vibe-coded.</span>
+          </button>
+          <button type="button" class="door soon" data-gate-soon>
+            <span class="dframe">
+              <span class="dbehind"><svg class="dcube" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M40 10l26 14v30L40 68 14 54V24z"></path><path d="M14 24l26 14 26-14"></path><path d="M40 38v30"></path></svg></span>
+              <span class="dpanel"><span class="dplaque">02</span><span class="dknob"></span></span>
+            </span>
+            <span class="dspill" aria-hidden="true"></span>
+            <span class="dname">The room<span class="gtag">soon</span></span>
+            <span class="dsub">A 3D studio you walk around instead of scroll.</span>
+            <span class="mg gnote" data-gate-note aria-live="polite">(still putting the walls up)</span>
+          </button>
+        </div>
+        <button type="button" class="glink" data-gate-skip>or just take me in</button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================= NAV ================= -->
+  <header data-header class="hdr pad" style="box-sizing: border-box; width: 100%; padding: 0 80px;">
+    <nav class="wrap" style="height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a class="brand" href="#home-root" aria-label="Mahesh Reddy, back to the homepage"><span class="mark" aria-hidden="true"><img class="only-light" src="assets/logos/violet.webp" alt=""><img class="only-dark" src="assets/logos/white.webp" alt=""></span></a>
+      <div style="display: flex; align-items: center; gap: 28px;">
+        <div class="navlinks" style="display: flex; align-items: center; gap: 30px; font-size: 15px; font-weight: 500;">
+          <a class="nv" href="work.html">Work</a>
+          <a class="nv" href="about.html">About</a>
+          <a class="nv" href="playground.html">Playground</a>
+          <a class="nv" href="thoughts.html">Thoughts</a>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="toggle" aria-label="{{themeLabel}}" title="{{themeLabel}}" onClick="{{toggleTheme}}">
+            <sc-if value="{{isDark}}" hint-placeholder-val="{{false}}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"></path></svg>
+            </sc-if>
+            <sc-if value="{{isLight}}" hint-placeholder-val="{{true}}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8z"></path></svg>
+            </sc-if>
+          </button>
+          <a class="btn btn-primary navcta" data-magnetic href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Say hello</a>
+          <button type="button" class="burger" data-burger aria-label="Open the menu" aria-expanded="false"><i aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </nav>
+    <div class="mnav" data-mnav>
+      <button type="button" class="mclose" data-burger aria-label="Close the menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+      <div class="mlinks">
+        <a class="nv" href="#home-root" aria-current="page">Home</a>
+        <a class="nv" href="work.html">Work</a>
+        <a class="nv" href="about.html">About</a>
+        <a class="nv" href="playground.html">Playground</a>
+        <a class="nv" href="thoughts.html">Thoughts</a>
+      </div>
+      <div class="mfoot">
+        <p class="mg">(quickest way to reach me)</p>
+        <a class="btn btn-primary" href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600;">Say hello</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO: a designer's desk =================
+       Text and desk sit as one group, centred on both axes in the first screen. -->
+  <section class="hero pad" style="position: relative; box-sizing: border-box; width: 100%; padding: 32px 80px 120px 80px; display: flex; align-items: center;">
+    <div class="wrap herorow" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 104px;">
+
+      <div class="herotext" style="flex: 0 1 auto; width: max-content; max-width: 100%; min-width: 0; position: relative; z-index: 1;">
+        <p data-reveal class="herokick"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 999px; background: var(--olive); box-shadow: 0 0 0 4px color-mix(in srgb, var(--olive) 18%, transparent);"></span>Product designer, currently tinkering with AI</p>
+        <h1 data-reveal data-d="1" class="heroh1"><span class="ln"><span>I design 0→1 products</span></span><span class="ln"><span>with a developer's mindset</span></span><span class="ln"><span>and the speed of no-code.</span></span></h1>
+        <p data-reveal data-d="2" style="margin: 0 0 36px 0; font-size: 18.5px; line-height: 1.68; color: var(--ink-2); max-width: 46ch;">Research, interface and the build. I work it out in Figma, ship it in Framer or code, and keep AI in the loop the whole way.</p>
+        <div data-reveal data-d="3" class="ctarow" style="display: flex; align-items: center; gap: 14px;">
+          <a class="btn btn-primary dl" data-magnetic href="#download-cv" style="display: inline-flex; align-items: center; gap: 10px; min-height: 54px; padding: 0 28px; border-radius: 999px; font-size: 16px; font-weight: 600;">Download CV<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg></a>
+        </div>
+      </div>
+
+      <div class="deskwrap" style="position: relative; flex: 0 0 458px; width: 458px; height: 470px;">
+        <div data-desk data-reveal class="desk" style="position: relative; left: 8px; width: 470px; height: 470px; isolation: isolate;">
+
+          <div data-drag class="pop surf" data-p="1" style="position: absolute; left: 0; top: 20px; width: 214px; rotate: -5deg; box-sizing: border-box; padding: 22px 22px 18px 22px; background: var(--note); border-radius: 6px; box-shadow: var(--shadow);">
+            <p class="hand" style="margin: 0; font-size: 27px; line-height: 1.08; color: var(--ink);">hi, I'm Mahesh. I make calm software and small, odd tools.</p>
+            <p class="mg deskhint" style="margin: 12px 0 0 0; font-size: 21px;">(you can move me)</p>
+          </div>
+
+          <div data-drag class="pop" data-p="2" style="position: absolute; left: 258px; top: 6px; width: 184px; rotate: 4deg;">
+            <div class="surf" style="border-radius: 16px; overflow: hidden; background: var(--raised); border: 1px solid var(--border); box-shadow: var(--shadow);">
+              <div style="height: 104px; background: var(--primary);"></div>
+              <div style="padding: 12px 14px 14px 14px;">
+                <p style="margin: 0 0 3px 0; font-size: 14px; font-weight: 600; color: var(--ink);">{{swatchName}}</p>
+                <p class="mono" style="margin: 0; font-size: 12px; color: var(--ink-3);">{{swatchHex}}</p>
+              </div>
+            </div>
+            <span class="selbox" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <span class="dim mono" aria-hidden="true">184 × 172</span>
+          </div>
+
+          <div data-drag class="pop surf" data-p="3" style="position: absolute; left: 250px; top: 216px; width: 118px; height: 118px; border-radius: 999px; background: var(--raised); border: 1px solid var(--border); box-shadow: var(--shadow);">
+            <span class="sr">Open to new work</span>
+            <svg class="spin" viewBox="0 0 118 118" width="118" height="118" aria-hidden="true" style="position: absolute; left: 0; top: 0; color: var(--olive);">
+              <defs><path id="badgeRing" d="M59,59 m-43,0 a43,43 0 1,1 86,0 a43,43 0 1,1 -86,0"></path></defs>
+              <text style="font-family: 'Space Grotesk', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: .4px; fill: currentColor;"><textPath href="#badgeRing" textLength="266" lengthAdjust="spacing">OPEN TO NEW WORK / OPEN TO NEW WORK /</textPath></text>
+            </svg>
+            <span class="live" aria-hidden="true" style="position: absolute; left: 50%; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 999px; background: var(--olive);"></span>
+          </div>
+
+          <div data-drag class="pop surf" data-p="4" style="position: absolute; left: 20px; top: 262px; width: 184px; rotate: 6deg; box-sizing: border-box; padding: 16px 18px; background: var(--raised); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow);">
+            <p style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 60px; line-height: 1; letter-spacing: -0.039em; color: var(--ink); font-weight: 700;">Aa</p>
+            <p class="cap" style="margin: 10px 0 12px 0; font-size: 12px;">Space Grotesk</p>
+            <div style="display: flex; gap: 7px;">
+              <span class="chip c-ink" style="background: var(--ink);"><span class="sr">Ink</span></span>
+              <span class="chip c-pri" style="background: var(--primary);"><span class="sr">Primary violet</span></span>
+              <span class="chip c-rose" style="background: var(--rose);"><span class="sr">Dusty rose</span></span>
+              <span class="chip c-olive" style="background: var(--olive);"><span class="sr">Olive</span></span>
+              <span class="chip c-pet" style="background: var(--petrol);"><span class="sr">Petrol</span></span>
+            </div>
+          </div>
+
+          <div data-drag class="pop surf" data-p="5" style="position: absolute; left: 216px; top: 374px; width: 232px; rotate: -3deg; box-sizing: border-box; padding: 16px 18px; background: var(--raised); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: space-between; gap: 14px;">
+            <div>
+              <p style="margin: 0 0 3px 0; font-size: 15px; font-weight: 600; color: var(--ink);">Night mode</p>
+              <p class="cap" style="margin: 0; font-size: 12.5px;">This one actually works</p>
+            </div>
+            <button type="button" class="sw" role="switch" aria-checked="{{isDark}}" aria-label="Night mode" onClick="{{toggleTheme}}"></button>
+          </div>
+
+          <div class="wander" aria-hidden="true" style="position: absolute; left: 0; top: 0; z-index: 9999; pointer-events: none;">
+            <svg width="20" height="22" viewBox="0 0 20 22"><path d="M2 2l15 7.5-6.6 1.9L7.6 18z" style="fill: var(--primary); stroke: var(--canvas); stroke-width: 1.6; stroke-linejoin: round;"></path></svg>
+            <span style="position: absolute; left: 15px; top: 18px; background: var(--primary); color: var(--on-primary); font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px 999px 999px 4px; white-space: nowrap;">Mahesh</span>
+          </div>
+        </div>
+        <button type="button" class="tidy" onClick="{{tidyDesk}}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg>Tidy the desk</button>
+      </div>
+
+    </div>
+
+    <a class="mouse" href="#work" aria-label="Scroll to selected work"><span class="mouse-body"><span class="mouse-dot"></span></span></a>
+  </section>
+
+  <!-- ================= SELECTED WORK ================= -->
+  <section id="work" class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 40px 80px 136px 80px;">
+    <div class="wrap">
+      <div data-reveal style="margin-bottom: 56px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+        <h2 class="d2" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 48px; line-height: 1.06; letter-spacing: -0.022em; color: var(--ink); font-weight: 700;">Selected Work</h2>
+        <a class="fill-link" href="work.html" style="font-size: 15.5px; font-weight: 600; padding-bottom: 4px;">See all work<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></a>
+      </div>
+
+      <div class="split" style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); column-gap: 32px; row-gap: 72px;">
+
+        <a class="proj cell" href="work/edabroad.html" data-cursor="read the case study" data-reveal style="grid-column: 1 / span 12;">
+          <div class="panel grow" style="background: var(--p-lav); height: 440px;">
+            <p class="lbl" style="position: absolute; left: 34px; top: 30px; margin: 0; z-index: 2;">EdAbroad / Master's thesis</p>
+            <p class="cswm" aria-hidden="true">edabroad</p>
+            <div class="csbody">
+              <p class="csline">Study abroad advice that is not quietly selling you something.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="mk-tag">Product strategy</span><span class="mk-tag">UX research</span><span class="mk-tag">End to end</span></div>
+            </div>
+            <span class="parrow" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; margin: 22px 4px 8px 4px;">
+            <h3 style="margin: 0; font-size: 21px; line-height: 1.35; font-weight: 400; color: var(--ink-2);"><span class="ttl" style="font-weight: 700; color: var(--ink);">EdAbroad.</span> Master's thesis, eight months end to end</h3>
+            <p class="lbl" style="margin: 0; color: var(--petrol);">0→1 Product / 2025</p>
+          </div>
+          <p style="margin: 0 4px; font-size: 16px; line-height: 1.65; color: var(--ink-2); max-width: 62ch;">An AI-powered platform that helps Indian creative students find the right programme, a real mentor and every deadline. Eight months of research, testing and design.</p>
+        </a>
+
+        <a class="proj cell" href="work/texitag.html" data-cursor="read the case study" data-reveal style="grid-column: 3 / span 10;">
+          <div class="panel grow" style="background: var(--p-sage); height: 420px;">
+            <p class="lbl" style="position: absolute; left: 34px; top: 30px; margin: 0; z-index: 2;">Texitag / Waste Management</p>
+            <p class="cswm" aria-hidden="true">texitag</p>
+            <div class="csbody">
+              <p class="csline">Making garment recycling personal, visual and worth doing.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="mk-tag">UX research</span><span class="mk-tag">Strategy</span><span class="mk-tag">UI design</span></div>
+            </div>
+            <span class="parrow" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; margin: 22px 4px 8px 4px;">
+            <h3 style="margin: 0; font-size: 21px; line-height: 1.35; font-weight: 400; color: var(--ink-2);"><span class="ttl" style="font-weight: 700; color: var(--ink);">Texitag.</span> Garment tracing, research through to UI</h3>
+            <p class="lbl" style="margin: 0; color: var(--petrol);">Research / 2023</p>
+          </div>
+          <p style="margin: 0 4px; font-size: 16px; line-height: 1.65; color: var(--ink-2); max-width: 62ch;">A garment tracing dashboard that shows people where their clothes end up, and makes recycling the obvious next step.</p>
+        </a>
+
+        <a class="proj cell" href="work/optimity.html" data-cursor="read the case study" data-reveal style="grid-column: 1 / span 9;">
+          <div class="panel grow" style="background: var(--p-peach); height: 400px;">
+            <p class="lbl" style="position: absolute; left: 34px; top: 30px; margin: 0; z-index: 2;">Optimity / Website</p>
+            <p class="cswm" aria-hidden="true">optimity</p>
+            <div class="csbody">
+              <p class="csline">A B2B site people actually stay on.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="mk-tag">UI design</span><span class="mk-tag">Web</span><span class="mk-tag">Client work</span></div>
+            </div>
+            <span class="parrow" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; margin: 22px 4px 8px 4px;">
+            <h3 style="margin: 0; font-size: 21px; line-height: 1.35; font-weight: 400; color: var(--ink-2);"><span class="ttl" style="font-weight: 700; color: var(--ink);">Optimity.</span> A B2B website for a micro-learning platform</h3>
+            <p class="lbl" style="margin: 0; color: var(--petrol);">Web / Client work</p>
+          </div>
+          <p style="margin: 0 4px; font-size: 16px; line-height: 1.65; color: var(--ink-2); max-width: 62ch;">A website for a micro-learning health platform, built to explain the product to business buyers. It holds a 55% bounce rate, 15 points better than the category.</p>
+        </a>
+
+      </div>
+      <div class="seeall" data-reveal style="display: flex; justify-content: center; margin-top: 72px;"><a class="btn btn-primary" data-magnetic href="work.html" style="display: inline-flex; box-sizing: border-box; align-items: center; justify-content: center; gap: 10px; min-height: 58px; padding: 0 34px; border-radius: 999px; font-size: 16.5px; font-weight: 600;">See all work<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10"></path><path d="M9 4l4 4-4 4"></path></svg></a></div>
+    </div>
+  </section>
+
+
+  <!-- ================= WHAT I DO (a picture floats in beside each line on hover) ================= -->
+  <section id="what" class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 116px 80px 118px 80px;">
+    <div class="wrap split" style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 32px 48px; align-items: start;">
+      <div class="cell" data-reveal style="grid-column: span 4;">
+        <h2 class="d2" style="margin: 0 0 16px 0; font-family: 'Space Grotesk', sans-serif; font-size: 48px; line-height: 1.06; letter-spacing: -0.022em; color: var(--ink); font-weight: 700;">What I do</h2>
+        <p style="margin: 0; font-size: 17px; line-height: 1.7; color: var(--ink-2); max-width: 34ch;">Research, design and the build. One set of hands from the first interview to the live site.</p>
+      </div>
+      <div class="cell wid" data-reveal data-d="1" style="grid-column: 6 / span 7;">
+          <div class="widrow" data-wid-row>
+            <span class="n">01</span>
+            <h3>Product design</h3>
+            <span class="k">0-1 / end to end / shipped</span>
+            <span class="widpic" aria-hidden="true" style="--r: -7deg; background: var(--p-lav);"><svg viewBox="0 0 200 136" fill="none"><rect x="62" y="10" width="76" height="118" rx="12" fill="var(--raised)" stroke="var(--primary)" stroke-width="2"></rect><rect x="72" y="26" width="56" height="30" rx="6" fill="var(--primary)" opacity=".85"></rect><rect x="72" y="64" width="40" height="6" rx="3" fill="var(--ink)" opacity=".7"></rect><rect x="72" y="76" width="54" height="5" rx="2.5" fill="var(--ink)" opacity=".3"></rect><rect x="72" y="86" width="46" height="5" rx="2.5" fill="var(--ink)" opacity=".3"></rect><rect x="72" y="102" width="56" height="14" rx="7" fill="var(--ink)"></rect><circle cx="36" cy="40" r="14" fill="var(--terra)" opacity=".8"></circle><path d="M150 96l22-10v26z" fill="var(--olive)" opacity=".75"></path></svg></span>
+          </div>
+          <div class="widrow" data-wid-row>
+            <span class="n">02</span>
+            <h3>UX research</h3>
+            <span class="k">interviews / synthesis / testing</span>
+            <span class="widpic" aria-hidden="true" style="--r: 6deg; background: var(--p-peach);"><svg viewBox="0 0 200 136" fill="none"><rect x="22" y="18" width="46" height="42" rx="4" fill="#F6D98B" transform="rotate(-6 45 39)"></rect><rect x="78" y="14" width="46" height="42" rx="4" fill="#F4B9C6" transform="rotate(4 101 35)"></rect><rect x="134" y="22" width="46" height="42" rx="4" fill="#BFD9C6" transform="rotate(-3 157 43)"></rect><rect x="40" y="74" width="46" height="42" rx="4" fill="#CFC3F2" transform="rotate(5 63 95)"></rect><rect x="100" y="76" width="46" height="42" rx="4" fill="#F6D98B" transform="rotate(-4 123 97)"></rect><path d="M30 34h26M30 42h18M86 30h26M86 38h20M142 38h26M48 90h26M108 92h24M108 100h18" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" opacity=".55"></path></svg></span>
+          </div>
+          <div class="widrow" data-wid-row>
+            <span class="n">03</span>
+            <h3>Design systems</h3>
+            <span class="k">tokens / components / docs</span>
+            <span class="widpic" aria-hidden="true" style="--r: -4deg; background: var(--p-sage);"><svg viewBox="0 0 200 136" fill="none"><circle cx="34" cy="30" r="12" fill="var(--primary)"></circle><circle cx="64" cy="30" r="12" fill="var(--terra)"></circle><circle cx="94" cy="30" r="12" fill="var(--olive)"></circle><circle cx="124" cy="30" r="12" fill="var(--petrol)"></circle><circle cx="154" cy="30" r="12" fill="var(--rose)"></circle><rect x="22" y="56" width="64" height="24" rx="12" fill="var(--ink)"></rect><rect x="94" y="56" width="64" height="24" rx="12" stroke="var(--ink)" stroke-width="2"></rect><text x="22" y="112" font-family="Space Grotesk, sans-serif" font-size="30" font-weight="700" fill="var(--ink)">Aa</text><rect x="72" y="94" width="96" height="6" rx="3" fill="var(--ink)" opacity=".35"></rect><rect x="72" y="106" width="70" height="6" rx="3" fill="var(--ink)" opacity=".2"></rect></svg></span>
+          </div>
+          <div class="widrow" data-wid-row>
+            <span class="n">04</span>
+            <h3>No-code development</h3>
+            <span class="k">framer / hubspot / shopify</span>
+            <span class="widpic" aria-hidden="true" style="--r: 5deg; background: var(--p-olive);"><svg viewBox="0 0 200 136" fill="none"><rect x="16" y="14" width="168" height="108" rx="10" fill="var(--raised)" stroke="var(--ink)" stroke-width="2"></rect><path d="M16 32h168" stroke="var(--ink)" stroke-width="2"></path><circle cx="28" cy="23" r="3" fill="var(--terra)"></circle><circle cx="38" cy="23" r="3" fill="var(--olive)"></circle><rect x="130" y="18" width="46" height="10" rx="5" fill="var(--primary)"></rect><rect x="30" y="46" width="70" height="44" rx="6" fill="var(--primary)" opacity=".18" stroke="var(--primary)" stroke-width="1.6" stroke-dasharray="4 3"></rect><rect x="112" y="46" width="58" height="8" rx="4" fill="var(--ink)" opacity=".6"></rect><rect x="112" y="60" width="46" height="6" rx="3" fill="var(--ink)" opacity=".25"></rect><rect x="30" y="100" width="140" height="8" rx="4" fill="var(--ink)" opacity=".15"></rect><path d="M92 82l12 12 4-8 8-2z" fill="var(--ink)"></path></svg></span>
+          </div>
+          <div class="widrow" data-wid-row>
+            <span class="n">05</span>
+            <h3>AI-native build</h3>
+            <span class="k">claude / cursor / skill files</span>
+            <span class="widpic" aria-hidden="true" style="--r: -6deg; background: var(--p-rose);"><svg viewBox="0 0 200 136" fill="none"><rect x="14" y="14" width="172" height="108" rx="10" fill="#1E1428"></rect><circle cx="28" cy="27" r="3.4" fill="#E0876A"></circle><circle cx="39" cy="27" r="3.4" fill="#CBB36A"></circle><circle cx="50" cy="27" r="3.4" fill="#8FB08A"></circle><text x="28" y="56" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#CE7AF5">&gt; build the pricing page</text><text x="28" y="74" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#E9E2EE" opacity=".7">  reading brief.md</text><text x="28" y="90" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#E9E2EE" opacity=".7">  3 components, 1 page</text><text x="28" y="108" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#9FD3A8">  done in 4m 12s</text></svg></span>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DESIGN PROCESS (ruled notebook paper) ================= -->
+  <section id="process" class="pad secpad" style="position: relative; box-sizing: border-box; width: 100%; padding: 124px 80px 128px 80px; background: var(--sunken); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="ruled hide-sm" aria-hidden="true"></div>
+    <div class="wrap" style="position: relative;">
+
+      <div class="phead" data-reveal>
+        <div>
+          <h2 class="stmt" style="margin: 0 0 14px 0; font-family: 'Space Grotesk', sans-serif; font-size: 46px; line-height: 1.18; letter-spacing: -0.027em; color: var(--ink); font-weight: 700; max-width: 18ch;">How a thing actually gets made.</h2>
+          <p style="margin: 0; font-size: 17px; line-height: 1.65; color: var(--ink-2); max-width: 44ch;">Same four beats either way. The second column just gets there faster.</p>
+        </div>
+        <div class="ptoggle">
+          <p class="mg" style="margin: 0 0 10px 0; text-align: right;">do you let the robots in?</p>
+          <button type="button" class="{{procSwitch}}" role="switch" aria-checked="{{aiOn}}" onClick="{{toggleProc}}">
+            <span class="pknob" aria-hidden="true"></span>
+            <span class="plab a">the long way</span>
+            <span class="plab b">with AI</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="pwrap">
+        <div class="{{stdCls}}">
+          <div class="pstep" data-reveal>
+            <span class="pnum">01</span>
+            <div>
+              <p class="mg" style="margin: 0 0 8px 0;">discovery workshop</p>
+              <p style="margin: 0; font-size: 16.5px; line-height: 1.68; color: var(--ink-2); max-width: 46ch;">Sit with the founders and agree on the problem, the audience and what is out of scope, before anything gets drawn.</p>
+            </div>
+          </div>
+          <div class="pstep" data-reveal data-d="1">
+            <span class="pnum">02</span>
+            <div>
+              <p class="mg" style="margin: 0 0 8px 0;">research, then synthesis</p>
+              <p style="margin: 0; font-size: 16.5px; line-height: 1.68; color: var(--ink-2); max-width: 46ch;">Interviews and usability tests, clustered into the few themes that actually deserve a design decision.</p>
+            </div>
+          </div>
+          <div class="pstep" data-reveal data-d="2">
+            <span class="pnum">03</span>
+            <div>
+              <p class="mg" style="margin: 0 0 8px 0;">design on a system</p>
+              <p style="margin: 0; font-size: 16.5px; line-height: 1.68; color: var(--ink-2); max-width: 46ch;">Wireframes up to high fidelity, built on a component library the team can reuse next sprint.</p>
+            </div>
+          </div>
+          <div class="pstep" data-reveal data-d="3">
+            <span class="pnum">04</span>
+            <div>
+              <p class="mg" style="margin: 0 0 8px 0;">ship, then look again</p>
+              <p style="margin: 0; font-size: 16.5px; line-height: 1.68; color: var(--ink-2); max-width: 46ch;">Developer handoff or the CMS build myself, then watch the numbers and fix what they tell me.</p>
+            </div>
+          </div>
+        </div>
+        <div class="{{aiCls}}">
+          <div class="pstep" data-reveal>
+            <span class="pnum">01</span>
+            <div>
+              <p class="mg" style="margin: 0 0 8px 0;">prompted discovery</p>
+              <p style="margin: 0; font-size: 16.5px; line-height: 1.68; color: var(--ink-2); max-width: 46ch;">Transcripts and notes go in, a first cut of themes and a draft DRD comes out. The workshop starts from something, not a blank wall.</p>
+            </div>
+          </div>
+          <div class="pstep" data-reveal data-d="1">
+            <span class="pnum">02</span>
+            <div>
+              <p class="mg" style="margin: 0 0 8px 0;">ten directions by lunch</p>
+              <p style="margin: 0; font-size: 16.5px; line-height: 1.68; color: var(--ink-2); max-width: 46ch;">AI drafts the variants, I throw away nine. Breadth stops being a budget question.</p>
+            </div>
+          </div>
+          <div class="pstep" data-reveal data-d="2">
+            <span class="pnum">03</span>
+            <div>
+              <p class="mg" style="margin: 0 0 8px 0;">systems, generated</p>
+              <p style="margin: 0; font-size: 16.5px; line-height: 1.68; color: var(--ink-2); max-width: 46ch;">A skill file turns a reference into tokens, type and components, contrast already checked, before I open Figma.</p>
+            </div>
+          </div>
+          <div class="pstep" data-reveal data-d="3">
+            <span class="pnum">04</span>
+            <div>
+              <p class="mg" style="margin: 0 0 8px 0;">prototype in the browser</p>
+              <p style="margin: 0; font-size: 16.5px; line-height: 1.68; color: var(--ink-2); max-width: 46ch;">Vibe-coded and clickable in a day, so the thing being reviewed is real instead of a mockup that lies.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS (one endless row) ================= -->
+  <section id="words" class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 116px 80px 112px 80px; overflow: hidden;">
+    <div class="wrap">
+      <div class="tsthead" data-reveal>
+        <div>
+          <p class="lbl" style="margin: 0 0 12px 0;">Kind words</p>
+          <h2 class="d2" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 48px; line-height: 1.06; letter-spacing: -0.022em; color: var(--ink); font-weight: 700;">People who had to work with me</h2>
+        </div>
+        <p class="mg rot hide-sm" style="margin: 0; rotate: -2deg; font-size: 20px; max-width: 28ch; text-align: right;">(the part of the site I could not write myself)</p>
+      </div>
+    </div>
+
+    <div class="mq" data-marquee>
+      <div class="mqtrack" data-marquee-track>
+        <div class="mqset">
+          <figure class="mqcard">
+            <span class="mqmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>Mahesh is a talented, hard-working, and astute designer who consistently blends creativity and logic to achieve outstanding results. He was the first UX designer to join Supercharged shortly after the studio was founded and has proven to be the top contributor to the team. During his three years at Supercharged, Mahesh has produced high-quality work across multiple website design projects, particularly showcasing his skills in projects such as Optimity, AIIA, and ESG. Mahesh&rsquo;s skills and approach to design make him an invaluable asset to any team.</blockquote>
+            <figcaption class="tby">
+              <span class="tav" aria-hidden="true" style="background: var(--p-lav); color: var(--primary);">NK</span>
+              <span class="tinfo">
+                <span class="tn">Nivit Kochhar</span>
+                <span class="tr">Founder, <a class="tlink" href="https://supercharged.studio/" target="_blank" rel="noreferrer">Supercharged Studio</a></span>
+              </span>
+            </figcaption>
+          </figure>
+          <figure class="mqcard">
+            <span class="mqmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>I&rsquo;ve worked with Mahesh on three different projects and can attest to his expertise and creative prowess as a UX/UI designer. His innovative solutions were instrumental in enhancing user engagement, and he&rsquo;s an excellent collaborator who meets every deadline with precision. Mahesh is a true asset to any project, and I&rsquo;d highly recommend him to any team looking to elevate their user experience.</blockquote>
+            <figcaption class="tby">
+              <span class="tav" aria-hidden="true" style="background: var(--p-peach); color: var(--terra);">MG</span>
+              <span class="tinfo">
+                <span class="tn">Monica Gonzalez</span>
+                <span class="tr">UX Designer, <a class="tlink" href="https://supercharged.studio/" target="_blank" rel="noreferrer">Supercharged Studio</a></span>
+              </span>
+            </figcaption>
+          </figure>
+          <figure class="mqcard">
+            <span class="mqmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>I had the pleasure of working closely with Mahesh Reddy Remala on a collaborative project for QVC, where we designed a user-friendly app tailored for women 50+ to shop for clothes and home products. Mahesh played an essential role in bringing innovative ideas to life, especially when it came to integrating 3D technology that allowed products to be visualized in users&rsquo; own homes. His creativity, problem-solving skills, and dedication to making the shopping experience seamless and engaging were invaluable throughout the project. Mahesh&rsquo;s ability to blend user-centered design with cutting-edge technology is truly impressive, and I highly recommend him for any design or tech-driven project.</blockquote>
+            <figcaption class="tby">
+              <span class="tav" aria-hidden="true" style="background: var(--p-sage); color: var(--petrol);">JB</span>
+              <span class="tinfo">
+                <span class="tn">Jordan Benstead</span>
+                <span class="tr">On the QVC concept app</span>
+              </span>
+            </figcaption>
+          </figure>
+          <figure class="mqcard">
+            <span class="mqmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>Mahesh demonstrated exceptional expertise in coding, design, and the tools required to develop our app prototype. We provided high-level concepts, design preferences, and specific branding elements, and he took it from there, seamlessly bringing our vision to life. His professionalism and collaborative approach made the process smooth and exciting. Mahesh was always approachable, eager to assist, and effectively leveraged his knowledge to guide us throughout the development journey. He consistently prioritized the user experience, ensuring that the app was intuitive, functional, and aligned with our goals.</blockquote>
+            <figcaption class="tby">
+              <span class="tav" aria-hidden="true" style="background: var(--p-olive); color: var(--ink);">BM</span>
+              <span class="tinfo">
+                <span class="tn">Bryn Mareno</span>
+                <span class="tr">Data Analyst</span>
+              </span>
+            </figcaption>
+          </figure>
+          <figure class="mqcard">
+            <span class="mqmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>In my collaboration with Mahesh Reddy Remala, I was continually impressed by his exceptional creativity in UI/UX design. His ability to create soft and clean designs brought a unique aesthetic to our machine learning project. Proficient in Figma, Mahesh seamlessly translated concepts into visually stunning interfaces. Moreover, his extensive certifications in UI/UX are a testament to his dedication and expertise in the field. I highly recommend Mahesh Reddy Remala for any project requiring a skilled and imaginative UI/UX enthusiast.</blockquote>
+            <figcaption class="tby">
+              <span class="tav" aria-hidden="true" style="background: var(--p-rose); color: var(--ink);">KN</span>
+              <span class="tinfo">
+                <span class="tn">Karthikeya Nagandla</span>
+                <span class="tr">Student, California State University</span>
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="mqset" aria-hidden="true">
+          <figure class="mqcard" aria-hidden="true">
+            <span class="mqmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>Mahesh is a talented, hard-working, and astute designer who consistently blends creativity and logic to achieve outstanding results. He was the first UX designer to join Supercharged shortly after the studio was founded and has proven to be the top contributor to the team. During his three years at Supercharged, Mahesh has produced high-quality work across multiple website design projects, particularly showcasing his skills in projects such as Optimity, AIIA, and ESG. Mahesh&rsquo;s skills and approach to design make him an invaluable asset to any team.</blockquote>
+            <figcaption class="tby">
+              <span class="tav" aria-hidden="true" style="background: var(--p-lav); color: var(--primary);">NK</span>
+              <span class="tinfo">
+                <span class="tn">Nivit Kochhar</span>
+                <span class="tr">Founder, <a class="tlink" href="https://supercharged.studio/" target="_blank" rel="noreferrer">Supercharged Studio</a></span>
+              </span>
+            </figcaption>
+          </figure>
+          <figure class="mqcard" aria-hidden="true">
+            <span class="mqmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>I&rsquo;ve worked with Mahesh on three different projects and can attest to his expertise and creative prowess as a UX/UI designer. His innovative solutions were instrumental in enhancing user engagement, and he&rsquo;s an excellent collaborator who meets every deadline with precision. Mahesh is a true asset to any project, and I&rsquo;d highly recommend him to any team looking to elevate their user experience.</blockquote>
+            <figcaption class="tby">
+              <span class="tav" aria-hidden="true" style="background: var(--p-peach); color: var(--terra);">MG</span>
+              <span class="tinfo">
+                <span class="tn">Monica Gonzalez</span>
+                <span class="tr">UX Designer, <a class="tlink" href="https://supercharged.studio/" target="_blank" rel="noreferrer">Supercharged Studio</a></span>
+              </span>
+            </figcaption>
+          </figure>
+          <figure class="mqcard" aria-hidden="true">
+            <span class="mqmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>I had the pleasure of working closely with Mahesh Reddy Remala on a collaborative project for QVC, where we designed a user-friendly app tailored for women 50+ to shop for clothes and home products. Mahesh played an essential role in bringing innovative ideas to life, especially when it came to integrating 3D technology that allowed products to be visualized in users&rsquo; own homes. His creativity, problem-solving skills, and dedication to making the shopping experience seamless and engaging were invaluable throughout the project. Mahesh&rsquo;s ability to blend user-centered design with cutting-edge technology is truly impressive, and I highly recommend him for any design or tech-driven project.</blockquote>
+            <figcaption class="tby">
+              <span class="tav" aria-hidden="true" style="background: var(--p-sage); color: var(--petrol);">JB</span>
+              <span class="tinfo">
+                <span class="tn">Jordan Benstead</span>
+                <span class="tr">On the QVC concept app</span>
+              </span>
+            </figcaption>
+          </figure>
+          <figure class="mqcard" aria-hidden="true">
+            <span class="mqmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>Mahesh demonstrated exceptional expertise in coding, design, and the tools required to develop our app prototype. We provided high-level concepts, design preferences, and specific branding elements, and he took it from there, seamlessly bringing our vision to life. His professionalism and collaborative approach made the process smooth and exciting. Mahesh was always approachable, eager to assist, and effectively leveraged his knowledge to guide us throughout the development journey. He consistently prioritized the user experience, ensuring that the app was intuitive, functional, and aligned with our goals.</blockquote>
+            <figcaption class="tby">
+              <span class="tav" aria-hidden="true" style="background: var(--p-olive); color: var(--ink);">BM</span>
+              <span class="tinfo">
+                <span class="tn">Bryn Mareno</span>
+                <span class="tr">Data Analyst</span>
+              </span>
+            </figcaption>
+          </figure>
+          <figure class="mqcard" aria-hidden="true">
+            <span class="mqmark" aria-hidden="true">&ldquo;</span>
+            <blockquote>In my collaboration with Mahesh Reddy Remala, I was continually impressed by his exceptional creativity in UI/UX design. His ability to create soft and clean designs brought a unique aesthetic to our machine learning project. Proficient in Figma, Mahesh seamlessly translated concepts into visually stunning interfaces. Moreover, his extensive certifications in UI/UX are a testament to his dedication and expertise in the field. I highly recommend Mahesh Reddy Remala for any project requiring a skilled and imaginative UI/UX enthusiast.</blockquote>
+            <figcaption class="tby">
+              <span class="tav" aria-hidden="true" style="background: var(--p-rose); color: var(--ink);">KN</span>
+              <span class="tinfo">
+                <span class="tn">Karthikeya Nagandla</span>
+                <span class="tr">Student, California State University</span>
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PLAYGROUND ================= -->
+  <section id="playground" class="pad secpad" style="box-sizing: border-box; width: 100%; padding: 8px 80px 124px 80px;">
+    <div class="wrap">
+      <div data-reveal style="margin-bottom: 52px; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px 40px; flex-wrap: wrap;">
+        <div>
+        <h2 class="d2" style="margin: 0 0 14px 0; font-family: 'Space Grotesk', sans-serif; font-size: 48px; line-height: 1.06; letter-spacing: -0.022em; color: var(--ink); font-weight: 700;">Things I vibe code</h2>
+        <p style="margin: 0; font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 48ch;">When the tool I want does not exist yet, I build it with AI on a weekend.</p>
+        </div>
+        <a class="fill-link" href="playground.html" style="font-size: 15.5px; font-weight: 600; padding-bottom: 4px; margin-bottom: 6px;">Visit the playground<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></a>
+      </div>
+      <div class="split" style="display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 24px;">
+
+        <a class="vcard cell" data-reveal href="playground.html" style="grid-column: span 7; background: var(--primary);">
+          <span class="lbl" style="color: var(--on-primary); opacity: .82;">In the playground</span>
+          <span>
+            <h3 style="color: var(--on-primary);">Small tools for the parts of my job I keep repeating.</h3>
+            <p class="d" style="color: var(--on-primary); opacity: .9;">Skill files that hand the repetitive work to Claude, a room you can walk around, and whatever else a weekend turns into. Two are daily drivers, the rest are still arguing with me.</p>
+            <span style="display: inline-flex; align-items: center; gap: 9px; margin-top: 22px; font-size: 15px; font-weight: 600; color: var(--on-primary);">Visit the playground<svg class="go" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10"></path><path d="M9 4l4 4-4 4"></path></svg></span>
+          </span>
+        </a>
+
+        <div class="vcard cell" data-reveal data-d="1" style="grid-column: 8 / span 5; background: var(--raised); border: 1px solid var(--border);">
+          <span style="display: flex; align-items: center; justify-content: space-between; gap: 12px;"><span class="lbl">3D portfolio room</span><span class="tag" style="border-color: var(--olive-line); color: var(--olive);">Building</span></span>
+          <span>
+            <h3 style="color: var(--ink);">A portfolio you walk around instead of scroll.</h3>
+            <p class="d" style="color: var(--ink-2);">An interactive room where every object on the desk opens a different piece of work.</p>
+          </span>
+        </div>
+
+        <div class="vcard cell" data-reveal data-d="2" style="grid-column: 1 / span 12; min-height: 0; padding: 24px 32px; background: var(--sunken); border: 1.5px dashed var(--border-strong); flex-direction: row; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;">
+          <span style="display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;"><span class="lbl">Next up</span><span style="font-family: 'Space Grotesk', sans-serif; font-size: 23px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink);">Cooking more.</span></span>
+          <p class="mg" style="margin: 0; font-size: 21px;">(they land here once they stop being embarrassing)</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= THOUGHTS ================= -->
+  <section id="thoughts" class="secpad" style="box-sizing: border-box; width: 100%; padding: 16px 0 124px 0;">
+    <div class="pad" style="box-sizing: border-box; padding: 0 80px; margin-bottom: 44px;">
+      <div class="wrap" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+        <div data-reveal>
+          <h2 class="d2" style="margin: 0 0 22px 0; font-family: 'Space Grotesk', sans-serif; font-size: 48px; line-height: 1.06; letter-spacing: -0.029em; color: var(--ink); font-weight: 700;">Thoughts</h2>
+          <span class="rule" aria-hidden="true"></span>
+        </div>
+        <div data-reveal data-d="1" style="display: flex; align-items: center; gap: 18px;"><div class="railnav"><button type="button" class="railbtn" data-rail-prev aria-label="Previous thoughts" disabled><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3"></path><path d="M7 4L3 8l4 4"></path></svg></button><button type="button" class="railbtn" data-rail-next aria-label="Next thoughts"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10"></path><path d="M9 4l4 4-4 4"></path></svg></button></div><a class="fill-link hide-sm" href="thoughts.html" style="font-size: 15.5px; font-weight: 600; padding-bottom: 4px;">All thoughts<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></a></div>
+      </div>
+    </div>
+    <div class="rail" data-rail role="region" aria-label="Recent thoughts, scrollable" tabindex="0">
+      <article class="note" data-note="0" style="box-sizing: border-box; width: 356px; background: var(--raised); border: 1px solid var(--border); border-radius: 22px; padding: 28px;">
+        <div class="thumb pat-grid" aria-hidden="true" style="height: 150px; margin: -14px -14px 20px -14px; background-color: var(--p-lav); color: var(--primary);"><svg class="thumb-art" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 24h72a8 8 0 0 1 8 8v40a8 8 0 0 1-8 8H24a8 8 0 0 1-8-8V32a8 8 0 0 1 8-8z" vector-effect="non-scaling-stroke"></path><path d="M34 58v6M48 46v30M62 38v46M76 48v26M90 56v10" vector-effect="non-scaling-stroke"></path><path d="M14 102h20M42 102h16M66 102h10M84 102h6M98 102h2" vector-effect="non-scaling-stroke"></path></svg></div>
+        <p class="cap" style="margin: 0 0 16px 0;">February 12, 2025</p>
+        <h3 style="margin: 0 0 12px 0; font-family: 'Space Grotesk', sans-serif; font-size: 23px; line-height: 1.2; letter-spacing: -0.019em; color: var(--ink); font-weight: 700;"><button type="button" class="linkish">The future of interfaces: will they vanish?</button></h3>
+        <p style="margin: 0; font-size: 15.5px; line-height: 1.62; color: var(--ink-2);">Voice, headsets and brain-computer interfaces are all pulling at the screen. Does it hold?</p>
+      </article>
+      <article class="note" data-note="1" style="box-sizing: border-box; width: 340px; background: var(--raised); border: 1px solid var(--border); border-radius: 22px; padding: 28px;">
+        <div class="thumb pat-dots" aria-hidden="true" style="height: 150px; margin: -14px -14px 20px -14px; background-color: var(--p-sage); color: var(--petrol);"><svg class="thumb-art" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 26h92a6 6 0 0 1 6 6v54a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V32a6 6 0 0 1 6-6z" vector-effect="non-scaling-stroke"></path><path d="M8 46h104M24 36h6M38 36h6" vector-effect="non-scaling-stroke"></path><path d="M26 76c16-18 44 10 62-8M82 62l8 6-6 8" vector-effect="non-scaling-stroke"></path></svg></div>
+        <p class="cap" style="margin: 0 0 16px 0;">February 10, 2025</p>
+        <h3 style="margin: 0 0 12px 0; font-family: 'Space Grotesk', sans-serif; font-size: 23px; line-height: 1.2; letter-spacing: -0.019em; color: var(--ink); font-weight: 700;"><button type="button" class="linkish">The death of the homepage? Or an evolution?</button></h3>
+        <p style="margin: 0; font-size: 15.5px; line-height: 1.62; color: var(--ink-2);">Netflix barely has one. Google barely has one. So what is left for everyone else?</p>
+      </article>
+    </div>
+    <div class="pad" style="box-sizing: border-box; padding: 26px 80px 0 80px;">
+      <div class="wrap" style="display: flex; justify-content: flex-start;">
+        <a class="fill-link only-sm" href="thoughts.html" data-reveal style="font-size: 15.5px; font-weight: 600; padding-bottom: 4px;">All thoughts<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SITE FOOTER (identical on every page) ================= -->
+  <footer id="contact" class="sitefoot pad" data-foot style="box-sizing: border-box; width: 100%; padding: 104px 80px 36px 80px;">
+    <div class="wrap">
+
+      <div data-reveal style="display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap;">
+        <div>
+          <p class="fchip" data-hide><span class="live" aria-hidden="true" style="position: relative; width: 8px; height: 8px; border-radius: 999px; background: var(--olive);"></span>Open to new roles</p>
+          <h2 class="d1" style="margin: 0 0 16px 0; font-family: 'Space Grotesk', sans-serif; font-size: 62px; line-height: 1.04; letter-spacing: -0.034em; color: var(--ink); font-weight: 700; max-width: 15ch; text-wrap: balance;">Got something messy? I like messy.</h2>
+          <p style="margin: 0; font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 44ch;">Products that don't exist yet, research nobody has time for, or a tool your team keeps wishing for.</p>
+        </div>
+        <div class="ctarow" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <a class="btn btn-ghost" href="#download-cv" style="display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 26px; border-radius: 999px; font-size: 16px; font-weight: 600;">Download CV<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg></a>
+          <a class="btn btn-primary" data-hide data-magnetic href="mailto:mahesh00005@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 30px; border-radius: 999px; font-size: 16.5px; font-weight: 600;">Say hello<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9 6 9-6"></path><rect x="3" y="5" width="18" height="14" rx="3"></rect></svg></a>
+        </div>
+      </div>
+
+      <div class="fcols" data-reveal data-d="1" style="display: flex; align-items: center; justify-content: space-between; gap: 24px 32px; flex-wrap: wrap; margin-top: 80px;">
+        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+          <a class="femail" href="mailto:mahesh00005@gmail.com">mahesh00005@gmail.com</a>
+          <button type="button" class="fcopy" data-copy="mahesh00005@gmail.com">
+            <span class="cp-i" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="3"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg></span>
+            <span class="ok-i" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+            <span data-copy-label aria-live="polite">Copy email</span>
+          </button>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <span class="cap" style="margin-right: 6px;">Elsewhere</span>
+          <a class="social fill-link" href="https://www.linkedin.com/in/maheshuiux" target="_blank" rel="noopener">LinkedIn<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></a>
+          <a class="social fill-link" href="https://maheshuiux.medium.com/" target="_blank" rel="noopener">Medium<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></a>
+          <a class="social fill-link" href="https://www.instagram.com/mahesh.design_" target="_blank" rel="noopener">Instagram<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5l7-7"></path><path d="M5.5 4.5h6v6"></path></svg></a>
+        </div>
+      </div>
+
+      <div class="fline" aria-hidden="true"></div>
+
+      <div class="fbottom">
+        <p style="margin: 0; font-size: 14px; color: var(--ink-2);">© 2026 Mahesh Reddy Remala</p>
+        <p class="mg fhint" data-bug-score aria-live="polite">(psst, a bug got loose down here. catch it?)</p>
+        <nav aria-label="Footer" class="fnav">
+          <a class="nv" href="work.html">Work</a>
+          <a class="nv" href="about.html">About</a>
+          <a class="nv" href="playground.html">Playground</a>
+          <a class="nv" href="thoughts.html">Thoughts</a>
+        </nav>
+      </div>
+    </div>
+
+    <button type="button" class="bug" data-bug aria-label="A bug is loose in the footer. Catch it.">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <g class="legs" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7 11L3.5 8.5M6.6 14.5H2.8M7 18l-3.2 2.4M17 11l3.5-2.5M17.4 14.5h3.8M17 18l3.2 2.4"></path></g>
+        <path d="M11 4.2L9.2 1.6M13 4.2l1.8-2.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
+        <circle cx="12" cy="6.2" r="2.6" style="fill: currentColor;"></circle>
+        <ellipse cx="12" cy="14.6" rx="5.6" ry="7" style="fill: var(--terra);"></ellipse>
+        <path d="M12 8.2v13.2" stroke="currentColor" stroke-width="1.3"></path>
+        <circle cx="9.6" cy="12.6" r="1.1" style="fill: currentColor;"></circle><circle cx="14.4" cy="12.6" r="1.1" style="fill: currentColor;"></circle><circle cx="9.9" cy="17.2" r="1" style="fill: currentColor;"></circle><circle cx="14.1" cy="17.2" r="1" style="fill: currentColor;"></circle>
+      </svg>
+    </button>
+    <span class="bugtoast" data-bug-toast role="status"><span data-bug-msg>Bug fixed</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+  </footer>
+
+  <button type="button" class="totop" data-totop aria-label="Back to top"><svg class="totop-ring" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24.5" pathLength="100"></circle></svg><svg class="totop-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"></path><path d="M6 11l6-6 6 6"></path></svg></button>
+  <!-- ================= NOTE READER (shared popup; filled by initReader) ================= -->
+  <div class="rdr" data-reader role="dialog" aria-modal="true" aria-labelledby="rdr-title">
+    <div class="rdr-scrim" data-r-scrim></div>
+    <div class="rdr-panel" data-r-panel data-lenis-prevent>
+      <div class="rbar">
+        <p style="margin: 0; display: flex; align-items: center; gap: 12px; min-width: 0;"><span class="tag" data-r-tag></span><span class="cap hide-sm" data-r-meta></span></p>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="cap mono hide-sm" data-r-pos aria-hidden="true"></span>
+          <button type="button" class="iconbtn" data-r-close aria-label="Close note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+        </div>
+      </div>
+      <article data-r-art>
+        <div class="rpad" style="padding: 22px 24px 0 24px;">
+          <div class="thumb rhead pat-grid" data-r-thumb><svg class="thumb-art" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M0 0" vector-effect="non-scaling-stroke"></path><path d="M0 0" vector-effect="non-scaling-stroke"></path><path d="M0 0" vector-effect="non-scaling-stroke"></path></svg></div>
+        </div>
+        <div class="rpad" style="padding: 30px 48px 16px 48px;">
+          <h2 id="rdr-title" class="rtitle" data-r-title style="margin: 0 0 24px 0; font-family: 'Space Grotesk', sans-serif; font-size: 40px; line-height: 1.08; letter-spacing: -0.029em; color: var(--ink); font-weight: 700; text-wrap: balance;"></h2>
+          <div data-r-body></div>
+          <blockquote style="margin: 8px 0 28px 0; padding: 4px 0 4px 22px; border-left: 3px solid var(--rose);">
+            <p class="serif" data-r-quote style="margin: 0; font-size: 26px; line-height: 1.3; font-style: italic; color: var(--ink);"></p>
+          </blockquote>
+          <p class="cap" style="margin: 0 0 28px 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;"><span class="hide-sm">Use</span><kbd class="hide-sm">←</kbd><kbd class="hide-sm">→</kbd><span class="hide-sm">to move between notes,</span><kbd>Esc</kbd><span>to close</span></p>
+        </div>
+      </article>
+      <nav class="pnav" aria-label="More notes">
+        <button type="button" class="pcard prev" data-r-prev>
+          <span class="thumb pat-grid" data-r-prev-thumb><svg class="thumb-art" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M0 0" vector-effect="non-scaling-stroke"></path><path d="M0 0" vector-effect="non-scaling-stroke"></path><path d="M0 0" vector-effect="non-scaling-stroke"></path></svg></span>
+          <span class="meta"><span class="dir">← Previous</span><span class="t" data-r-prev-title></span></span>
+        </button>
+        <button type="button" class="pcard next" data-r-next>
+          <span class="thumb pat-grid" data-r-next-thumb><svg class="thumb-art" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M0 0" vector-effect="non-scaling-stroke"></path><path d="M0 0" vector-effect="non-scaling-stroke"></path><path d="M0 0" vector-effect="non-scaling-stroke"></path></svg></span>
+          <span class="meta"><span class="dir">Next →</span><span class="t" data-r-next-title></span></span>
+        </button>
+      </nav>
+    </div>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="curring" data-cursor-ring aria-hidden="true"><span class="cl" data-cursor-label></span></div>
+  <div class="curdot" data-cursor-dot aria-hidden="true"></div>
+
+</div>
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light"},"$preview":{"width":1440,"height":6700}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { wght: 500, theme: this.readTheme() || (props && props.theme === 'dark' ? 'dark' : 'light'), copy: 'idle', sample: '', shots: 0, ai: false };
+    this.toggleProc = () => this.setState((s) => ({ ai: !s.ai }));
+    this.cleanups = [];
+    this.lenis = null;
+    this.setRoot = (el) => { this.rootEl = el; };
+    this.pickL = () => this.setState({ wght: 300 });
+    this.pickM = () => this.setState({ wght: 500 });
+    this.pickB = () => this.setState({ wght: 700 });
+    this.onWeight = (e) => this.setState({ wght: Number(e.target.value) || 500 });
+    this.onSample = (e) => this.setState({ sample: String(e.target.value || '').slice(0, 12) });
+    this.shoot = () => this.setState((s) => ({ shots: (s.shots % 36) + 1 }));
+    this.toggleTheme = (e) => this.switchTheme(e);
+    this.copyEmail = () => this.doCopy();
+    this.tidyDesk = () => this.tidy();
+  }
+
+  mq(q) { return window.matchMedia ? window.matchMedia(q).matches : false; }
+
+  componentDidMount() {
+    const saved = this.readTheme();
+    const initial = saved || (this.props.theme === 'dark' ? 'dark' : 'light');
+    if (initial !== this.state.theme) this.setState({ theme: initial });
+    this.syncBody(initial);
+    this.initThemeSync();
+
+    const root = this.rootEl || document.getElementById('home-root');
+    if (!root) return;
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    this.initGate(root, reduced);
+    this.initSmooth(root, reduced);
+    this.initStickyNav(root);
+    this.initFooter(root, reduced);
+    this.initToTop(root, reduced);
+    this.initReader(root, reduced);
+    this.initBurger(root);
+    this.initRail(root);
+    this.initMarquee(root, reduced);
+    this.initDesk(root);
+    if (!reduced) this.initReveal(root);
+    this.initWid(root, reduced);
+    if (!reduced && this.mq('(pointer: fine)')) this.initPointer(root);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    /* The canvas hands props over just after mount, so the first 'light' is
+       the default arriving, not a choice. Only a switch from one set value to
+       another (the Tweaks panel) counts, and the visitor's pick stays put. */
+    const was = prevProps.theme, now = this.props.theme;
+    const set = (v) => v === 'light' || v === 'dark';
+    if (was !== now && set(was) && set(now)) {
+      this.setState({ theme: now });
+    }
+    if (this.syncedTheme !== this.state.theme) { this.syncedTheme = this.state.theme; this.syncBody(this.state.theme); }
+  }
+
+  componentWillUnmount() {
+    for (let i = 0; i < this.cleanups.length; i++) this.cleanups[i]();
+    this.cleanups = [];
+    clearTimeout(this.copyTimer);
+    clearTimeout(this.switchTimer);
+    clearTimeout(this.tidyTimer);
+  }
+
+  /* Each screen is its own artboard with its own component, so the pick is
+     parked outside it, in every place that might outlive the swap, and read
+     back from the first that kept it. The canvas frame's window.name is the
+     one that survives that frame reloading even with storage blocked. */
+  themeCarriers(theme) {
+    const w = typeof window === 'undefined' ? null : window;
+    if (!w) return [];
+    let up = null;
+    try { up = w.parent && w.parent !== w ? w.parent : null; } catch (err) { up = null; }
+    const tag = 'mr-theme:';
+    const fromName = (n) => (n && n.indexOf(tag) === 0 ? n.slice(tag.length) : null);
+    return [
+      { k: 'global', get: () => w.__mrTheme, set: () => { w.__mrTheme = theme; } },
+      { k: 'parent', get: () => (up ? up.__mrTheme : null), set: () => { if (up) up.__mrTheme = theme; } },
+      { k: 'parent.name', get: () => (up ? fromName(up.name || '') : null),
+        set: () => { if (!up) return; const n = up.name || ''; if (!n || n.indexOf(tag) === 0) up.name = tag + theme; } },
+      { k: 'session', get: () => w.sessionStorage.getItem('mr-theme'), set: () => w.sessionStorage.setItem('mr-theme', theme) },
+      { k: 'local', get: () => w.localStorage.getItem('mr-theme'), set: () => w.localStorage.setItem('mr-theme', theme) },
+      { k: 'cookie', get: () => { const m = /(?:^|;\s*)mr-theme=(light|dark)/.exec(document.cookie || ''); return m ? m[1] : null; },
+        set: () => { document.cookie = 'mr-theme=' + theme + ';path=/;max-age=31536000;samesite=lax'; } },
+      { k: 'name', get: () => fromName(w.name || ''),
+        set: () => { const n = w.name || ''; if (!n || n.indexOf(tag) === 0) w.name = tag + theme; } }
+    ];
+  }
+
+  readTheme() {
+    const list = this.themeCarriers(null);
+    for (let i = 0; i < list.length; i += 1) {
+      try {
+        const v = list[i].get();
+        if (v === 'dark' || v === 'light') { this.themeSrc = list[i].k; return v; }
+      } catch (err) {}
+    }
+    this.themeSrc = 'none';
+    return null;
+  }
+
+  writeTheme(theme) {
+    if (theme !== 'dark' && theme !== 'light') return;
+    const list = this.themeCarriers(theme);
+    for (let i = 0; i < list.length; i += 1) { try { list[i].set(); } catch (err) {} }
+  }
+
+  /* Every page is mounted at once in the canvas; moving between them only
+     changes which one is in front. So a toggle is sent to the other pages
+     the moment it happens, and each one listening switches to match. */
+  initThemeSync() {
+    const apply = (t) => { if ((t === 'dark' || t === 'light') && t !== this.state.theme) this.setState({ theme: t }); };
+    const onMsg = (e) => { const d = e && e.data; if (d && d.type === 'mr-theme') apply(d.theme); };
+    const onStorage = (e) => { if (e && e.key === 'mr-theme') apply(e.newValue); };
+    window.addEventListener('message', onMsg);
+    window.addEventListener('storage', onStorage);
+    let bc = null;
+    try { bc = new BroadcastChannel('mr-theme'); bc.onmessage = (e) => apply(e.data); } catch (err) { bc = null; }
+    this.themeBc = bc;
+    this.cleanups.push(() => {
+      window.removeEventListener('message', onMsg);
+      window.removeEventListener('storage', onStorage);
+      if (bc) { try { bc.close(); } catch (err) {} }
+    });
+  }
+
+  broadcastTheme(theme) {
+    try { if (this.themeBc) this.themeBc.postMessage(theme); } catch (err) {}
+    /* and straight to every sibling frame, which needs no shared storage */
+    try {
+      const up = window.parent;
+      if (up && up !== window) {
+        for (let i = 0; i < up.frames.length; i += 1) {
+          const f = up.frames[i];
+          if (f !== window) { try { f.postMessage({ type: 'mr-theme', theme }, '*'); } catch (err) {} }
+        }
+      }
+    } catch (err) {}
+  }
+  syncBody(theme) {
+    try {
+      document.body.style.backgroundColor = theme === 'dark' ? '#1D141F' : '#F8F0E7';
+      document.documentElement.style.colorScheme = theme;
+    } catch (err) {}
+  }
+
+  /* Inertial scrolling via Lenis, plus eased in-page anchor jumps.
+     Without Lenis (or with reduced motion) the CSS scroll-behavior takes over. */
+  initSmooth(root, reduced) {
+    const L = window.Lenis;
+    if (typeof L === 'function' && !reduced) {
+      try {
+        const lenis = new L({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 1 });
+        this.lenis = lenis;
+        const loop = (t) => { lenis.raf(t); this.lenisRaf = window.requestAnimationFrame(loop); };
+        this.lenisRaf = window.requestAnimationFrame(loop);
+        this.cleanups.push(() => { window.cancelAnimationFrame(this.lenisRaf); lenis.destroy(); this.lenis = null; });
+      } catch (err) { this.lenis = null; }
+    }
+    const onClick = (e) => {
+      const a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!a || !root.contains(a)) return;
+      const id = a.getAttribute('href').slice(1);
+      const target = id ? document.getElementById(id) : null;
+      if (!target) return;
+      e.preventDefault();
+      const top = id === 'home-root';
+      if (this.lenis) {
+        this.lenis.scrollTo(top ? 0 : target, { offset: top ? 0 : -84, duration: 1.5, easing: (t) => 1 - Math.pow(1 - t, 4) });
+      } else if (top) {
+        window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+      } else {
+        target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+      }
+    };
+    root.addEventListener('click', onClick);
+    this.cleanups.push(() => root.removeEventListener('click', onClick));
+  }
+
+  switchTheme(e) {
+    const next = this.state.theme === 'dark' ? 'light' : 'dark';
+    this.writeTheme(next);
+    this.broadcastTheme(next);
+    const reduced = this.mq('(prefers-reduced-motion: reduce)');
+    let x = window.innerWidth - 80, y = 38;
+    const btn = e && e.currentTarget;
+    if (btn && btn.getBoundingClientRect) { const r = btn.getBoundingClientRect(); x = r.left + r.width / 2; y = r.top + r.height / 2; }
+
+    if (!reduced && typeof document.startViewTransition === 'function') {
+      try {
+        const vt = document.startViewTransition(() => new Promise((resolve) => this.setState({ theme: next }, resolve)));
+        const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+        vt.ready.then(() => {
+          document.documentElement.animate(
+            { clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + radius + 'px at ' + x + 'px ' + y + 'px)'] },
+            { duration: 820, easing: 'cubic-bezier(.22,1,.36,1)', pseudoElement: '::view-transition-new(root)' }
+          );
+        }).catch(() => {});
+        return;
+      } catch (err) {}
+    }
+    const root = this.rootEl || document.getElementById('home-root');
+    if (root && !reduced) {
+      root.classList.add('switching');
+      clearTimeout(this.switchTimer);
+      this.switchTimer = setTimeout(() => root.classList.remove('switching'), 650);
+    }
+    this.setState({ theme: next });
+  }
+
+  doCopy() {
+    const settle = (result) => {
+      this.setState({ copy: result });
+      clearTimeout(this.copyTimer);
+      this.copyTimer = setTimeout(() => this.setState({ copy: 'idle' }), 2000);
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText('mahesh00005@gmail.com').then(() => settle('done'), () => settle('fail'));
+        return;
+      }
+    } catch (err) {}
+    settle('fail');
+  }
+
+  /* Hero desk: every object can be picked up and moved. Positions live in
+     plain variables and go straight to style.translate, never through state. */
+  initMarquee(root, reduced) {
+    const mq = root.querySelector('[data-marquee]');
+    const track = root.querySelector('[data-marquee-track]');
+    if (!mq || !track) return;
+    /* reduced motion keeps the quotes, drops the movement */
+    if (reduced) { mq.classList.add('still'); return; }
+    const FULL = 42, SLOW = 12; /* pixels a second */
+    let x = 0, speed = FULL, want = FULL, half = 0, last = 0, raf = 0, seen = true;
+    const measure = () => { const set = track.firstElementChild; half = set ? set.getBoundingClientRect().width : 0; };
+    const step = (t) => {
+      raf = window.requestAnimationFrame(step);
+      const dt = last ? Math.min((t - last) / 1000, .05) : 0;
+      last = t;
+      speed += (want - speed) * Math.min(dt * 4, 1);
+      if (!half) measure();
+      x -= speed * dt;
+      if (half && x <= -half) x += half;
+      track.style.transform = 'translate3d(' + x.toFixed(2) + 'px, 0, 0)';
+    };
+    const start = () => { if (!raf && seen) { last = 0; raf = window.requestAnimationFrame(step); } };
+    const stop = () => { if (raf) { window.cancelAnimationFrame(raf); raf = 0; } };
+    const slower = () => { want = SLOW; };
+    const normal = () => { want = FULL; };
+    mq.addEventListener('mouseenter', slower);
+    mq.addEventListener('mouseleave', normal);
+    const onResize = () => { measure(); };
+    window.addEventListener('resize', onResize);
+    measure();
+    /* off screen, it stops costing anything */
+    let io = null;
+    if (typeof IntersectionObserver !== 'undefined') {
+      io = new IntersectionObserver((es) => { seen = es[0].isIntersecting; if (seen) start(); else stop(); }, { rootMargin: '200px' });
+      io.observe(mq);
+    }
+    start();
+    this.cleanups.push(() => {
+      stop();
+      if (io) io.disconnect();
+      window.removeEventListener('resize', onResize);
+      mq.removeEventListener('mouseenter', slower);
+      mq.removeEventListener('mouseleave', normal);
+    });
+  }
+
+  initDesk(root) {
+    const desk = root.querySelector('[data-desk]');
+    /* dragging is a pointer pleasure; on a touch screen the desk just sits there */
+    if (!desk || !this.mq('(pointer: fine)')) return;
+    const items = Array.prototype.slice.call(desk.querySelectorAll('[data-drag]'));
+    const pos = new Map();
+    items.forEach((el) => pos.set(el, { x: 0, y: 0 }));
+    this.desk = desk; this.deskItems = items; this.deskPos = pos;
+    let z = 10, active = null, sx = 0, sy = 0, bx = 0, by = 0, scale = 1;
+
+    const onDown = (e) => {
+      if (e.button !== undefined && e.button !== 0) return;
+      if (e.target && e.target.closest && e.target.closest('button, a')) return;
+      const el = e.currentTarget;
+      active = el;
+      const p = pos.get(el);
+      sx = e.clientX; sy = e.clientY; bx = p.x; by = p.y;
+      const r = desk.getBoundingClientRect();
+      scale = desk.offsetWidth ? r.width / desk.offsetWidth : 1;
+      el.classList.remove('settling');
+      el.classList.add('lifted');
+      el.style.zIndex = String(++z);
+      try { el.setPointerCapture(e.pointerId); } catch (err) {}
+    };
+    const onMove = (e) => {
+      if (!active || active !== e.currentTarget) return;
+      let nx = bx + (e.clientX - sx) / scale;
+      let ny = by + (e.clientY - sy) / scale;
+      const minX = -active.offsetLeft - 40, maxX = desk.offsetWidth - active.offsetLeft - active.offsetWidth + 40;
+      const minY = -active.offsetTop - 40, maxY = desk.offsetHeight - active.offsetTop - active.offsetHeight + 40;
+      nx = Math.max(minX, Math.min(maxX, nx));
+      ny = Math.max(minY, Math.min(maxY, ny));
+      if (Math.abs(nx - bx) + Math.abs(ny - by) > 3) desk.classList.add('messy');
+      pos.set(active, { x: nx, y: ny });
+      active.style.translate = nx.toFixed(1) + 'px ' + ny.toFixed(1) + 'px';
+    };
+    const onUp = (e) => {
+      if (!active || active !== e.currentTarget) return;
+      active.classList.remove('lifted');
+      active = null;
+    };
+    items.forEach((el) => {
+      el.addEventListener('pointerdown', onDown);
+      el.addEventListener('pointermove', onMove);
+      el.addEventListener('pointerup', onUp);
+      el.addEventListener('pointercancel', onUp);
+    });
+    this.cleanups.push(() => items.forEach((el) => {
+      el.removeEventListener('pointerdown', onDown);
+      el.removeEventListener('pointermove', onMove);
+      el.removeEventListener('pointerup', onUp);
+      el.removeEventListener('pointercancel', onUp);
+    }));
+  }
+
+  tidy() {
+    if (!this.desk || !this.deskItems) return;
+    this.deskItems.forEach((el, i) => {
+      el.classList.add('settling');
+      el.style.transitionDelay = (i * 0.05) + 's';
+      el.style.translate = '0px 0px';
+      this.deskPos.set(el, { x: 0, y: 0 });
+    });
+    this.desk.classList.remove('messy');
+    clearTimeout(this.tidyTimer);
+    this.tidyTimer = setTimeout(() => {
+      if (!this.deskItems) return;
+      this.deskItems.forEach((el) => { el.classList.remove('settling'); el.style.transitionDelay = ''; });
+    }, 1300);
+  }
+
+  initReveal(root) {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const nodes = root.querySelectorAll('[data-reveal]');
+    root.classList.add('anim');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+    for (let i = 0; i < nodes.length; i++) io.observe(nodes[i]);
+    this.cleanups.push(() => io.disconnect());
+  }
+
+  initBurger(root) {
+    const btns = Array.prototype.slice.call(root.querySelectorAll('[data-burger]'));
+    const btn = btns[0];
+    const hdr = root.querySelector('[data-header]');
+    if (!btns.length || !hdr) return;
+    const set = (open) => {
+      hdr.classList.toggle('mopen', open);
+      root.classList.toggle('gated', open);
+      if (btn) { btn.setAttribute('aria-expanded', open ? 'true' : 'false'); btn.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu'); }
+    };
+    const toggle = () => set(!hdr.classList.contains('mopen'));
+    btns.forEach((b) => b.addEventListener('click', toggle));
+    /* a link was picked, or the window grew back to desktop: close it */
+    const panel = root.querySelector('[data-mnav]');
+    const close = () => set(false);
+    if (panel) panel.addEventListener('click', (e) => { if (e.target.closest('a')) close(); });
+    const mq = window.matchMedia ? window.matchMedia('(min-width: 701px)') : null;
+    if (mq && mq.addEventListener) mq.addEventListener('change', close);
+    this.cleanups.push(() => {
+      btns.forEach((b) => b.removeEventListener('click', toggle));
+      if (mq && mq.removeEventListener) mq.removeEventListener('change', close);
+      hdr.classList.remove('mopen');
+      root.classList.remove('gated');
+    });
+  }
+  initStickyNav(root) {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const sentinel = root.querySelector('[data-top-sentinel]');
+    const header = root.querySelector('[data-header]');
+    if (!sentinel || !header) return;
+    const io = new IntersectionObserver((entries) => { header.classList.toggle('stuck', !entries[0].isIntersecting); });
+    io.observe(sentinel);
+    this.cleanups.push(() => io.disconnect());
+  }
+
+  initRail(root) {
+    const rail = root.querySelector('[data-rail]');
+    if (!rail) return;
+    let down = false, startX = 0, startLeft = 0, moved = false;
+    const onDown = (e) => { if (e.button !== 0) return; down = true; moved = false; startX = e.clientX; startLeft = rail.scrollLeft; };
+    const onMove = (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 4) { moved = true; rail.classList.add('dragging'); }
+      if (moved) rail.scrollLeft = startLeft - dx;
+    };
+    const onUp = () => { down = false; rail.classList.remove('dragging'); };
+    const prevBtn = root.querySelector('[data-rail-prev]');
+    const nextBtn = root.querySelector('[data-rail-next]');
+    const stepW = () => { const c = rail.firstElementChild; return c ? c.getBoundingClientRect().width + 22 : 340; };
+    const nav = prevBtn ? prevBtn.closest('.railnav') : null;
+    const sync = () => {
+      if (prevBtn) prevBtn.disabled = rail.scrollLeft <= 4;
+      if (nextBtn) nextBtn.disabled = rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 4;
+    };
+    const goPrev = () => rail.scrollBy({ left: -stepW(), behavior: 'smooth' });
+    const goNext = () => rail.scrollBy({ left: stepW(), behavior: 'smooth' });
+    if (prevBtn) prevBtn.addEventListener('click', goPrev);
+    if (nextBtn) nextBtn.addEventListener('click', goNext);
+    /* measured without the class, so a full row still scrolls */
+    const fitCheck = () => {
+      rail.classList.remove('fits');
+      const fits = rail.scrollWidth <= rail.clientWidth + 4;
+      rail.classList.toggle('fits', fits);
+      if (nav) nav.hidden = fits;
+      sync();
+    };
+    const onResize = () => fitCheck();
+    window.addEventListener('resize', onResize);
+    this.cleanups.push(() => window.removeEventListener('resize', onResize));
+    rail.addEventListener('scroll', sync, { passive: true });
+    sync();
+    fitCheck();
+    const onClick = (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } };
+    rail.addEventListener('mousedown', onDown);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    rail.addEventListener('click', onClick, true);
+    this.cleanups.push(() => {
+      rail.removeEventListener('mousedown', onDown);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+      rail.removeEventListener('click', onClick, true);
+      rail.removeEventListener('scroll', sync);
+      if (prevBtn) prevBtn.removeEventListener('click', goPrev);
+      if (nextBtn) nextBtn.removeEventListener('click', goNext);
+    });
+  }
+
+  initGate(root, reduced) {
+    const gate = root.querySelector('[data-gate]');
+    if (!gate) return;
+    const num = gate.querySelector('[data-gate-num]');
+    const bar = gate.querySelector('[data-gate-bar]');
+    const say = gate.querySelector('[data-gate-say]');
+    const lines = ['warming up the pixels', 'straightening the grid', 'feeding the bug', 'almost there'];
+    let done = false;
+    const leave = () => {
+      if (done) return;
+      done = true;
+      gate.classList.add('off');
+      root.classList.remove('gated');
+      const t = setTimeout(() => { gate.style.display = 'none'; }, 1000);
+      this.cleanups.push(() => clearTimeout(t));
+    };
+    if (reduced) { gate.style.display = 'none'; return; }
+
+    root.classList.add('gated');
+    window.scrollTo(0, 0);
+    const go = gate.querySelector('[data-gate-go]');
+    const skip = gate.querySelector('[data-gate-skip]');
+    const soon = gate.querySelector('[data-gate-soon]');
+    if (go) go.addEventListener('click', () => {
+      go.classList.add('opening');
+      gate.classList.add('going');
+      /* the swing is .66s; the rest is a beat to look through the doorway */
+      const t = setTimeout(leave, 1020);
+      this.cleanups.push(() => clearTimeout(t));
+    });
+    if (skip) skip.addEventListener('click', leave);
+    if (soon) soon.addEventListener('click', () => {
+      soon.classList.remove('knocked');
+      void soon.offsetWidth;
+      soon.classList.add('knocked');
+    });
+
+    /* a short, honest-looking count before the doors appear */
+    let p = 0, start = 0, word = -1;
+    const step = (t) => {
+      if (!start) start = t;
+      const k = Math.min((t - start) / 2800, 1);
+      /* quick start, a stall around a third, another near the end, then done */
+      const f = k < .3 ? (k / .3) * .34
+        : k < .42 ? .34 + ((k - .3) / .12) * .03
+        : k < .78 ? .37 + ((k - .42) / .36) * .44
+        : k < .9 ? .81 + ((k - .78) / .12) * .06
+        : .87 + ((k - .9) / .1) * .13;
+      p = Math.min(100, Math.round(f * 100));
+      if (num) num.textContent = (p < 10 ? '0' : '') + p;
+      if (bar) bar.style.width = p + '%';
+      const w = Math.min(Math.floor(k * lines.length), lines.length - 1);
+      if (say && w !== word) { word = w; say.textContent = lines[w]; }
+      if (k < 1) { this.gateRaf = window.requestAnimationFrame(step); }
+      else { gate.classList.add('pick'); }
+    };
+    this.gateRaf = window.requestAnimationFrame(step);
+    this.cleanups.push(() => {
+      if (this.gateRaf) window.cancelAnimationFrame(this.gateRaf);
+      root.classList.remove('gated');
+    });
+  }
+  initWid(root, reduced) {
+    if (reduced || !this.mq('(hover: hover) and (pointer: fine)')) return;
+    const rows = Array.prototype.slice.call(root.querySelectorAll('[data-wid-row]'));
+    rows.forEach((row) => {
+      const move = (e) => {
+        const r = row.getBoundingClientRect();
+        row.style.setProperty('--px', Math.round(e.clientX - r.left) + 'px');
+        row.style.setProperty('--py', Math.round(e.clientY - r.top) + 'px');
+      };
+      row.addEventListener('mousemove', move, { passive: true });
+      this.cleanups.push(() => row.removeEventListener('mousemove', move));
+    });
+  }
+  initPointer(root) {
+    const dot = root.querySelector('[data-cursor-dot]');
+    const ring = root.querySelector('[data-cursor-ring]');
+    if (!dot || !ring) return;
+    const label = ring.querySelector('[data-cursor-label]');
+    /* the pull is a mouse trick; small screens never get it */
+    const pullMagnets = this.mq('(min-width: 701px)');
+    const magnets = pullMagnets ? Array.prototype.slice.call(root.querySelectorAll('[data-magnetic]')) : [];
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my, px = mx, py = my, moved = true;
+    root.classList.add('has-cursor');
+
+    /* what the blob says over a given thing */
+    const wordFor = (el) => {
+      const said = el.getAttribute('data-cursor');
+      if (said) return said;
+      if (el.hasAttribute('data-drag')) return 'drag me';
+      if (el.hasAttribute('data-note')) return 'read';
+      if (el.hasAttribute('data-bug')) return 'catch it';
+      if (el.classList.contains('proj')) return 'case study';
+      if (el.classList.contains('skrow')) return 'skill file';
+      if (el.classList.contains('vcard')) return 'have a look';
+      return '';
+    };
+    const onMove = (e) => { mx = e.clientX; my = e.clientY; moved = true; };
+    const onOver = (e) => {
+      const t = e.target && e.target.closest ? e.target.closest('a, button, input, [data-drag], [data-hover], [data-note], [data-cursor]') : null;
+      const word = t ? wordFor(t) : '';
+      if (label) label.textContent = word;
+      ring.classList.toggle('lab', !!word);
+      ring.classList.toggle('grow', !!t && !word);
+    };
+    const onDown = () => root.classList.add('grabbing');
+    const onUp = () => root.classList.remove('grabbing');
+    const onLeave = () => { ring.style.opacity = '0'; dot.style.opacity = '0'; };
+    const onEnter = () => { ring.style.opacity = ''; dot.style.opacity = ''; };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('mouseover', onOver, { passive: true });
+    window.addEventListener('mousedown', onDown, { passive: true });
+    window.addEventListener('mouseup', onUp, { passive: true });
+    document.addEventListener('mouseleave', onLeave);
+    document.addEventListener('mouseenter', onEnter);
+
+    const tick = () => {
+      rx += (mx - rx) * 0.16;
+      ry += (my - ry) * 0.16;
+      /* the blob leans and stretches into the direction it is travelling */
+      const vx = rx - px, vy = ry - py;
+      px = rx; py = ry;
+      const speed = Math.min(Math.sqrt(vx * vx + vy * vy), 34);
+      const ang = speed > 0.6 ? Math.atan2(vy, vx) * 180 / Math.PI : 0;
+      const st = 1 + speed * 0.014, sq = 1 - speed * 0.009;
+      dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+      /* only the bare dot leans; a pill with words in it stays level so they read and fit */
+      ring.style.transform = ring.classList.contains('lab')
+        ? 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0)'
+        : 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0) rotate(' + ang.toFixed(2) + 'deg) scale(' + st.toFixed(3) + ',' + sq.toFixed(3) + ')';
+      if (moved) {
+        for (let i = 0; i < magnets.length; i++) {
+          const el = magnets[i];
+          const r = el.getBoundingClientRect();
+          if (r.width === 0) continue;
+          const dx = mx - (r.left + r.width / 2), dy = my - (r.top + r.height / 2);
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const range = Math.max(r.width, r.height) * 0.8 + 44;
+          if (dist < range) {
+            const k = (1 - dist / range) * 0.22;
+            el.style.transform = 'translate(' + (dx * k).toFixed(2) + 'px,' + (dy * k).toFixed(2) + 'px)';
+          } else if (el.style.transform) {
+            el.style.transform = '';
+          }
+        }
+        moved = false;
+      }
+      this.raf = window.requestAnimationFrame(tick);
+    };
+    this.raf = window.requestAnimationFrame(tick);
+
+    this.cleanups.push(() => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseover', onOver);
+      window.removeEventListener('mousedown', onDown);
+      window.removeEventListener('mouseup', onUp);
+      document.removeEventListener('mouseleave', onLeave);
+      document.removeEventListener('mouseenter', onEnter);
+      if (this.raf) window.cancelAnimationFrame(this.raf);
+    });
+  }
+  /* Shared footer: copy-email button and the Kill the Bug game.
+     The bug wanders; when the pointer gets close it bolts, often to hide
+     behind something marked data-hide. Each escape costs stamina, so after
+     a few it tires and can be caught. Runs only while the footer is on screen. */
+  initFooter(root, reduced) {
+    const foot = root.querySelector('[data-foot]');
+    if (!foot) return;
+
+    const copyBtn = foot.querySelector('[data-copy]');
+    const copyLabel = foot.querySelector('[data-copy-label]');
+    let copyTimer;
+    const setCopy = (text, ok) => {
+      copyLabel.textContent = text;
+      copyBtn.classList.toggle('ok', !!ok);
+      clearTimeout(copyTimer);
+      if (text !== 'Copy email') copyTimer = setTimeout(() => setCopy('Copy email', false), 2000);
+    };
+    const onCopy = () => {
+      const email = copyBtn.getAttribute('data-copy');
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(() => setCopy('Copied', true), () => setCopy('Copy blocked here', false));
+          return;
+        }
+      } catch (err) {}
+      setCopy('Copy blocked here', false);
+    };
+    if (copyBtn && copyLabel) copyBtn.addEventListener('click', onCopy);
+
+    const bug = foot.querySelector('[data-bug]');
+    const toast = foot.querySelector('[data-bug-toast]');
+    const score = foot.querySelector('[data-bug-score]');
+    if (!bug || !toast) return;
+
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+    const turnTo = (a, want, max) => {
+      let d = want - a;
+      while (d > Math.PI) d -= Math.PI * 2;
+      while (d < -Math.PI) d += Math.PI * 2;
+      return a + clamp(d, -max, max);
+    };
+    let W = foot.clientWidth, H = foot.clientHeight;
+    let x = W * 0.18, y = H - 70, ang = -0.4, target = null, hideUntil = 0, stamina = 3;
+    let caught = false, fixes = 0, last = 0, raf = 0, visible = false;
+    let mx = -9999, my = -9999;
+    const timers = [];
+
+    const spots = () => {
+      const fr = foot.getBoundingClientRect();
+      return Array.prototype.map.call(foot.querySelectorAll('[data-hide]'), (el) => {
+        const r = el.getBoundingClientRect();
+        return { x: r.left - fr.left + r.width / 2, y: r.top - fr.top + r.height / 2 };
+      });
+    };
+    const place = () => {
+      bug.style.transform = 'translate(' + (x - 20).toFixed(1) + 'px,' + (y - 20).toFixed(1) + 'px) rotate(' + (ang + Math.PI / 2).toFixed(3) + 'rad)';
+    };
+
+    const tick = (t) => {
+      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016;
+      last = t;
+      if (!caught) {
+        const dx = x - mx, dy = y - my, d = Math.hypot(dx, dy) || 1;
+        const tired = stamina < 1;
+        const fleeR = tired ? 40 : 100;
+        if (d < fleeR && t > hideUntil && (!target || !target.flee)) {
+          stamina = Math.max(0, stamina - 1);
+          const far = spots().filter((p) => Math.hypot(p.x - mx, p.y - my) > 170);
+          if (far.length && Math.random() < 0.65) {
+            const p = far[Math.floor(Math.random() * far.length)];
+            target = { x: p.x, y: p.y, flee: true, hide: true };
+          } else {
+            target = { x: clamp(x + (dx / d) * 200, 24, W - 24), y: clamp(y + (dy / d) * 150, 24, H - 24), flee: true };
+          }
+        }
+
+        let speed = 42;
+        if (t < hideUntil) {
+          speed = 0;
+        } else {
+          bug.classList.remove('still');
+          if (target) {
+            const tx = target.x - x, ty = target.y - y;
+            ang = turnTo(ang, Math.atan2(ty, tx), 9 * dt);
+            speed = target.flee ? (tired ? 52 : 108) : 30;
+            if (Math.hypot(tx, ty) < 12) {
+              if (target.hide) { hideUntil = t + 1200 + Math.random() * 900; bug.classList.add('still'); }
+              target = null;
+            }
+          } else {
+            ang += (Math.random() - 0.5) * 2.6 * dt;
+            if (Math.random() < dt * 0.35) ang += (Math.random() - 0.5) * 2.4;
+          }
+        }
+
+        x += Math.cos(ang) * speed * dt;
+        y += Math.sin(ang) * speed * dt;
+        if (x < 22 || x > W - 22) { ang = Math.PI - ang; x = clamp(x, 22, W - 22); target = target && target.hide ? target : null; }
+        if (y < 22 || y > H - 22) { ang = -ang; y = clamp(y, 22, H - 22); target = target && target.hide ? target : null; }
+        stamina = Math.min(3, stamina + dt * 0.1);
+        place();
+      }
+      raf = window.requestAnimationFrame(tick);
+    };
+    const start = () => { if (!raf && !reduced) { last = 0; raf = window.requestAnimationFrame(tick); } };
+    const stop = () => { if (raf) { window.cancelAnimationFrame(raf); raf = 0; } };
+
+    /* every new bug wears the next brand colour */
+    const shells = ['var(--terra)', 'var(--primary)', 'var(--olive)', 'var(--petrol)', 'var(--rose)'];
+    const shell = bug.querySelector('ellipse');
+    const spawn = () => {
+      W = foot.clientWidth; H = foot.clientHeight;
+      if (shell) shell.style.fill = shells[fixes % shells.length];
+      const fromLeft = Math.random() < 0.5;
+      x = fromLeft ? 26 : W - 26; y = H - 60 - Math.random() * 120;
+      ang = fromLeft ? -0.2 : Math.PI + 0.2;
+      target = null; hideUntil = 0; stamina = 3; caught = false;
+      bug.classList.remove('caught', 'away', 'still');
+      if (reduced) bug.classList.add('still');
+      place();
+    };
+
+    const onCatch = () => {
+      if (caught) return;
+      caught = true;
+      fixes += 1;
+      bug.classList.add('caught');
+      toast.style.left = x + 'px';
+      toast.style.top = Math.max(8, y - 54) + 'px';
+      toast.classList.add('show');
+      if (score) score.textContent = 'bugs fixed: ' + fixes + (fixes >= 3 ? '. ship it.' : '');
+      timers.push(setTimeout(() => toast.classList.remove('show'), 1800));
+      timers.push(setTimeout(() => bug.classList.add('away'), 900));
+      timers.push(setTimeout(() => {
+        spawn();
+        if (score) score.textContent = 'bugs fixed: ' + fixes + '. oh no, another one.';
+      }, 4200));
+    };
+
+    const onMove = (e) => {
+      const fr = foot.getBoundingClientRect();
+      mx = e.clientX - fr.left; my = e.clientY - fr.top;
+    };
+    const onLeave = () => { mx = -9999; my = -9999; };
+    const onResize = () => { W = foot.clientWidth; H = foot.clientHeight; x = clamp(x, 22, W - 22); y = clamp(y, 22, H - 22); place(); };
+
+    foot.addEventListener('pointermove', onMove);
+    foot.addEventListener('pointerdown', onMove);
+    foot.addEventListener('pointerleave', onLeave);
+    bug.addEventListener('click', onCatch);
+    window.addEventListener('resize', onResize);
+
+    let io = null;
+    if (typeof IntersectionObserver !== 'undefined') {
+      io = new IntersectionObserver((entries) => {
+        visible = entries[0].isIntersecting;
+        if (visible) start(); else stop();
+      });
+      io.observe(foot);
+    } else {
+      start();
+    }
+    spawn();
+
+    this.cleanups.push(() => {
+      stop();
+      if (io) io.disconnect();
+      timers.forEach(clearTimeout);
+      clearTimeout(copyTimer);
+      if (copyBtn) copyBtn.removeEventListener('click', onCopy);
+      foot.removeEventListener('pointermove', onMove);
+      foot.removeEventListener('pointerdown', onMove);
+      foot.removeEventListener('pointerleave', onLeave);
+      bug.removeEventListener('click', onCatch);
+      window.removeEventListener('resize', onResize);
+    });
+  }
+
+  /* Back-to-top button: shown from the third section onward (or the footer
+     on pages with fewer sections), watched with an observer, not scroll events. */
+  initToTop(root, reduced) {
+    const btn = root.querySelector('[data-totop]');
+    if (!btn || typeof IntersectionObserver === 'undefined') return;
+    const sections = root.querySelectorAll(':scope > section');
+    const mark = sections[2] || root.querySelector('[data-foot]');
+    if (!mark) return;
+    const io = new IntersectionObserver((entries) => {
+      const e = entries[0];
+      btn.classList.toggle('show', e.isIntersecting || e.boundingClientRect.top < 0);
+    });
+    io.observe(mark);
+    const onClick = () => {
+      if (this.lenis) this.lenis.scrollTo(0, { duration: 1.4, easing: (t) => 1 - Math.pow(1 - t, 4) });
+      else window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    };
+    btn.addEventListener('click', onClick);
+    this.cleanups.push(() => { io.disconnect(); btn.removeEventListener('click', onClick); });
+  }
+
+  /* Draft notes, newest first. Shared by the Thoughts grid and the reader.
+     Each thumbnail is a tint, a pattern and three stroked paths on a 120 by 120 grid. */
+  readerNotes() {
+    return [
+      { title: 'The future of interfaces: will they vanish?', date: 'February 12, 2025', tag: 'Interfaces',
+        bg: 'var(--p-lav)', ink: 'var(--primary)', pat: 'pat-grid',
+        d1: 'M24 24h72a8 8 0 0 1 8 8v40a8 8 0 0 1-8 8H24a8 8 0 0 1-8-8V32a8 8 0 0 1 8-8z',
+        d2: 'M34 58v6M48 46v30M62 38v46M76 48v26M90 56v10',
+        d3: 'M14 102h20M42 102h16M66 102h10M84 102h6M98 102h2',
+        excerpt: 'Voice, headsets and brain-computer interfaces are all pulling at the screen. Does it hold?',
+        body: [
+          'Imagine a world where we do not tap, swipe or type, because technology understands us instantly. Does that excite you, or make you uneasy?',
+          'For years we have interacted with technology through screens, buttons and touch. With AI pushing the boundaries, that might be changing. Think about how we use Google Assistant, Gemini, Alexa or Siri. Instead of navigating menus, we ask a question and the task is done. No scrolling, no searching. Could it mean traditional interfaces disappear?',
+          'AR and VR are already redefining how we interact with technology. Devices like the Apple Vision Pro and Meta Quest create immersive, screenless experiences, blending digital content with our surroundings.',
+          'AI-powered assistants like the Humane AI Pin and Rabbit R1 go further. They are designed to provide information and complete tasks with no touch at all, responding instead to your voice, your gestures and what is around you.',
+          'Then there are brain-computer interfaces. Companies like Neuralink are working on technology that lets you control devices just by thinking. Writing an email or setting a reminder without lifting a finger, or even speaking a word. It sounds like science fiction, but the early results are promising.',
+          'So will screens truly disappear? These innovations are exciting, and they come with real challenges: privacy, accessibility, and the need for people to stay in control. Right now it looks more likely that traditional screens and new AI-powered interfaces will coexist for a while.',
+          'What do you think? Will technology become so smart that visible interfaces fade into the background, or will we always need something tangible to interact with?'
+        ],
+        quote: 'Traditional screens and AI-powered interfaces will coexist for a while.' },
+      { title: 'The death of the homepage? Or an evolution?', date: 'February 10, 2025', tag: 'Web',
+        bg: 'var(--p-sage)', ink: 'var(--petrol)', pat: 'pat-dots',
+        d1: 'M14 26h92a6 6 0 0 1 6 6v54a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V32a6 6 0 0 1 6-6z',
+        d2: 'M8 46h104M24 36h6M38 36h6',
+        d3: 'M26 76c16-18 44 10 62-8M82 62l8 6-6 8',
+        excerpt: 'Netflix barely has one. Google barely has one. So what is left for everyone else?',
+        body: [
+          'For years the homepage has been the front door of digital experiences, the space where brands introduce themselves and guide people. Today, with AI-driven personalization and direct search behavior, its role is changing.',
+          'Think about it. Netflix does not have a traditional homepage, it curates content for you the moment you arrive. Google keeps its search page minimal because most people go straight into a query. Amazon leads with recommendations and deals drawn from what you have browsed and bought.',
+          'More and more, apps and websites are shifting from static homepages to dynamic, AI-driven experiences.',
+          'Search and assistants are becoming the new homepage. Platforms like ChatGPT and Google Search Generative Experience show that people increasingly start with a query, not a landing page. They arrive directly on product pages, sign-up flows and blog posts through search and social links, and chatbots drop them straight into an experience, skipping the homepage entirely. Feeds like Netflix and Amazon serve personalized content immediately.',
+          'But what about SaaS, informational websites, or brands nobody has heard of yet? There the homepage still plays a critical role, and its function is evolving. Instead of building a static overview, we should be making homepages that act as targeted landing pages, focused on a single action such as signing up or booking a demo, rather than trying to cover everything at once.',
+          'That means guiding first-time visitors clearly, through interactive demos, explainer videos or AI-driven onboarding. It means showing instead of telling, letting people engage with a micro-experience or preview the thing working. And it means reducing cognitive load: one key benefit that sparks curiosity, not a wall of features.',
+          'So is the homepage really dead? Not entirely, but it is definitely changing. Instead of being the centerpiece of a website, the homepage is now one of many entry points, and the best ones adapt to what people need, how they behave, and what the data says.',
+          'What do you think? Should businesses still prioritize homepages, or should we rethink how people enter digital experiences altogether?'
+        ],
+        quote: 'Homepages are now just one of many entry points.' }
+    ];
+  }
+
+  /* Note reader: one overlay for every element carrying data-note="index".
+     It fills existing nodes (text, attributes); nothing is created or removed.
+     Keys are handled on the overlay itself, never globally. */
+  initReader(root, reduced) {
+    const box = root.querySelector('[data-reader]');
+    if (!box) return;
+    const notes = this.readerNotes();
+    const q = (k) => box.querySelector('[data-r-' + k + ']');
+    const panel = q('panel');
+    const closeBtn = q('close');
+    const art = q('art');
+    let cur = 0, trigger = null, flip = false, closeTimer;
+
+    const paint = (el, n) => {
+      el.classList.remove('pat-dots', 'pat-grid', 'pat-lines');
+      el.classList.add(n.pat);
+      el.style.backgroundColor = n.bg;
+      el.style.color = n.ink;
+      const paths = el.querySelectorAll('path');
+      [n.d1, n.d2, n.d3].forEach((d, i) => { if (paths[i]) paths[i].setAttribute('d', d); });
+    };
+    const minutes = (n) => Math.max(1, Math.round((n.body.join(' ') + ' ' + n.quote).split(/\s+/).length / 220)) + ' min read';
+
+    const fill = (i, dir) => {
+      const N = notes.length, n = notes[i], prev = notes[(i - 1 + N) % N], next = notes[(i + 1) % N];
+      cur = i;
+      q('tag').textContent = n.tag;
+      q('meta').textContent = n.date + ', ' + minutes(n);
+      q('pos').textContent = (i + 1) + ' / ' + N;
+      q('title').textContent = n.title;
+      /* however many paragraphs the note actually has */
+      const bodyBox = q('body');
+      bodyBox.textContent = '';
+      n.body.forEach((text, k) => {
+        const p = document.createElement('p');
+        p.className = k ? 'para' : 'para lead';
+        p.textContent = text;
+        bodyBox.appendChild(p);
+      });
+      q('quote').textContent = n.quote;
+      paint(q('thumb'), n);
+      paint(q('prev-thumb'), prev);
+      q('prev-title').textContent = prev.title;
+      paint(q('next-thumb'), next);
+      q('next-title').textContent = next.title;
+      if (dir && !reduced) {
+        art.classList.remove('rdr-in-na', 'rdr-in-nb', 'rdr-in-pa', 'rdr-in-pb');
+        flip = !flip;
+        art.classList.add('rdr-in-' + (dir > 0 ? 'n' : 'p') + (flip ? 'a' : 'b'));
+      }
+      panel.scrollTop = 0;
+    };
+
+    const lock = (on) => {
+      if (this.lenis) { if (on) this.lenis.stop(); else this.lenis.start(); }
+      else document.documentElement.style.overflow = on ? 'hidden' : '';
+    };
+    const open = (i, from) => {
+      trigger = from || null;
+      fill(i, 0);
+      clearTimeout(closeTimer);
+      box.classList.remove('closing');
+      box.classList.add('open');
+      lock(true);
+      try { closeBtn.focus({ preventScroll: true }); } catch (err) { closeBtn.focus(); }
+    };
+    const close = () => {
+      if (!box.classList.contains('open')) return;
+      const done = () => {
+        box.classList.remove('open');
+        box.classList.remove('closing');
+        lock(false);
+        if (trigger && trigger.focus) { try { trigger.focus({ preventScroll: true }); } catch (err) {} }
+      };
+      if (reduced) { done(); return; }
+      box.classList.add('closing');
+      clearTimeout(closeTimer);
+      closeTimer = setTimeout(done, 230);
+    };
+    const step = (d) => fill((cur + d + notes.length) % notes.length, d);
+
+    const onRootClick = (e) => {
+      const card = e.target && e.target.closest ? e.target.closest('[data-note]') : null;
+      if (!card || box.contains(card)) return;
+      const i = Number(card.getAttribute('data-note'));
+      if (!(i >= 0 && i < notes.length)) return;
+      e.preventDefault();
+      const focusable = card.matches('button, a[href]') ? card : card.querySelector('button, a[href]');
+      open(i, focusable || card);
+    };
+    const onBoxClick = (e) => {
+      const t = e.target;
+      if (!t || !t.closest) return;
+      if (t.closest('[data-r-close]') || t.hasAttribute('data-r-scrim')) close();
+      else if (t.closest('[data-r-prev]')) step(-1);
+      else if (t.closest('[data-r-next]')) step(1);
+    };
+    const onKey = (e) => {
+      if (e.key === 'Escape') { e.preventDefault(); close(); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+      else if (e.key === 'Tab') {
+        const f = panel.querySelectorAll('button, a[href]');
+        if (!f.length) return;
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+    root.addEventListener('click', onRootClick);
+    box.addEventListener('click', onBoxClick);
+    box.addEventListener('keydown', onKey);
+    this.cleanups.push(() => {
+      root.removeEventListener('click', onRootClick);
+      box.removeEventListener('click', onBoxClick);
+      box.removeEventListener('keydown', onKey);
+      clearTimeout(closeTimer);
+    });
+  }
+
+  renderVals() {
+    const w = this.state.wght;
+    const dark = this.state.theme === 'dark';
+    const copy = this.state.copy;
+    const word = this.state.sample.trim();
+    const shots = this.state.shots;
+    return {
+      setRoot: this.setRoot,
+      themeClass: dark ? 'theme-dark' : 'theme-light',
+      isDark: dark,
+      isLight: !dark,
+      themeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      toggleTheme: this.toggleTheme,
+      toggleProc: this.toggleProc,
+      aiOn: this.state.ai,
+      stdOn: !this.state.ai,
+      procSwitch: this.state.ai ? 'pswitch on' : 'pswitch',
+      stdCls: this.state.ai ? 'psteps off' : 'psteps',
+      aiCls: this.state.ai ? 'psteps' : 'psteps off',
+      swatchName: dark ? 'Violet, after dark' : 'Brand violet',
+      swatchHex: dark ? '#CE7AF5' : '#5603AD',
+      tidyDesk: this.tidyDesk,
+      wght: w,
+      isL: w === 300, isM: w === 500, isB: w === 700,
+      pickL: this.pickL, pickM: this.pickM, pickB: this.pickB,
+      onWeight: this.onWeight,
+      sample: this.state.sample,
+      sampleShown: word || 'Mahesh',
+      onSample: this.onSample,
+      shoot: this.shoot,
+      frameLabel: (shots < 10 ? '0' : '') + Math.max(shots, 1),
+      copyEmail: this.copyEmail,
+      copied: copy === 'done',
+      notCopied: copy !== 'done',
+      copyLabel: copy === 'done' ? 'Copied' : (copy === 'fail' ? 'Copy blocked here' : 'Copy email')
+    };
+  }
+}
+</script>
+</body>
+</html>

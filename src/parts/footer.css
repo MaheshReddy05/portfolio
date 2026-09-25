@@ -1,0 +1,66 @@
+
+/* ================= SITE FOOTER (identical on every page) =================
+   The bug crawls at z 2; anything marked data-hide sits at z 3 with an opaque
+   background, which is what lets the bug duck behind it.
+   z-index scale for the page: header 40, back-to-top 50, reader 70, grain 80, cursor 90. */
+.sitefoot { position: relative; overflow: hidden; background: var(--sunken); border-top: 1px solid var(--border); }
+.sitefoot [data-hide] { position: relative; z-index: 3; }
+.sitefoot .wrap { position: relative; }
+.fchip { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 24px 0; padding: 8px 16px 8px 13px; border-radius: 999px; background: var(--raised); border: 1px solid var(--olive-line); font-size: 14px; font-weight: 600; color: var(--olive); }
+.femail { position: relative; display: inline-block; padding-bottom: 4px; font-family: 'Space Grotesk', sans-serif; font-size: 24px; line-height: 1.2; letter-spacing: -0.019em; color: var(--primary); font-weight: 700; }
+.femail::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: currentColor; transform: scaleX(0); transform-origin: 0 50%; transition: transform .5s cubic-bezier(.22,1,.36,1); }
+.femail:hover { color: var(--primary-hover); }
+.femail:hover::after { transform: scaleX(1); }
+.fcopy {
+  cursor: pointer; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px;
+  border: 1px solid var(--border-strong); background: transparent; color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600;
+  transition: border-color .3s ease, color .3s ease, background-color .3s ease, transform .35s cubic-bezier(.22,1,.36,1);
+}
+.fcopy:hover { border-color: var(--primary); color: var(--primary); background: var(--ring-fill); }
+.fcopy:active { transform: scale(.97); }
+.fcopy .ok-i { display: none; color: var(--olive); }
+.fcopy.ok .ok-i { display: inline-flex; }
+.fcopy.ok .cp-i { display: none; }
+.fcopy .cp-i { display: inline-flex; }
+.social { display: inline-flex; align-items: center; gap: 7px; padding: 2px 0 4px 0; background: transparent; border: none; color: var(--ink); font-size: 14.5px; font-weight: 600; }
+.social svg { transition: transform .4s cubic-bezier(.22,1,.36,1); }
+.social:hover svg { transform: translate(2px, -2px); }
+.fline { height: 1px; margin: 64px 0 26px 0; background: var(--border); opacity: .7; }
+.fbottom { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 12px 24px; }
+.fhint { margin: 0; font-size: 21px; text-align: center; white-space: nowrap; }
+.fnav { display: flex; justify-content: flex-end; gap: 26px; font-size: 14px; font-weight: 500; }
+
+.bug {
+  position: absolute; left: 0; top: 0; z-index: 2; width: 40px; height: 40px; margin: 0; padding: 0; border: none; border-radius: 999px;
+  background: transparent; color: var(--ink); cursor: crosshair; display: flex; align-items: center; justify-content: center;
+  will-change: transform; transition: opacity .4s ease;
+}
+.bug svg { width: 22px; height: 22px; overflow: visible; transition: transform .25s ease, opacity .5s ease .3s; }
+.bug .legs { transform-origin: 12px 14px; }
+.bug.away { opacity: 0; pointer-events: none; }
+.bug.caught svg { transform: scale(1.35, .3); opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .bug:not(.still) .legs { animation: scuttle .2s linear infinite alternate; }
+  @keyframes scuttle { from { transform: rotate(-8deg); } to { transform: rotate(8deg); } }
+}
+.bugtoast {
+  position: absolute; left: 0; top: 0; z-index: 4; display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px; border-radius: 999px;
+  background: var(--olive); color: var(--on-accent); font-size: 13.5px; font-weight: 700; white-space: nowrap; pointer-events: none;
+  box-shadow: var(--shadow); opacity: 0; translate: -50% 0; transition: opacity .3s ease;
+}
+.bugtoast.show { opacity: 1; }
+@media (max-width: 1020px) {
+  .fbottom { grid-template-columns: 1fr; justify-items: start; }
+  .fhint { text-align: left; white-space: normal; }
+  .fnav { justify-content: flex-start; }
+}
+@media (max-width: 700px) {
+  .femail { font-size: 20px; }
+  .fline { margin-top: 48px; }
+  .fnav { flex-wrap: wrap; gap: 18px; }
+}
+
+@media (max-width: 700px) {
+  .sitefoot .ctarow { width: 100%; gap: 10px; }
+  .sitefoot .ctarow > a { width: 100%; box-sizing: border-box; justify-content: center; }
+}
