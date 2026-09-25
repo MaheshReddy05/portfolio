@@ -3,3 +3,7 @@ node_modules/
 Thumbs.db
 *.log
 src/site/
+
+# stale working files from an earlier session, kept on disk but not published
+.impeccable/
+/project/
